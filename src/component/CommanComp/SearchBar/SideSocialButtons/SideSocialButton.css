@@ -1,0 +1,63 @@
+.side-button-wrapper {
+    padding-left: 5px;
+    gap: 50px;
+    display: flex;
+    align-items: center;
+    /* position: sticky; */
+    /* right: 20px; */
+    /* bottom: 0; */
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+
+    cursor: pointer;
+    font-size: 1rem;
+    color: #f1f3f9;
+    transition: color 0.3s ease;
+    font-family: "Poppins", sans-serif;
+    font-size: 80%;
+    letter-spacing: 1.5px;
+    
+}
+/* .side-button-wrapper :nth-child(1):hover{
+    color: var(--decimal-orange);
+}
+.side-button-wrapper :nth-child(2):hover{
+    color: var(--decimal-orange);
+}
+.side-button-wrapper :nth-child(3):hover{
+    color: var(--decimal-orange);
+} */
+
+.social-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.social-button:hover {
+    color: var(--decimal-orange);
+    transform: scale(1.2);
+  }
+  
+  .social-icon {
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .social-button:hover .social-icon {
+    color: var(--decimal-orange);
+    transform: scale(1.2);
+  }
+
+/* .side-button-wrapper :nth-child(1),
+.side-button-wrapper :nth-child(2),
+.side-button-wrapper :nth-child(3) {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.side-button-wrapper :nth-child(1):hover,
+.side-button-wrapper :nth-child(2):hover,
+.side-button-wrapper :nth-child(3):hover {
+    color: var(--decimal-orange);
+    transform: scale(1.2);
+} */

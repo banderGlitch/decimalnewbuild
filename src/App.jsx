@@ -11,6 +11,7 @@ import Footer from './component/Footer/Footer'
 import { mainnet, polygon, optimism, arbitrum, base, zora, gnosis } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import useScrollSnap from './helper/Scoller'
+import SideSocialButtons from './component/CommanComp/SearchBar/SideSocialButtons/SideSocialButtons';
 
 const config = getDefaultConfig({
   appName: 'decimalAt-web',
@@ -46,8 +47,9 @@ function App() {
 export default App
 
 
+
 export function MainApp() {
-  const { containerRef, setRef } = useScrollSnap();
+  // const { containerRef, setRef } = useScrollSnap();
   return (
     <div className="app">
       <TopBanner />
@@ -57,7 +59,11 @@ export function MainApp() {
         <CreateIntents />
       </div>
       <Footer />
+      <div className="sideSocialButtonsWrapper">
+        <SideSocialButtons />
+      </div>
     </div>
 
   )
 }
+
