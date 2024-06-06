@@ -10,9 +10,7 @@ import { useAccount, useConnect, useDisconnect, useEnsAvatar, useEnsName } from 
 
 export default function JobsFeeds() {
   const { address, connector, isConnected } = useAccount()
-  console.log("isConnected", isConnected)
   const [activeButton, setActiveButton] = useState('all');
-  console.log("activeButton", activeButton)
   return (
     <>
       <div id="jobs" />

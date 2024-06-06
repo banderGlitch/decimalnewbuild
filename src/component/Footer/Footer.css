@@ -1,38 +1,38 @@
 .f-wrapper {
-    background: var(--decimal-black);
-
-    
+  background: var(--decimal-black);
+  display: flex;
 }
 
 .decimal-logo {
-    width: 100px;
-    
+  width: 100px;
 }
 
 .f-container {
-    gap: 13px;
-    padding: 103px;
-    color: rgb(209, 208, 208);
+  gap: 13px;
+  padding: 103px;
+  color: rgb(209, 208, 208);
 }
 .f-container :nth-child(2) {
-    font-size: 85%;
+  font-size: 85%;
 }
 .f-container :nth-child(3) {
-    font-size: 70%;
+  font-size: 70%;
 }
 .go-to-top {
-    position: sticky;
-    right: 20px;
-    bottom: 20px;
-  writing-mode: vertical-rl; 
-  text-orientation: mixed; 
+  position: sticky;
+  right: 20px;
+  bottom: 0;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
   cursor: pointer;
   font-size: 1rem;
   color: #f1f3f9;
   transition: color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  font-size: 80%;
+  letter-spacing: 1.5px;
 }
 
 .go-to-top:hover {
-  color: var(--decimal-orange)
+  color: var(--decimal-orange);
 }
-

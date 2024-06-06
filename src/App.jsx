@@ -48,10 +48,8 @@ export default App
 
 export function MainApp() {
   const { containerRef, setRef } = useScrollSnap();
-  // const containerRef = useRef(null);
-  // useScrollSnap(containerRef);
   return (
-    <div className="app" ref={containerRef}>
+    <div className="app">
       <TopBanner />
       <Header />
       <div className='containerWrapper'  >
