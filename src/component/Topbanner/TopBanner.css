@@ -1,0 +1,12 @@
+.wrapper {
+
+}
+.topbanner {
+  background-color: #141d65;
+  padding: 2px;
+  /* filter: blur(1px); */
+}
+.topbanner span {
+    color: #2a5ce9;
+    font-weight: 400;
+  }

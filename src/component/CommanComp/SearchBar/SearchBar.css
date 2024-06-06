@@ -1,0 +1,47 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #1e2c85;
+    border-radius: 30px;
+    padding: 10px;
+    width: 200%;
+  }
+  .search-container input[type="text"] {
+    border: none;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    width: 100%;
+    font-family: 'Poppins', sans-serif; /* Specify the font family */
+  }
+  .search-container input[type="text"]::placeholder {
+    font-family: "Poppins", sans-serif;
+    color: #2146b8;
+    font-style: italic; 
+  }
+  .search-container input[type="text"]:focus {
+    outline: none;
+  }
+  .search-container input[type="text"] {
+    background-image: url('');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 35px; /* Adjust the padding to position the text */
+  }
+  .search-icon {
+    position: relative;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    align-items: center;
+    background-color: #1a2577;
+    border-radius: 30px;
+    width: 50px; 
+    height: 30px; 
+    cursor: pointer;
+    margin-right: 10px; 
+  }
+  .search-icon svg {
+    color: white;
+  }

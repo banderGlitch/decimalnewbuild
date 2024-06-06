@@ -1,0 +1,65 @@
+.job-wrapper {
+    border-radius: 12px;
+    background-color: #141d65;
+    color: white;
+}
+
+.job-wrapper h5 {
+    color:  #9093aa;
+}
+
+.job-container {
+    display: flex; /* Ensure flexbox is used */
+    justify-content: space-between !important; 
+    align-items: flex-end !important;
+}
+
+.job-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px; /* Adjust the gap between cards as needed */
+    max-height: 500px; /* Set a fixed height to make the container scrollable */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.job-cards-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.job-left {
+    gap: 0.5rem;
+}
+/* .job-wrapper{
+    border-radius: 12px;
+    background-color: #141d65;
+    color: white;
+}
+
+.job-wrapper h6 {
+    color:  #9093aa;
+}
+.job-container {
+    justify-content: space-between !important; 
+    align-items: flex-end !important;
+}
+
+.job-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-height: 500px;
+    overflow-y: auto; 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.job-cards-container::-webkit-scrollbar {
+    display: none; 
+}
+
+
+.job-left {
+    gap: 0.5rem;
+
+} */
