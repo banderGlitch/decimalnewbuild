@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './ToggleButton.css';
 
-export default function ToggleButtons() {
-  const [activeButton, setActiveButton] = useState('all');
+export default function ToggleButtons({
+  activeButton, setActiveButton
+}) {
 
   return (
     <div className="toggle-container">
