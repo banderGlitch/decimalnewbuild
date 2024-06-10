@@ -1,46 +1,46 @@
 
-import { useEffect, useRef } from 'react';
+// import { useEffect, useRef } from 'react';
 
-const useScrollSnap = () => {
-  const containerRef = useRef(null);
-  const sectionRefs = useRef([]);
+// const useScrollSnap = () => {
+//   const containerRef = useRef(null);
+//   const sectionRefs = useRef([]);
 
-  useEffect(() => {
-    const handleIntersection = (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionIndex = sectionRefs.current.indexOf(entry.target);
-          window.scrollTo({
-            top: sectionIndex * window.innerHeight,
-            behavior: 'smooth',
-          });
-        }
-      });
-    };
+//   useEffect(() => {
+//     const handleIntersection = (entries) => {
+//       entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//           const sectionIndex = sectionRefs.current.indexOf(entry.target);
+//           window.scrollTo({
+//             top: sectionIndex * window.innerHeight,
+//             behavior: 'smooth',
+//           });
+//         }
+//       });
+//     }; 
 
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.5,
-    });
+//     const observer = new IntersectionObserver(handleIntersection, {
+//       threshold: 0.5,
+//     });
 
-    sectionRefs.current.forEach(section => {
-      if (section) observer.observe(section);
-    });
+//     sectionRefs.current.forEach(section => {
+//       if (section) observer.observe(section);
+//     });
 
-    return () => {
-      sectionRefs.current.forEach(section => {
-        if (section) observer.unobserve(section);
-      });
-    };
-  }, []);
+//     return () => {
+//       sectionRefs.current.forEach(section => {
+//         if (section) observer.unobserve(section);
+//       });
+//     };
+//   }, []);
 
-  const setRef = (index) => (el) => {
-    sectionRefs.current[index] = el;
-  };
+//   const setRef = (index) => (el) => {
+//     sectionRefs.current[index] = el;
+//   };
 
-  return { containerRef, setRef };
-};
+//   return { containerRef, setRef };
+// };
 
-export default useScrollSnap;
+// export default useScrollSnap;
 // import { useEffect, useRef } from 'react';
 
 // const useScrollSnap = () => {

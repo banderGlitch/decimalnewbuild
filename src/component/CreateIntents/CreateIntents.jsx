@@ -18,11 +18,11 @@ export default function CreateIntents() {
 
             <h5>Build your intent using any template</h5>
           </div>
-          <div className='flexColEnd'>
+          <div className='flexColEnd paddings'>
             <SearchBar />
-          </div>
+            </div>
         </div>
-        <div style={{display:'flex', maxHeight:'900px', overflowY:'auto',padding:'10px'}}>
+        <div className='mainCardIntent'>
           <div className='card-container'>
             <CustomCard />
             <Card />

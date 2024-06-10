@@ -15,7 +15,7 @@ export default function JobsFeeds() {
     <>
       <div id="jobs" />
       <section className="job-wrapper">
-        <div className="paddings innerWidth job-container flexCenter">
+        <div className="paddings   job-container flexCenter">
           {/*Left Side */}
           <div className="flexColStart job-left">
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -25,7 +25,7 @@ export default function JobsFeeds() {
             <h5>You can switch jobs on and off</h5>
             <ToggleButtons activeButton={activeButton} setActiveButton={setActiveButton} />
           </div>
-          <div className='flexColEnd paddings'>
+          <div className='flexColEnd paddings responsive'>
             <SearchBar />
           </div>
         </div>

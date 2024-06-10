@@ -24,6 +24,7 @@
   bottom: 0;
   writing-mode: vertical-lr;
   text-orientation: mixed;
+  transform: rotate(180deg);
   cursor: pointer;
   font-size: 1rem;
   color: #f1f3f9;
@@ -32,7 +33,17 @@
   font-size: 80%;
   letter-spacing: 1.5px;
 }
+.go-to-top-icon {
+  transform: rotate(180deg);
+  
+}
 
 .go-to-top:hover {
   color: var(--decimal-orange);
+}
+
+@media (max-width: 600px) {
+  .f-container :nth-child(3) {
+    display: none;
+  }
 }

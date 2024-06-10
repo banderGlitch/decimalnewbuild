@@ -24,12 +24,32 @@
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
 }
 
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .job-cards-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .job-cards-container::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Opera */
 }
 
 .job-left {
   gap: 0.5rem;
+}
+.responsive {
+  
+
+} 
+@media (max-width:1200px) {
+  .responsive {
+    position: relative;
+    right: 20px;
+  }
 }
 /* .job-wrapper{
     border-radius: 12px;

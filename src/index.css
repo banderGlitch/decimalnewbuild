@@ -7,6 +7,7 @@
   --decimal-black: #000000;
   --blue-gradient: linear-gradient(97.05deg, #5D72FF 3.76%, #2F67FF 100%);
   --orange-gradient: linear-gradient(270deg, #ffb978 0%, #ff922d 100%); 
+  --decimal-background: #1a2577;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -85,6 +86,17 @@
    margin-right: 80px;
    margin-bottom: 20px;
    gap: 30px;
+}
+@media (max-width: 1200px) {
+  .containerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    margin-left: 33px;
+    margin-right: 14px;
+    margin-bottom: 20px;
+  }
 }
 /* media queries */
 @media (min-width: 1536px) {

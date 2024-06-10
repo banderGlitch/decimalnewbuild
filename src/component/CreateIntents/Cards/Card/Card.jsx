@@ -5,6 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { GoArrowUp } from 'react-icons/go';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 // import 'react-tooltip/dist/react-tooltip.css'
+import { FaArrowLeft } from "react-icons/fa";
 
 
 const Card = ({ title, description }) => {
@@ -15,7 +16,8 @@ const Card = ({ title, description }) => {
         <h6>Build job to execute your custom code.</h6>
       </div>
       <div className="arrow-icon">
-        <GoArrowUp style={{ transform: ' rotate(90deg)' }} />
+        <FaArrowLeft size={"20px"}  className="rotated-arrow" />
+      {/* <span class="lnr lnr-checkmark-circle"></span> */}
       </div>
       <br />
       <br />
