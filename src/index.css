@@ -94,12 +94,12 @@
     align-items: center;
     margin-top: 0px;
     margin-left: 33px;
-    margin-right: 14px;
+    margin-right: 52px;
     margin-bottom: 20px;
   }
 }
 /* media queries */
-@media (min-width: 1536px) {
+@media (min-width: 1280px) {
   .innerWidth {
     max-width: 1280px;
     margin: auto;
