@@ -2,7 +2,8 @@ import React from 'react'
 import './CreateIntent.css';
 import Card from './Cards/Card/Card';
 import CustomCard from './Cards/Card/CustomCard';
-import SearchBar from '../CommanComp/SearchBar/SearchBar';
+import SearchBar from '../../component/CommanComp/SearchBar/SearchBar'
+// import SearchBar from '../CommanComp/SearchBar/SearchBar';
 import { RiArchiveDrawerLine } from "react-icons/ri";
 
 export default function CreateIntents() {
@@ -25,8 +26,8 @@ export default function CreateIntents() {
         <div className='mainCardIntent'>
           <div className='card-container'>
             <CustomCard />
-            <Card />
-            <Card  />
+            <Card app="vrf" />
+            <Card app="stake&bake"  />
             <Card />
             <Card />
             <Card />

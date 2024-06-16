@@ -1,5 +1,6 @@
 import React from 'react'
 import './Card.css';
+import {  useNavigate} from 'react-router-dom'; 
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { GoArrowUp } from 'react-icons/go';
@@ -9,9 +10,17 @@ import { FaArrowLeft } from "react-icons/fa";
 
 
 const Card = ({ 
+  app="",
   title = "Custom Jobs", 
   description
  }) => {
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (appnName) => {
+      navigate(`/create/${appnName}`)
+      
+  }
 
   return (
     <div className="card">
@@ -20,11 +29,8 @@ const Card = ({
         <h6>Build job to execute your custom code.</h6>
       </div>
       <div className="arrow-icon">
-        <FaArrowLeft size={"20px"}  className="rotated-arrow" />
+        <FaArrowLeft onClick={() => handleNavigate(app)} size={"20px"}  className="rotated-arrow" />
       </div>
-      <br />
-      <br />
-      <br />
       <ReactTooltip
         style={{fontFamily: "Poppins", borderRadius:'50px', fontSize:'60%'}}
         id="my-tooltip-1"

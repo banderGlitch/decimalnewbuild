@@ -1,0 +1,144 @@
+.step-form-container {
+    display: flex;
+    width: 80%;
+    gap: 100px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .step-form {
+    flex: 2;
+    margin-right: 20px;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative; /* Added to ensure relative positioning for lines */
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+  }
+  
+  /* .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    width: calc(100% + 10px);
+    height: 2px;
+    background-color: #010a17;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+    z-index: -1;
+  } */
+  .step-line {
+    position: absolute;
+    top: 50%;
+    left: 101px;
+    width: 46%;
+    height: 2px;
+    border-top: 2px dashed #3a8de5;
+    /* background-color: #18191a; */
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+/*   
+.step.completed::after {
+    background-color: #1e2c85;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }  */
+  
+  .step-number {
+    width: 100px;
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap:  6px;
+    background-color: #1e2c85;
+    color: rgb(248, 242, 242);
+    margin-bottom: 5px;
+    z-index: 10;
+  }
+  
+  .step.completed .step-number {
+    border: 2px solid #2343b6;
+    background-color: var(--decimal-background);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    z-index: 10;
+  }
+  
+  .step-title {
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .step-content {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .step-navigation {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    /* padding: 10px 20px;
+    border: none;
+    background-color: orange; */
+    /* color: white;
+    cursor: pointer;
+    border-radius: 5px; */
+    font-family: poppins;
+  }
+  
+  button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
+  
+  .summary {
+    flex: 1;
+    padding: 20px;
+    background-color: #2a2a5a;
+    border-radius: 10px;
+  }
+  
+  .summary h2 {
+    margin-bottom: 20px;
+  }
+
+  /* Keyframes for the animation */
+@keyframes activeStep {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Apply the animation to the active step */
+  .step.current {
+    animation: activeStep 0.3s ease-in-out forwards;
+  }
+  /* Prevent animation from affecting the line */
+.step-line {
+    animation: none;
+  }

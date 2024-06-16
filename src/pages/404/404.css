@@ -1,0 +1,23 @@
+.not-found-wrapper {
+    position: relative;
+    top: 10%;
+}
+.not-found {
+    display: flex;
+    gap: 70px;
+    align-items: center;
+    flex-direction: column;
+}
+.not-found :nth-child(1) > p{
+    position: relative;
+    left: 100px;
+    color: white;
+    font-family: poppins;
+    font-size: 90%;
+}
+
+.not-found >span {
+    color: white;
+    font-family: poppins;
+    font-size: 200%;
+}

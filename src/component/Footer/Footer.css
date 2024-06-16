@@ -43,7 +43,29 @@
 }
 
 @media (max-width: 600px) {
+  .go-to-top {
+    display: none;
+  }
+}
+
+@media (max-width: 1280px) {
+  .go-to-top {
+    display: none;
+  }
+  .f-container {
+    padding: 20px;
+    display: flex;
+    gap: 25px;
+    align-self: center;
+
+
+  }
+}
+
+@media (max-width: 600px) {
   .f-container :nth-child(3) {
     display: none;
   }
 }
+
+
