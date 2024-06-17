@@ -17,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    right: 4%;
     position: relative; /* Added to ensure relative positioning for lines */
   }
   
@@ -50,7 +51,7 @@
     border-top: 2px dashed #3a8de5;
     /* background-color: #18191a; */
     transform: translateY(-50%);
-    z-index: 1;
+    z-index: 0;
   }
 /*   
 .step.completed::after {
@@ -80,6 +81,9 @@
     color: white;
     z-index: 10;
   }
+  /* .step.completed .step-line {
+    visibility: hidden;
+  } */
   
   .step-title {
     font-size: 14px;
@@ -89,6 +93,7 @@
   .step-content {
     margin-bottom: 20px;
     text-align: center;
+    height: 300px;
   }
   
   .step-navigation {
@@ -112,9 +117,12 @@
   }
   
   .summary {
-    flex: 1;
+    /* flex: 1; */
+    flex-grow: 1;
     padding: 20px;
-    background-color: #2a2a5a;
+    position: relative;
+    left: 4%;
+    background-color: #141d65;
     border-radius: 10px;
   }
   
@@ -142,3 +150,28 @@
 .step-line {
     animation: none;
   }
+  
+
+
+/* children form */
+.flexColStart >span {
+  color: #888ca9;
+}
+.vrfIntro > span {
+  font-size: 140%; 
+}
+.vrfIntro > span:first-child {
+  font-weight: bold;
+}
+
+.schedular-wrapper > span:first-child {
+  font-size:  120%;
+  color: #888ca9;
+}
+.m_dd36362e mantine-Slider-root {
+  width: '263px';
+}
+
+
+
+

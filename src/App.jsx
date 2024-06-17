@@ -17,7 +17,7 @@ import Layout from './layout/layout';
 import NotFound from './pages/404/404';
 import VRFform from './pages/VRF/VRFForm';
 import CreateApp from './routes.jsx';
-// import '@mantine/core/styles.css';
+import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 
 const config = getDefaultConfig({

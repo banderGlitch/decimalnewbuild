@@ -23,7 +23,7 @@ export default function JobsFeeds() {
               <h1 style={{ position: 'relative', left: '12%' }}>Jobs</h1>
             </div>
             <h5>You can switch jobs on and off</h5>
-            <ToggleButtons activeButton={activeButton} setActiveButton={setActiveButton} />
+            <ToggleButtons roleType_1 = {'all'} roleType_2 = {'my-jobs'} activeButton={activeButton} setActiveButton={setActiveButton} />
           </div>
           <div className='flexColEnd paddings responsive'>
             <SearchBar />
