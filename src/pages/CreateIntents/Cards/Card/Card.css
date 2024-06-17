@@ -44,6 +44,7 @@
   @media (max-width: 1200px) { 
     .card-content{
       padding: 15px;
+      /* width: 400px; */
     }
     
   }
@@ -106,7 +107,19 @@
       position: relative;
       right: 105px;
       left: 235px;
-      bottom: 71px;
+      /* bottom: 70px; */
+      top: -120px;
+      height: 20%;
+      width: 10%;
+    }
+  }
+  @media (min-width: 600px) and (max-width: 1200px) {
+    .arrow-icon {
+      position: relative;
+      display: flex;
+      top: -40px;
+      left: -10px;
+
     }
   }
   .chatinput {

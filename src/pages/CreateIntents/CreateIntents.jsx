@@ -26,13 +26,13 @@ export default function CreateIntents() {
         <div className='mainCardIntent'>
           <div className='card-container'>
             <CustomCard />
-            <Card app="vrf" />
-            <Card app="stake&bake"  />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card id= {0} app="vrf" info="VRF" />
+            <Card id={1} app="stake&bake" info="Stake & Bake" />
+            <Card id={2} />
+            <Card id={3}/>
+            <Card id={4}/>
+            <Card id={5}/>
+            <Card id={6}/>
             <Card />
             <Card />
             <Card />

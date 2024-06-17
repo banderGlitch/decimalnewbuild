@@ -63,6 +63,12 @@
         align-items: center;
     }
 }
+@media (min-width: 600px) and (max-width: 1200px) {
+    .flexColEnd {
+        position: relative;
+        left: -30px;
+    }
+}
 
 
 .mainCardIntent::-webkit-scrollbar {

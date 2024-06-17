@@ -52,12 +52,13 @@ export default function Header() {
 
         <div className="flexCenter h-menu">
           <div className="menu-items">
-            <RiArchiveDrawerLine size={25} color='#2a5ce9' />
+            <RiArchiveDrawerLine onClick={() => navigate('/createIntents')} size={25} color='#2a5ce9' />
             <p onClick={() => navigate('/createIntents')} className='poppins-regular'>INTENT</p>
+            <AiOutlineWallet onClick={() => navigate('/')} size={25} color='#2a5ce9' />
+            <p onClick={() => navigate('/')} className='poppins-regular'>JOBS</p>
             <VscTarget size={25} color='#2a5ce9' />
             <p className='poppins-regular'>FEEDS</p>
-            <AiOutlineWallet size={25} color='#2a5ce9' />
-            <p onClick={() => navigate('/')} className='poppins-regular'>JOBS</p>
+           
             <div style={{ display: 'flex', position: 'relative', left: '4%' }}>
               <DecimalAppButton />
             </div>
@@ -90,10 +91,6 @@ export const DropdownMenu = ({ isOpen }) => {
     to: { maxHeight: isOpen ? 500 : 0, opacity: isOpen ? 1 : 0 },
     config: { tension: 200, friction: 20 },
     overflow: 'hidden',
-    // maxHeight: isOpen ? 500 : 0,
-    // opacity: isOpen ? 1 : 0,
-    // overflow: 'hidden',
-    // config: { tension: 200, friction: 20 },
   });
 
   return (
@@ -101,18 +98,16 @@ export const DropdownMenu = ({ isOpen }) => {
       <div className="dropdown-item">
         <AiOutlineWallet size={25} color='#2a5ce9' />
         <p onClick={() => navigate('/createIntents')} className='poppins-regular'>INTENT</p>
-        {/* <a href="#jobs" className="poppins-regular">JOBS</a> */}
-      </div>
-      <div className="dropdown-item">
-        <VscTarget size={25} color='#2a5ce9' />
-        <p className='poppins-regular'>FEEDS</p>
-        {/* <a href="#feeds" className="poppins-regular">FEEDS</a> */}
       </div>
       <div className="dropdown-item">
         <RiArchiveDrawerLine size={25} color='#2a5ce9' />
         <p onClick={() => navigate('/')} className='poppins-regular'>JOBS</p>
-        {/* <a href="#intents" className="poppins-regular">INTENT</a> */}
       </div>
+      <div className="dropdown-item">
+        <VscTarget size={25} color='#2a5ce9' />
+        <p className='poppins-regular'>FEEDS</p>
+      </div>
+      
       <div className="dropdown-item">
         <DecimalAppButton />
       </div>

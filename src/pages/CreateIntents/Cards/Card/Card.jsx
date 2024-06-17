@@ -12,8 +12,12 @@ import { FaArrowLeft } from "react-icons/fa";
 const Card = ({ 
   app="",
   title = "Custom Jobs", 
-  description
+  description,
+  info="For more Info",
+  id
  }) => {
+
+  console.log("Info-==-->",info)
 
   const navigate = useNavigate();
 
@@ -33,9 +37,9 @@ const Card = ({
       </div>
       <ReactTooltip
         style={{fontFamily: "Poppins", borderRadius:'50px', fontSize:'60%'}}
-        id="my-tooltip-1"
+        id="my-tooltip-id"
         place="top"
-        content="For more Info!"
+        content={info}
       />
     </div>
   );
