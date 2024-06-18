@@ -28,11 +28,12 @@ export default function CreateIntents() {
             <CustomCard />
             <Card id= {0} app="vrf" info="VRF" />
             <Card id={1} app="stake&bake" info="Stake & Bake" />
-            <Card id={2} />
+            {/* <Card id={2} /> 
             <Card id={3}/>
             <Card id={4}/>
             <Card id={5}/>
-            <Card id={6}/>
+            <Card id={6}/> */}
+            {/* <Card />
             <Card />
             <Card />
             <Card />
@@ -40,8 +41,7 @@ export default function CreateIntents() {
             <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
           </div>
           <div className='card-container'>
             <Card />
