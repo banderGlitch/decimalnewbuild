@@ -13,6 +13,7 @@ export const Schedular = ({
     propertyDetails, 
     setPropertyDetails
 }) => {
+    const [sliderValue, setSliderValue] = useState(0);
 
     const [activeButton, set_ActiveButton] = useState(roleType_1);
     const styles = useSpring({
@@ -38,6 +39,10 @@ export const Schedular = ({
         { value: 60, label: '60s' },
     ];
 
+    const handleSliderChange = (value) => {
+        setSliderValue(value);
+      };
+
 
     return (
         <animated.div style={styles}>
@@ -51,7 +56,9 @@ export const Schedular = ({
                             min={0}
                             max={60}
                             style={{ width: "400px" }}
-                            defaultValue={0}
+                            value={sliderValue}
+                            // defaultValue={0}
+                            onChange={handleSliderChange}
                             label={(val) => {
                                 const mark = marks.find((mark) => mark.value === val);
                                 return mark ? mark.label : '';

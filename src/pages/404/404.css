@@ -4,7 +4,7 @@
 }
 .not-found {
     display: flex;
-    gap: 70px;
+    gap: 50px;
     align-items: center;
     flex-direction: column;
 }
@@ -21,3 +21,122 @@
     font-family: poppins;
     font-size: 200%;
 }
+.first-headings {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 175%;
+    align-items: center;
+    font-family: poppins;
+    /* width: 20%; */
+    color: white;
+}
+.not-found :nth-child(2) {
+    cursor: pointer;
+    font-family: poppins;
+    color: white;
+}
+.not-found :nth-child(3) {
+    cursor: pointer;
+    font-size: 150%;
+    font-family: poppins;
+    color: white;
+
+}
+.not-found :nth-child(4) {
+    cursor: pointer;
+    font-size: 150%;
+    font-family: poppins;
+    color: white;
+}
+
+@keyframes ziggle {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+  }
+  
+  .not-found h1:hover,
+  .not-found div span:hover {
+    animation: ziggle 0.5s ease-in-out;
+  }
+
+/* @keyframes ziggle {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-30px);
+    }
+    50% {
+      transform: translateX(0px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+  }
+  
+  .not-found h1:hover,
+  .not-found span:hover {
+    animation: ziggle 0.5s ease-in-out;
+  }
+ */
+ /* @keyframes innovativeEffect {
+    0% {
+      transform: scale(1) rotate(0deg);
+      color: #000;
+    }
+    25% {
+      transform: scale(1.1) rotate(-3deg);
+      color: #ff6347;
+    }
+    50% {
+      transform: scale(1) rotate(0deg);
+      color: #000;
+    }
+    75% {
+      transform: scale(1.1) rotate(3deg);
+      color: #ff6347;
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+      color: #000;
+    }
+  }
+  
+  .not-found h1:hover,
+  .not-found div span:hover {
+    animation: innovativeEffect 1s ease-in-out;
+  } */
+  /* @keyframes innovativeEffect {
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+    }
+    25% {
+      transform: scale(1.1) rotate(-3deg);
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+      transform: scale(1) rotate(0deg);
+      text-shadow: none;
+    }
+    75% {
+      transform: scale(1.1) rotate(3deg);
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .not-found h1:hover,
+  .not-found div span:hover {
+    animation: innovativeEffect 1s ease-in-out;
+  }
+ */
