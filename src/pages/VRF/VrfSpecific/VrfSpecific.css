@@ -1,0 +1,13 @@
+.step-navigation {
+    position: absolute;
+    bottom: 400px;
+    gap: 140%;
+  
+  }
+  .vrfIntro > span {
+    font-size: 140%; 
+  }
+  .vrfIntro > span:first-child {
+    font-weight: bold;
+  }
+  

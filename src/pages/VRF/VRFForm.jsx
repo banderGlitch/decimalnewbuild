@@ -6,6 +6,7 @@ import { useSpring, animated } from '@react-spring/web';
 import StepperForm from '../../component/CommanComp/StepperComp/Stepper';
 import { Schedular } from '../../component/CommanComp/FormComp/Schedular/Schedular';
 import classes from './vrf.module.css';
+import { VrfSpecific } from './VrfSpecific/VrfSpecific';
 
 
 
@@ -91,7 +92,7 @@ export default function VRFForm() {
   )
 }
 
-function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps) {
+function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps,  isStepValid, setIsStepValid) {
   const [propertyDetails, setPropertyDetails] = useState({
     gitUrl: "",
     header:
@@ -115,7 +116,7 @@ function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps
   });
   switch (formTypeName) {
     case 'vrfSpecific':
-      return <VrfSpecific steps={steps} currentStep={currentStep} handleNext={handleNext} handlePrevious={handlePrevious} propertyDetails={propertyDetails} setPropertyDetails={setPropertyDetails} />;
+      return <VrfSpecific  isStepValid = {isStepValid} setIsStepValid = {setIsStepValid}   steps={steps} currentStep={currentStep} handleNext={handleNext} handlePrevious={handlePrevious} propertyDetails={propertyDetails} setPropertyDetails={setPropertyDetails} />;
     case 'Schedular':
       return <Schedular roleType_1="Time" roleType_2="Condition" steps={steps} currentStep={currentStep} handleNext={handleNext} handlePrevious={handlePrevious} propertyDetails={propertyDetails} setPropertyDetails={setPropertyDetails} />;
     case 'Output':
@@ -127,37 +128,37 @@ function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps
 }
 
 
-export const VrfSpecific = ({ steps, currentStep, handleNext, handlePrevious }) => {
-  const styles = useSpring({
-    from: { maxHeight: 0, opacity: 0 },
-    to: { maxHeight: 500, opacity: 1 },
-    config: { tension: 200, friction: 20 },
-    overflow: 'hidden',
-  });
-  return (
-    <animated.div style={styles}>
-      <div style={{ gap: '15px' }} className='flexColStart vrfIntro'>
-        <span>VRF (Verified Random Function)</span>
-        <div className='flexColStart'>
-          <span>Generates a verified random number between </span>
-          <span> 0 and 2<sup>256</sup></span>
-        </div>
+// export const VrfSpecific = ({ steps, currentStep, handleNext, handlePrevious }) => {
+//   const styles = useSpring({
+//     from: { maxHeight: 0, opacity: 0 },
+//     to: { maxHeight: 500, opacity: 1 },
+//     config: { tension: 200, friction: 20 },
+//     overflow: 'hidden',
+//   });
+//   return (
+//     <animated.div style={styles}>
+//       <div style={{ gap: '15px' }} className='flexColStart vrfIntro'>
+//         <span>VRF (Verified Random Function)</span>
+//         <div className='flexColStart'>
+//           <span>Generates a verified random number between </span>
+//           <span> 0 and 2<sup>256</sup></span>
+//         </div>
 
-      </div>
-      <div className="step-navigation ">
-        {currentStep !== 1 &&
-          <button className='button' onClick={handlePrevious}>
-            Previous
-          </button>}
+//       </div>
+//       <div className="step-navigation ">
+//         {currentStep !== 1 &&
+//           <button className='button' onClick={handlePrevious}>
+//             Previous
+//           </button>}
 
-        <button className='button' onClick={handleNext} disabled={currentStep === steps.length}>
-          Next
-        </button>
-      </div>
+//         <button className='button' onClick={handleNext} disabled={currentStep === steps.length}>
+//           Next
+//         </button>
+//       </div>
 
-    </animated.div>
-  )
-}
+//     </animated.div>
+//   )
+// }
 // export const Schedular = ({roleType_1, roleType_2 }) => {
 
 //   const [activeButton, set_ActiveButton] = useState('Time');
