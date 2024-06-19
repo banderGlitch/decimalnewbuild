@@ -25,6 +25,10 @@ export default function VRFForm() {
     { title: 'Step 04', content: 'Payment' },
   ];
 
+  const [isStepValid, setIsStepValid] = useState(
+    Array(steps.length).fill(false)
+  );
+
   const handleNext = () => {
     setCurrentStep(prevStep => Math.min(prevStep + 1, steps.length));
   };
@@ -45,6 +49,8 @@ export default function VRFForm() {
         handlePrevious={handlePrevious}
         handleStepClick={handleStepClick}
         FormSwitch={FormSwitch}
+        isStepValid={isStepValid}
+        setIsStepValid={setIsStepValid}
       />
 
     </div>
