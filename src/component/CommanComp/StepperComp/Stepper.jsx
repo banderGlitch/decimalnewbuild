@@ -52,10 +52,10 @@ export default function
       <div className="step-form">
         <div className="steps">
           {steps.map((step, index) => (
-            <div key={index} className={`step ${index + 1 === currentStep ? 'completed current' : ''}  ${isStepValid[index] ? 'step-completed' : ''}`}
+            <div key={index} className={`step ${index + 1 === currentStep ? 'completed current' : ''}`}
               onClick={() => handleStepClick(index)}
             >
-              <div className="step-number">
+              <div className="step-number" style={isStepValid[index] ? { backgroundColor: '#2f67ff' } : {}}>
                 {isStepValid[index] ?
                   <TbCircleCheckFilled color='white' />
                   :

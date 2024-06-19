@@ -84,6 +84,10 @@
     color: white;
     z-index: 10;
   }
+  .step-number.step-completed-validation {
+    background-color: #2f67ff;
+
+  }
   /* .step.completed .step-line {
     visibility: hidden;
   } */
