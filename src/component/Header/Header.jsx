@@ -52,10 +52,10 @@ export default function Header() {
 
         <div className="flexCenter h-menu">
           <div className="menu-items">
-            <RiArchiveDrawerLine onClick={() => navigate('/createIntents')} size={25} color='#2a5ce9' />
-            <p onClick={() => navigate('/createIntents')} className='poppins-regular'>INTENT</p>
-            <AiOutlineWallet onClick={() => navigate('/')} size={25} color='#2a5ce9' />
-            <p onClick={() => navigate('/')} className='poppins-regular'>JOBS</p>
+            <RiArchiveDrawerLine onClick={() => navigate('/')} size={25} color='#2a5ce9' />
+            <p onClick={() => navigate('/')} className='poppins-regular'>INTENT</p>
+            <AiOutlineWallet onClick={() => navigate('/Jobs')} size={25} color='#2a5ce9' />
+            <p onClick={() => navigate('/Jobs')} className='poppins-regular'>JOBS</p>
             <VscTarget size={25} color='#2a5ce9' />
             <p className='poppins-regular'>FEEDS</p>
            

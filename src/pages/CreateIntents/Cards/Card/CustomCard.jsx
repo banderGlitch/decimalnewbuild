@@ -10,9 +10,6 @@ const CustomCard = ({ title, description }) => {
           <h6>Just ask your.</h6>
           <textarea className='chatinput'/>
         </div>
-        {/* <br/>
-        <br/>
-        <br/> */}
       </div>
     );
   };

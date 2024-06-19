@@ -175,6 +175,13 @@
   width: '263px';
 }
 
+.step-navigation {
+  position: absolute;
+  bottom: 400px;
+  gap: 140%;
+
+}
+
 
 
 

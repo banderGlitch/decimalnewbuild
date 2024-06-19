@@ -1,0 +1,9 @@
+.schedular-wrapper > span:first-child {
+    font-size:  120%;
+    color: #888ca9;
+  }
+.step-navigation {
+    position: absolute;
+    bottom: 400px;
+    gap: 140%;
+}

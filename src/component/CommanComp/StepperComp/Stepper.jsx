@@ -60,16 +60,16 @@ export default function StepperForm({
           ))}
         </div>
         <div className="step-content">
-          {FormSwitch(steps[currentStep - 1].content)}
+          {FormSwitch(steps[currentStep - 1].content, handleNext , handlePrevious, currentStep , steps)}
         </div>
-        <div className="step-navigation">
+        {/* <div className="step-navigation">
           <button className='button' onClick={handlePrevious} disabled={currentStep === 1}>
             Previous
           </button>
           <button className='button' onClick={handleNext} disabled={currentStep === steps.length}>
             Next
           </button>
-        </div>
+        </div> */}
       </div>
       <div className="summary">
         <span>HERE’S YOUR INTENT SUMMARY: LET’S GO!</span>

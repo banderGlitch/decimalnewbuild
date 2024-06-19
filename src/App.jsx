@@ -57,10 +57,8 @@ export default App
 export function MainApp() {
 
 
-
   return (
     <Routes>
-
        <Route
         path='/'
         element={
@@ -71,13 +69,13 @@ export function MainApp() {
                 </div>
               }
             >
-              <JobsFeeds />
+              <CreateIntents />
             </Suspense>
           </Layout>
         }
       />
       <Route
-        path='/createIntents'
+        path='/Jobs'
         element={
           <Layout>
             <Suspense
@@ -86,7 +84,7 @@ export function MainApp() {
                 </div>
               }
             >
-              <CreateIntents />
+                 <JobsFeeds />
             </Suspense>
           </Layout>
         }
@@ -122,23 +120,6 @@ export function MainApp() {
         }
       /> 
     </Routes>
-    // <Layout>
-    //   {/* <JobsFeeds /> */}
-    //   <CreateIntents />
-    // </Layout>
-    // <div className="app">
-    //   <TopBanner />
-    //   <Header />
-    //   <div className='containerWrapper'  >
-    //     <JobsFeeds />
-    //     <CreateIntents />
-    //   </div>
-    //   <Footer />
-    //   <div className="sideSocialButtonsWrapper">
-    //     <SideSocialButtons />
-    //   </div>
-    // </div>
-
   )
 }
 
