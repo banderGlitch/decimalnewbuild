@@ -161,10 +161,17 @@
   .step.current {
     animation: activeStep 0.3s ease-in-out forwards;
   }
+  /* .step.step-completed {
+    background-color:#2f67ff ;
+
+  } */
   /* Prevent animation from affecting the line */
 .step-line {
     animation: none;
   }
+/* .step-completed {
+  background-color: #2f67ff;
+} */
   
 
 

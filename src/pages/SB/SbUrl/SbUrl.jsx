@@ -5,7 +5,7 @@ import { TextInput, Box, Textarea, Group, Button, NumberInput, Radio, Tooltip, C
 import { useForm } from "@mantine/form";
 import { useSpring, animated } from '@react-spring/web';
 import { GoAlert } from "react-icons/go";
-export default function SbUrl({ currentStep, propertyDetails, setPropertyDetails, handleNext, handlePrevious, steps }) {
+export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, propertyDetails, setPropertyDetails, handleNext, handlePrevious, steps }) {
 
     const [showHeaderInputs, setShowHeaderInputs] = useState(false);
 
@@ -53,6 +53,11 @@ export default function SbUrl({ currentStep, propertyDetails, setPropertyDetails
                 },
                 // headerKey, headerKey, description, price 
             }))
+            // Stepper Logic 
+            const isValid = true; 
+            const updatedValidation = [...isStepValid];
+            updatedValidation[currentStep-1] = isValid;
+            setIsStepValid(updatedValidation);
             handleNext()
         }
     }

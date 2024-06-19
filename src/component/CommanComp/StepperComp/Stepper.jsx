@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import './Stepper.css';
 // import { Container, Modal, Stepper } from "@mantine/core";
 import { TbCircleCheckFilled } from "react-icons/tb";
+import { FaRegCircle } from "react-icons/fa";
 // import { useSpring, animated } from '@react-spring/web';
 // import ToggleButtons from '../../component/ToggleButton/ToggleButton';
 // import { Slider, Text } from '@mantine/core';
@@ -13,10 +14,13 @@ import { TbCircleCheckFilled } from "react-icons/tb";
 // console.log("classes", classes)
 
 
-export default function StepperForm({
-  currentStep,  handleNext,  handlePrevious, handleStepClick, FormSwitch, steps
-}) {
-//   const [currentStep, setCurrentStep] = useState(1);
+export default function
+  StepperForm({
+    currentStep, handleNext, handlePrevious, handleStepClick, FormSwitch, steps, isStepValid, setIsStepValid
+  }) {
+  //   const [currentStep, setCurrentStep] = useState(1);
+
+  console.log("isStepValid", isStepValid)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -24,35 +28,39 @@ export default function StepperForm({
 
 
 
-//   const steps = [
-//     { title: 'Step 01', content: 'vrfSpecific' },
-//     { title: 'Step 02', content: 'Schedular' },
-//     { title: 'Step 03', content: 'Output' },
-//     { title: 'Step 04', content: 'Payment' },
-//   ];
+  //   const steps = [
+  //     { title: 'Step 01', content: 'vrfSpecific' },
+  //     { title: 'Step 02', content: 'Schedular' },
+  //     { title: 'Step 03', content: 'Output' },
+  //     { title: 'Step 04', content: 'Payment' },
+  //   ];
 
-//   const handleNext = () => {
-//     setCurrentStep(prevStep => Math.min(prevStep + 1, steps.length));
-//   };
+  //   const handleNext = () => {
+  //     setCurrentStep(prevStep => Math.min(prevStep + 1, steps.length));
+  //   };
 
-//   const handlePrevious = () => {
-//     setCurrentStep(prevStep => Math.max(prevStep - 1, 1));
-//   };
+  //   const handlePrevious = () => {
+  //     setCurrentStep(prevStep => Math.max(prevStep - 1, 1));
+  //   };
 
-//   const handleStepClick = (stepIndex) => {
-//     setCurrentStep(stepIndex + 1);
-//   };
+  //   const handleStepClick = (stepIndex) => {
+  //     setCurrentStep(stepIndex + 1);
+  //   };
   return (
 
     <div className="step-form-container">
       <div className="step-form">
         <div className="steps">
           {steps.map((step, index) => (
-            <div key={index} className={`step ${index + 1 === currentStep ? 'completed current' : ''}`}
+            <div key={index} className={`step ${index + 1 === currentStep ? 'completed current' : ''}  ${isStepValid[index] ? 'step-completed' : ''}`}
               onClick={() => handleStepClick(index)}
             >
               <div className="step-number">
-                <TbCircleCheckFilled color='white' />
+                {isStepValid[index] ?
+                  <TbCircleCheckFilled color='white' />
+                  :
+                  <FaRegCircle color='white' />
+                }
                 {step.title}
               </div>
               {index < steps.length - 1 && <div className="step-line"></div>}
@@ -60,7 +68,7 @@ export default function StepperForm({
           ))}
         </div>
         <div className="step-content">
-          {FormSwitch(steps[currentStep - 1].content, handleNext , handlePrevious, currentStep , steps)}
+          {FormSwitch(steps[currentStep - 1].content, handleNext, handlePrevious, currentStep, steps, isStepValid, setIsStepValid)}
         </div>
         {/* <div className="step-navigation">
           <button className='button' onClick={handlePrevious} disabled={currentStep === 1}>
