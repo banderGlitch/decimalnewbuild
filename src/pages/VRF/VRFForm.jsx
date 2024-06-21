@@ -1,29 +1,25 @@
-
-import React, { useState, useEffect } from 'react'
-import './VRF.css';
+import React, { useState, useEffect } from "react";
+import "./VRF.css";
 import { TbCircleCheckFilled } from "react-icons/tb";
-import { useSpring, animated } from '@react-spring/web';
-import StepperForm from '../../component/CommanComp/StepperComp/Stepper';
-import { Schedular } from '../../component/CommanComp/FormComp/Schedular/Schedular';
-import classes from './vrf.module.css';
-import { VrfSpecific } from './VrfSpecific/VrfSpecific';
-
-
+import { useSpring, animated } from "@react-spring/web";
+import StepperForm from "../../component/CommanComp/StepperComp/Stepper";
+import { Schedular } from "../../component/CommanComp/FormComp/Schedular/Schedular";
+import classes from "./vrf.module.css";
+import { VrfSpecific } from "./VrfSpecific/VrfSpecific";
+import { Output } from "../../component/CommanComp/FormComp/Output/Output";
 
 export default function VRFForm() {
   const [currentStep, setCurrentStep] = useState(1);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentStep]);
 
-
-
   const steps = [
-    { title: 'Step 01', content: 'vrfSpecific' },
-    { title: 'Step 02', content: 'Schedular' },
-    { title: 'Step 03', content: 'Output' },
-    { title: 'Step 04', content: 'Payment' },
+    { title: "Step 01", content: "vrfSpecific" },
+    { title: "Step 02", content: "Schedular" },
+    { title: "Step 03", content: "Output" },
+    { title: "Step 04", content: "Payment" },
   ];
 
   const [isStepValid, setIsStepValid] = useState(
@@ -31,19 +27,19 @@ export default function VRFForm() {
   );
 
   const handleNext = () => {
-    setCurrentStep(prevStep => Math.min(prevStep + 1, steps.length));
+    setCurrentStep((prevStep) => Math.min(prevStep + 1, steps.length));
   };
 
   const handlePrevious = () => {
-    setCurrentStep(prevStep => Math.max(prevStep - 1, 1));
+    setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   const handleStepClick = (stepIndex) => {
     setCurrentStep(stepIndex + 1);
   };
   return (
-    <div className='vrfwrapper'>
-      <StepperForm    // next button previous button is in this 
+    <div className="vrfwrapper">
+      <StepperForm // next button previous button is in this
         steps={steps}
         currentStep={currentStep}
         handleNext={handleNext}
@@ -53,7 +49,6 @@ export default function VRFForm() {
         isStepValid={isStepValid}
         setIsStepValid={setIsStepValid}
       />
-
     </div>
 
     // <div className="step-form-container">
@@ -88,19 +83,25 @@ export default function VRFForm() {
     //     {/* Add content to the summary as needed */}
     //   </div>
     // </div>
-
-  )
+  );
 }
 
-function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps,  isStepValid, setIsStepValid) {
+function FormSwitch(
+  formTypeName,
+  handleNext,
+  handlePrevious,
+  currentStep,
+  steps,
+  isStepValid,
+  setIsStepValid
+) {
   const [propertyDetails, setPropertyDetails] = useState({
     gitUrl: "",
-    header:
-    {
+    header: {
       key: null,
-      value: null
+      value: null,
     },
-    timerType: 'sec',
+    timerType: "sec",
     timer: 0,
     // description: "",
     // price: 0,
@@ -115,18 +116,54 @@ function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps
     // },
   });
   switch (formTypeName) {
-    case 'vrfSpecific':
-      return <VrfSpecific  isStepValid = {isStepValid} setIsStepValid = {setIsStepValid}   steps={steps} currentStep={currentStep} handleNext={handleNext} handlePrevious={handlePrevious} propertyDetails={propertyDetails} setPropertyDetails={setPropertyDetails} />;
-    case 'Schedular':
-      return <Schedular roleType_1="Time" roleType_2="Condition" steps={steps} currentStep={currentStep} handleNext={handleNext} handlePrevious={handlePrevious} propertyDetails={propertyDetails} setPropertyDetails={setPropertyDetails} />;
-    case 'Output':
-      return <Output />
-    case 'Payment':
-      return <Payment />
+    case "vrfSpecific":
+      return (
+        <VrfSpecific
+          isStepValid={isStepValid}
+          setIsStepValid={setIsStepValid}
+          steps={steps}
+          currentStep={currentStep}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          propertyDetails={propertyDetails}
+          setPropertyDetails={setPropertyDetails}
+        />
+      );
+    case "Schedular":
+      return (
+        <Schedular
+          roleType_1="Time"
+          roleType_2="Condition"
+          steps={steps}
+          currentStep={currentStep}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          propertyDetails={propertyDetails}
+          setPropertyDetails={setPropertyDetails}
+        />
+      );
+    case "Output":
+      return (
+        <Output
+          isStepValid={isStepValid}
+          setIsStepValid={setIsStepValid}
+          steps={steps}
+          currentStep={currentStep}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        />
+      );
+    case "Payment":
+      return <Payment
+        isStepValid={isStepValid}
+        setIsStepValid={setIsStepValid}
+        steps={steps}
+        currentStep={currentStep}
+        handleNext={handleNext}
+        handlePrevious={handlePrevious}
+      />;
   }
-
 }
-
 
 // export const VrfSpecific = ({ steps, currentStep, handleNext, handlePrevious }) => {
 //   const styles = useSpring({
@@ -185,7 +222,6 @@ function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps
 //     { value: 60, label: '60s' },
 //   ];
 
-
 //   return (
 //     <animated.div style={styles}>
 //       <div className="flexColStart schedular-wrapper">
@@ -213,33 +249,32 @@ function FormSwitch(formTypeName, handleNext, handlePrevious, currentStep, steps
 
 //       </div>
 
-
 //     </animated.div>
 //   )
 // }
-export const Output = () => {
-  const styles = useSpring({
-    from: { maxHeight: 0, opacity: 0 },
-    to: { maxHeight: 500, opacity: 1 },
-    config: { tension: 200, friction: 20 },
-    overflow: 'hidden',
-  });
-  return (
-    <animated.div style={styles}>
-      <h3>Out put</h3>
-      <h3>Out put</h3>
-      <h3>Out put</h3>
-      <h3>Out put</h3>
-      <h3>Out put</h3>
-    </animated.div>
-  )
-}
+// export const Output = () => {
+//   const styles = useSpring({
+//     from: { maxHeight: 0, opacity: 0 },
+//     to: { maxHeight: 500, opacity: 1 },
+//     config: { tension: 200, friction: 20 },
+//     overflow: 'hidden',
+//   });
+//   return (
+//     <animated.div style={styles}>
+//       <h3>Out put</h3>
+//       <h3>Out put</h3>
+//       <h3>Out put</h3>
+//       <h3>Out put</h3>
+//       <h3>Out put</h3>
+//     </animated.div>
+//   )
+// }
 export const Payment = () => {
   const styles = useSpring({
     from: { maxHeight: 0, opacity: 0 },
     to: { maxHeight: 500, opacity: 1 },
     config: { tension: 200, friction: 20 },
-    overflow: 'hidden',
+    overflow: "hidden",
   });
   return (
     <animated.div style={styles}>
@@ -248,121 +283,12 @@ export const Payment = () => {
       <h3>Payment</h3>
       <h3>Payment</h3>
     </animated.div>
-  )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  );
+};
 
 // import React, {useState } from 'react';
 // import './matine.css';
 // import { Container, Stepper } from "@mantine/core";
-
 
 //  const VRFForm = () => {
 //   const [active, setActive] = useState(0);
@@ -374,7 +300,6 @@ export const Payment = () => {
 //   const prevStep = () => {
 //     setActive((current) => (current > 0 ? current - 1 : current));
 //   };
-
 
 //   return (
 //     <Container h={"40rem"} w={"100%"}>
@@ -466,4 +391,3 @@ export const Payment = () => {
 
 //   )
 // }
-

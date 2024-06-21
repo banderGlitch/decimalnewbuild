@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./SB.css";
 import StepperForm from "../../component/CommanComp/StepperComp/Stepper";
 import { Schedular } from "../../component/CommanComp/FormComp/Schedular/Schedular";
-import { Output } from "../VRF/VRFForm";
+import { Output } from "../../component/CommanComp/FormComp/Output/Output";
+// import { Output } from "../VRF/VRFForm";
 import { Payment } from "../VRF/VRFForm";
 import SbUrl from "./SbUrl/SbUrl";
 
@@ -107,8 +108,24 @@ function FormSwitch(
         />
       );
     case "Output":
-      return <Output />;
+      return (
+        <Output
+          isStepValid={isStepValid}
+          setIsStepValid={setIsStepValid}
+          steps={steps}
+          currentStep={currentStep}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        />
+      );
     case "Payment":
-      return <Payment />;
+      return <Payment
+        isStepValid={isStepValid}
+        setIsStepValid={setIsStepValid}
+        steps={steps}
+        currentStep={currentStep}
+        handleNext={handleNext}
+        handlePrevious={handlePrevious}
+      />;
   }
 }

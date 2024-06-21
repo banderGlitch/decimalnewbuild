@@ -84,7 +84,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                 transitionProps={{ transition: 'pop-bottom-right' }}
             >
                 <Text component="div" c="dimmed"
-                 style={{ position:'relative',  right: styleRight, cursor: 'help' }}
+                 style={{ position:'relative',  right: styleRight}}
                  >
                     <Center>
                         {errorMessage &&
@@ -110,8 +110,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         style={{ fontFamily: 'poppins', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: "400%", gap: '20px' }}
                         size="md"
                         radius="sm"
-                        label="Git Url"
-                        placeholder="Enter Git Url"
+                        label="Api Url"
+                        placeholder="Enter Api Url"
                         {...form.getInputProps("gitUrl")}
                         rightSection={rightSection(form.errors.gitUrl, '-150px')}
                         rightSectionWidth={10}

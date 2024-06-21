@@ -28,7 +28,7 @@ export default function NotFound() {
 
 
                 <button onClick={() => navigate('/')} className='button' style={{ display: 'flex', alignItems: 'center', gap: '5px', height:"70px", width:"230px" }}>
-                    Return to home page
+                    Return to Intent Page
                     <FaArrowUp onClick={() => navigate('/')} style={{ transform: 'rotate(45deg)' }} />
                 </button>
             </div>
