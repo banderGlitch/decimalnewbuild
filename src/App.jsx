@@ -10,7 +10,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import Footer from './component/Footer/Footer'
-import { mainnet, polygon, optimism, arbitrum, base, zora, gnosis } from 'wagmi/chains';
+import {  mainnet, polygon, optimism, arbitrum, base, zora,gnosis } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout/layout';
@@ -24,6 +24,8 @@ const config = getDefaultConfig({
   appName: 'decimalAt-web',
   projectId: '1e696e3657a96f5ea6d833e37d8a85c4',
   chains: [
+    mainnet,
+    // testnet,
     gnosis
   ],
   //ssr: true, // If your dApp uses server side rendering (SSR)

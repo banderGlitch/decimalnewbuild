@@ -7,3 +7,14 @@
     bottom: 400px;
     gap: 140%;
 }
+.button-inactive {
+  /* color: black; */
+  font-weight: 500;
+  padding: 0.4rem 1.4rem;
+  color: rgb(7, 7, 7);
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 200px;
+  transition: all 300ms ease-in;
+  
+}

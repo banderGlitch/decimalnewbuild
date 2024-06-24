@@ -22,7 +22,8 @@
     "react-router-dom": "^6.23.1",
     "react-scroll": "^1.9.0",
     "react-tooltip": "^5.26.4",
-    "wagmi": "^2.9.8"
+    "viem": "^2.16.1",
+    "wagmi": "^2.10.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
