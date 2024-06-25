@@ -5,6 +5,7 @@ import './Stepper.css';
 // import { Container, Modal, Stepper } from "@mantine/core";
 import { TbCircleCheckFilled } from "react-icons/tb";
 import { FaRegCircle } from "react-icons/fa";
+import Summary from '../FormComp/Summary/Summary';
 // import { useSpring, animated } from '@react-spring/web';
 // import ToggleButtons from '../../component/ToggleButton/ToggleButton';
 // import { Slider, Text } from '@mantine/core';
@@ -79,10 +80,10 @@ export default function
           </button>
         </div> */}
       </div>
-      <div className="summary">
+      {/* <div className="summary">
         <span>HERE’S YOUR INTENT SUMMARY: LET’S GO!</span>
-        {/* Add content to the summary as needed */}
-      </div>
+      </div> */}
+      <Summary/>
     </div>
 
   )

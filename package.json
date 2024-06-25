@@ -23,7 +23,8 @@
     "react-scroll": "^1.9.0",
     "react-tooltip": "^5.26.4",
     "viem": "^2.16.1",
-    "wagmi": "^2.10.4"
+    "wagmi": "^2.10.4",
+    "web3": "^4.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

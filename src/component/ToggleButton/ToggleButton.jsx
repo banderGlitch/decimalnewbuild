@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './ToggleButton.css';
 
 export default function ToggleButtons({ disabled,
@@ -16,7 +16,24 @@ export default function ToggleButtons({ disabled,
 
   }
 
-  // console.log("----------",roleType_1, roleType_2)
+  console.log("----------",roleType_1, roleType_2)
+
+  // const useRoleChecker = (roleType) => {
+  //   console.log("roleType", roleType)
+  //   return useCallback(() => {
+  //     if (roleType === 'all') {
+  //       console.log(roleType);
+  //       return 'All';
+  //     } else if (roleType === 'my-jobs') {
+  //       return 'My Jobs';
+  //     } else {
+  //       return roleType;
+  //     }
+  //   }, [roleType]);
+  // };
+
+
+  // console.log("role_type_1", useRoleChecker(roleType))
 
   return (
     <div className="toggle-container">
@@ -24,13 +41,15 @@ export default function ToggleButtons({ disabled,
       <div
         className={`toggle-button ${activeButton === roleType_1 ? 'active' : 'inactive'}`}
         onClick={() => { !disabled && setActiveButton(roleType_1) }}>
-          {/* {roleType_1} */}
-        {roleChecker(roleType_1)}
+          {roleType_1}
+          {/* {useRoleChecker(roleType_1)} */}
+        {/* {roleChecker(roleType_1)} */}
       </div>
       <div
         className={`toggle-button ${activeButton === roleType_2 ? 'active' : 'inactive'}`}
         onClick={() => { !disabled && setActiveButton(roleType_2) }}
       >
+           {/* {useRoleChecker(roleType_2)} */}
         {roleChecker(roleType_2)}
       </div>
     </div>

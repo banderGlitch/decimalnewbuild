@@ -10,7 +10,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
 import Footer from './component/Footer/Footer'
-import {  mainnet, polygon, optimism, arbitrum, base, zora,gnosis } from 'wagmi/chains';
+import { mainnet, polygon, optimism, arbitrum, base, zora,gnosis, goerli,sepolia , lineaGoerli } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout/layout';
@@ -26,6 +26,9 @@ const config = getDefaultConfig({
   chains: [
     mainnet,
     // testnet,
+    goerli,
+    sepolia,
+    lineaGoerli,
     gnosis
   ],
   //ssr: true, // If your dApp uses server side rendering (SSR)

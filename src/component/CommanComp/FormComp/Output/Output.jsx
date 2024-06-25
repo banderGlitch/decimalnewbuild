@@ -1,9 +1,10 @@
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { animated, useSpring, useTransition } from '@react-spring/web';
 import TableReviews from '../Table/Table';
 import './Output.css';
 import { CiTrash } from "react-icons/ci";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import Web3 from 'web3'
 // import { useNetwork, useSwitchNetwork, useChains } from 'wagmi'
 // import { useTransition, animated } from 'react-spring';
 // import { useNetwork } from 'wagmi'
@@ -12,6 +13,7 @@ import { useAccount, useConnect } from 'wagmi';
 import { useChains } from 'wagmi'
 import { GrPowerReset } from "react-icons/gr";
 // import { useNetwork } from 'wagmi'
+import { useChainId } from 'wagmi'
 import { Button, TextInput, Grid, Box, Container, Title, Group, ActionIcon, Select, Switch, Textarea } from '@mantine/core';
 import classes from './CustomSwitch.module.css';
 
@@ -135,10 +137,55 @@ export const Output = ({
 
 
 
+    // const checkNetwork = async () => {
+    //     if (window.ethereum) {
+    //       try {
+    //         const currentChainId = await window.ethereum.request({
+    //           method: 'eth_chainId',
+    //         });
+      
+    //         console.log("currentChainId", currentChainId);
+    //         return currentChainId;
+        
+      
+    //       } catch (error) {
+    //         console.error("Error fetching chain ID:", error);
+    //         return null; 
+    //       }
+    //     } else {
+    //       console.error("window.ethereum is not available");
+    //       return null;
+    //     }
+    //   }
+      
+    //   useEffect(() => {
+    //     const fetchChainId = async () => {
+    //       const chainId = await checkNetwork();
+    //       console.log("checkNetwork", chainId);
+    //       // You can further process chainId here if needed
+    //     };
+      
+    //     fetchChainId();
+    //   }, []);
+
+    //   const chainId = useChainId()
+
+    //   console.log("chainId------------------------->",chainId)
+
+
+
+    
+
+
+   
+    
+
+
+
 
     return (
         <>
-            <Group justify="flex-end" p="md" style={{position:'relative', right:"6%"}}>
+            {/* <Group justify="flex-end" p="md" style={{position:'relative', right:"6%"}}>
                 <p>Testnet</p>
                 <Switch 
                   style={{fontFamily:'poppins'}} 
@@ -147,7 +194,7 @@ export const Output = ({
                   classNames={classes} 
                   onChange={handleSwitchChange}
                   />
-            </Group>
+            </Group> */}
             <Container size="md" style={{ position: 'relative', left: "-5%", marginTop: '20px', alignItems: "center" }}>
                 <Box p="sm" style={{ backgroundColor: '#2c3e50', color: 'white', borderRadius: '8px', width: "500px" }}>
                     <Grid align="center" gutter="md">
