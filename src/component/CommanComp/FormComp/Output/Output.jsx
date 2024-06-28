@@ -3,6 +3,7 @@ import { animated, useSpring, useTransition } from '@react-spring/web';
 import TableReviews from '../Table/Table';
 import './Output.css';
 import { CiTrash } from "react-icons/ci";
+import { useForm } from "@mantine/form";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Web3 from 'web3'
 // import { useNetwork, useSwitchNetwork, useChains } from 'wagmi'
@@ -23,6 +24,8 @@ const initialTestnetchains = ['Sepolia','Linea Sepolia', 'Linea Goerli']
 
 
 export const Output = ({
+    propertyDetails,
+    setPropertyDetails,
     isStepValid,
     setIsStepValid,
     steps,
@@ -32,8 +35,7 @@ export const Output = ({
 
 }) => {
 
-
-
+    console.log("propertyDetails", propertyDetails.functions)
 
     const [rows, setRows] = useState([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
     const [isMainnet, setIsMainnet] = useState(true); // State to track the switch
@@ -172,30 +174,55 @@ export const Output = ({
 
     //   console.log("chainId------------------------->",chainId)
 
+    const handleSubmit = () => {
+        let allValid = true;
+        // const updatedRows = rows.map(row => {
+        //     const errors = {};
+        //     if (!row.blockchain) errors.blockchain = 'Blockchain is required';
+        //     if (!row.contractAddress) errors.contractAddress = 'Contract address is required';
+        //     if (!row.functionName) errors.functionName = 'Function name is required';
+        //     if (Object.keys(errors).length > 0) allValid = false;
+        //     return { ...row, errors };
+        //   });
+        //   if (!allValid) {
+        //     setRows(updatedRows);
+        //     return;
+        //   }
+
+        //   setPropertyDetails((prevDetails) => ({
+        //     ...prevDetails,
+        //     rows
+        //   }));
+        const isValid = true;
+        const updatedValidation = [...isStepValid];
+        // updatedValidation[currentStep-1] = true;
+        updatedValidation[currentStep-1] = isValid;
+        setIsStepValid(updatedValidation);
+     handleNext()
+ }
+
+//  const form = useForm({
+//     initialValues: {
+//       rows: propertyDetails.functions
+//     },
+//     validate: {
+//       rows: {
+//         blockchainType: (value) => value && value.blockchain ? null : 'Blockchain is required',
+//         contractAddress: (value) => value && value.contractAddress ? null : 'Contract address is required',
+//         functionName: (value) => value && value.functionName ? null : 'Function name is required',
+//       }
+//     }
+//   });
 
 
-    
-
-
-   
-    
 
 
 
 
     return (
         <>
-            {/* <Group justify="flex-end" p="md" style={{position:'relative', right:"6%"}}>
-                <p>Testnet</p>
-                <Switch 
-                  style={{fontFamily:'poppins'}} 
-                  label="Mainnet" 
-                  checked={isMainnet}
-                  classNames={classes} 
-                  onChange={handleSwitchChange}
-                  />
-            </Group> */}
             <Container size="md" style={{ position: 'relative', left: "-5%", marginTop: '20px', alignItems: "center" }}>
+            <Box style={{ display: "flex", fontSize: "150%", fontWeight: "bold" }}>Output</Box>
                 <Box p="sm" style={{ backgroundColor: '#2c3e50', color: 'white', borderRadius: '8px', width: "500px" }}>
                     <Grid align="center" gutter="md">
                         <Grid.Col span={1} style={{ paddingLeft: '10px' }} />
@@ -282,7 +309,10 @@ export const Output = ({
                         Previous
                     </button>}
 
-                <button className='button' onClick={handleNext} disabled={currentStep === steps.length}>
+                <button className='button' 
+                onClick={handleSubmit}
+                // onClick={handleNext} 
+                disabled={currentStep === steps.length}>
                     Next
                 </button>
             </div>

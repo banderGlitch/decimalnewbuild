@@ -4,7 +4,8 @@ import StepperForm from "../../component/CommanComp/StepperComp/Stepper";
 import { Schedular } from "../../component/CommanComp/FormComp/Schedular/Schedular";
 import { Output } from "../../component/CommanComp/FormComp/Output/Output";
 // import { Output } from "../VRF/VRFForm";
-import { Payment } from "../VRF/VRFForm";
+// import { Payment } from "../VRF/VRFForm";
+import Payment from "../../component/CommanComp/FormComp/Payment/Payment";
 import SbUrl from "./SbUrl/SbUrl";
 
 export default function SBFrom() {
@@ -61,6 +62,8 @@ function FormSwitch(
     header: { key: null, value: null },
     timeType: "sec",
     timer: 0,
+    functions : [{ id: 0, functionName:"", blockchainType:"", contractAddress:""}],
+    totalRewardAllocated : 0
     // description: "",
     // price: 0,
     // country: "",
@@ -116,6 +119,8 @@ function FormSwitch(
           currentStep={currentStep}
           handleNext={handleNext}
           handlePrevious={handlePrevious}
+          propertyDetails={propertyDetails}
+          setPropertyDetails={setPropertyDetails}
         />
       );
     case "Payment":

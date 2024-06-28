@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './Schedular.css';
 import { useSpring, animated } from '@react-spring/web';
-import { Slider, Text } from '@mantine/core';
+import { Slider, Text, Box } from '@mantine/core';
+import { useForm } from "@mantine/form";
 import ToggleButtons from '../../../ToggleButton/ToggleButton';
 export const Schedular = ({
     roleType_1,
@@ -11,13 +12,15 @@ export const Schedular = ({
     handleNext,
     handlePrevious,
     propertyDetails,
-    setPropertyDetails
+    setPropertyDetails,
+    isStepValid,
+    setIsStepValid
 }) => {
 
     const [sliderValue, setSliderValue] = useState(0);
 
     const [activeButton, set_ActiveButton] = useState(roleType_1);
-    const [currentMarks, setCurrentMarks] = useState('marks');
+    const [currentMarks, setCurrentMarks] = useState('continues');
     const [sliderMarks, setSliderMarks] = useState([
         { value: 0, label: '0s' },
         // { value: 5, label: '5s' },
@@ -101,17 +104,22 @@ export const Schedular = ({
         switch (type) {
             case 'marks':
                 setSliderMarks(marks);
+                form.setFieldValue('timeType', "min");
                 break;
             case 'hrmarks':
                 setSliderMarks(hrmarks);
+                form.setFieldValue('timeType', "hr");
                 break;
             case 'daymarks':
                 setSliderMarks(daymarks);
+                form.setFieldValue('timeType', "1 Day");
                 break;
             case 'continues':
                 setSliderMarks([]);
+                form.setFieldValue('timeType', "sec");
                 break;
             default:
+                form.setFieldValue('timeType', "sec");
                 setSliderMarks(marks);
         }
     };
@@ -139,126 +147,213 @@ export const Schedular = ({
         }
     }
 
+    const handleSubmit = () => {
+        console.log("handleSubmit was called!!!!")
+        // Stepper Logic 
+        const timerValue = timer === undefined ? 0 : timer;
+        setPropertyDetails((prev) => ({ ...prev,  timer: timerValue , timeType: form.values.timeType }))
+        // Stepper Logic 
+        const isValid = true;
+        const updatedValidation = [...isStepValid];
+        // updatedValidation[currentStep-1] = isValid;
+        console.log("currentStep", currentStep - 1)
+        updatedValidation[currentStep - 1] = isValid;
+        console.log("updatedValidation", updatedValidation[currentStep - 1])
+        console.log("updatedValidation", updatedValidation)
+        setIsStepValid(updatedValidation);
+        handleNext()
+    }
+
+
+    const form = useForm({
+        initialValues: {
+            timeType: propertyDetails.timeType || 'sec',
+            time: propertyDetails.timer || 0,
+            // headerValue: propertyDetails.header.value,
+        },
+    });
 
 
 
+    const { timeType, timer } = form.values
 
-return (
-    <animated.div style={styles}>
-        <div className="flexColStart schedular-wrapper">
-            <span>Specify the trigger conditions as when to run job</span>
-            <div style={{ padding: '15px' }} className='flexColStart'>
-                <ToggleButtons disabled={true} roleType_1={roleType_1} roleType_2={roleType_2} activeButton={activeButton} setActiveButton={set_ActiveButton} />
-                <div style={{ marginTop: "20px", padding: '15px', gap: '10px', display: 'flex', justifyContent: 'center' }} className='flexRowStart'>
-                    <button
-                        className={currentMarks === 'continues' ? 'button-active' : 'button-inactive'}
-                        //    className='button' 
-                        onClick={() => handleMarksChange('continues')}
-                    >Continuous
-                    </button>
-                    <button
-                        // className='button' 
-                        className={currentMarks === 'marks' ? 'button-active' : 'button-inactive'}
-                        onClick={() => handleMarksChange('marks')}
-                    >Min
-                    </button>
-                    <button
-                        //   className='button' 
-                        className={currentMarks === 'hrmarks' ? 'button-active' : 'button-inactive'}
-                        onClick={() => handleMarksChange('hrmarks')}
-                    >Hrs
-                    </button>
-                    <button
-                        className={currentMarks === 'daymarks' ? 'button-active' : 'button-inactive'}
-                        // className='button' 
-                        onClick={() => handleMarksChange('daymarks')}>
-                        In a Day
-                    </button>
-                </div>
 
-                <div style={{ padding: '25px', gap: '12px' }} className='flexColStart'>
-                    <Text c="#888ca9" mt="md">Every {TimeType(currentMarks)}</Text>
+    // const handleSubmit = () => {
 
-                    {currentMarks === 'continues' ? (
-                        <Text style={{ fontSize: "80%" }} c="#888ca9">Every 1 seconds </Text>
-                    ) : (
-                        <Slider
-                            min={0}
-                            max={getMaxSliderValue()}
-                            style={{ width: "400px" }}
-                            // value={sliderValue}
-                            onChange={handleSliderChange}
-                            label={(val) => {
-                                const mark = sliderMarks.find((mark) => mark.value === val);
-                                return mark ? mark.label : '';
-                            }}
-                            // step={15}
-                            step={currentMarks === 'daymarks' ? 8 : 15}
-                            marks={sliderMarks}
-                        />
-                    )}
+    //         setPropertyDetails((prev) => ({ ...prev, gitUrl, 
+    //             header: {
+    //                 key: headerKey,
+    //                 value: headerValue,
+    //             },
+    //             // headerKey, headerKey, description, price 
+    //         }))
+    //         // Stepper Logic 
+    //         const isValid = true; 
+    //         const updatedValidation = [...isStepValid];
+    //         updatedValidation[currentStep-1] = isValid;
+    //         setIsStepValid(updatedValidation);
+    //         handleNext()
+    // }
 
-                    {/*                         
-                        <Slider
-                            min={0}
-                            max={60}
-                            style={{ width: "400px" }}
-                            value={sliderValue}
-                            // defaultValue={0}
-                            onChange={handleSliderChange}
-                            label={(val) => {
-                                const mark = marks.find((mark) => mark.value === val);
-                                return mark ? mark.label : '';
-                            }}
-                            step={5}
-                            marks={marks}
-                        // styles={{ markLabel: { display: '' } }}
-                        /> */}
-                </div>
-                {/* <div style={{ padding: '15px', gap: '10px' ,display:'flex', justifyContent:'center' }} className='flexRowStart'>
-                        <button 
-                          className={currentMarks === 'continues' ? 'button' : 'button-inactive'}
-                        //    className='button' 
-                           onClick={() => handleMarksChange('continues')}
-                           >continuous
-                           </button>
-                        <button 
-                            // className='button' 
-                            className={currentMarks === 'marks' ? 'button' : 'button-inactive'}
-                            onClick={() => handleMarksChange('marks')}
+
+
+    return (
+        <animated.div style={styles}>
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+                <div className="flexColStart schedular-wrapper">
+                    <Box style={{ display: "flex", fontSize: "150%", fontWeight: "bold" }}>Schedular</Box>
+                    <span>Specify the trigger conditions as when to run job</span>
+                    <div style={{ padding: '15px' }} className='flexColStart'>
+                        <ToggleButtons disabled={true} roleType_1={roleType_1} roleType_2={roleType_2} activeButton={activeButton} setActiveButton={set_ActiveButton} />
+                        <div style={{ marginTop: "20px", padding: '15px', gap: '10px', display: 'flex', justifyContent: 'center' }} className='flexRowStart'>
+                            <button
+                                type="button"
+                                className={currentMarks === 'continues' ? 'button-active' : 'button-inactive'} 
+                                onClick={() => handleMarksChange('continues')}
+                               
+                            >Continuous
+                            </button>
+                            <button
+                                type="button"
+                                className={currentMarks === 'marks' ? 'button-active' : 'button-inactive'}
+                                onClick={() => handleMarksChange('marks')}
+                                {...form.getInputProps("timeType")}
                             >Min
                             </button>
-                        <button 
-                        //   className='button' 
-                        className={currentMarks === 'hrmarks' ? 'button' : 'button-inactive'}
-                          onClick={() => handleMarksChange('hrmarks')}
-                          >Hrs
-                          </button>
-                        <button 
-                          className={currentMarks === 'daymarks' ? 'button' : 'button-inactive'}
-                        // className='button' 
-                        onClick={() => handleMarksChange('daymarks')}>
-                            In a Days
+                            <button
+                                type="button"
+                                className={currentMarks === 'hrmarks' ? 'button-active' : 'button-inactive'}
+                                onClick={() => handleMarksChange('hrmarks')}
+                            >Hrs
                             </button>
-                    </div> */}
+                            <button
+                                type="button"
+                                className={currentMarks === 'daymarks' ? 'button-active' : 'button-inactive'}
+                                onClick={() => handleMarksChange('daymarks')}
+                            >
+                                In a Day
+                            </button>
+                        </div>
 
-            </div>
+                        <div style={{ padding: '25px', gap: '12px' }} className='flexColStart'>
+                            <Text c="#888ca9" mt="md">Every {TimeType(currentMarks)}</Text>
 
-        </div>
-        <div className="step-navigation ">
-            {currentStep !== 1 &&
-                <button className='button' onClick={handlePrevious}>
-                    Previous
-                </button>}
+                            {currentMarks === 'continues' ? (
+                                <Text style={{ fontSize: "80%" }} c="#888ca9">Every 1 seconds </Text>
+                            ) : (
+                                <Slider
+                                    min={0}
+                                    max={getMaxSliderValue()}
+                                    style={{ width: "400px" }}
+                                    // value={sliderValue}
+                                    onChange={handleSliderChange}
+                                    label={(val) => {
+                                        const mark = sliderMarks.find((mark) => mark.value === val);
+                                        return mark ? mark.label : '';
+                                    }}
+                                    {...form.getInputProps("timer")}
+                                    // step={15}
+                                    step={currentMarks === 'daymarks' ? 8 : 15}
+                                    marks={sliderMarks}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="step-navigation ">
+                    {currentStep !== 1 &&
+                        <button className='button' onClick={handlePrevious}>
+                            Previous
+                        </button>}
 
-            <button className='button' onClick={handleNext} disabled={currentStep === steps.length}>
-                Next
-            </button>
-        </div>
+                    <button type="submit" className='button'
+                        // onClick={handleSubmit}
+                        disabled={currentStep === steps.length}>
+                        Next
+                    </button>
+                </div>
+            </form>
 
 
-    </animated.div>
-)
+        </animated.div>
+    )
+
+
+    // return (
+    //     <animated.div style={styles}>
+    //         <div className="flexColStart schedular-wrapper">
+    //         <Box style={{ display: "flex", fontSize: "150%", fontWeight: "bold" }}>Schedular</Box>
+    //             <span>Specify the trigger conditions as when to run job</span>
+    //             <div style={{ padding: '15px' }} className='flexColStart'>
+    //                 <ToggleButtons disabled={true} roleType_1={roleType_1} roleType_2={roleType_2} activeButton={activeButton} setActiveButton={set_ActiveButton} />
+    //                 <div style={{ marginTop: "20px", padding: '15px', gap: '10px', display: 'flex', justifyContent: 'center' }} className='flexRowStart'>
+    //                     <button
+    //                         className={currentMarks === 'continues' ? 'button-active' : 'button-inactive'}
+    //                         //    className='button' 
+    //                         onClick={() => handleMarksChange('continues')}
+    //                     >Continuous
+    //                     </button>
+    //                     <button
+    //                         // className='button' 
+    //                         className={currentMarks === 'marks' ? 'button-active' : 'button-inactive'}
+    //                         onClick={() => handleMarksChange('marks')}
+    //                     >Min
+    //                     </button>
+    //                     <button
+    //                         //   className='button' 
+    //                         className={currentMarks === 'hrmarks' ? 'button-active' : 'button-inactive'}
+    //                         onClick={() => handleMarksChange('hrmarks')}
+    //                     >Hrs
+    //                     </button>
+    //                     <button
+    //                         className={currentMarks === 'daymarks' ? 'button-active' : 'button-inactive'}
+    //                         // className='button' 
+    //                         onClick={() => handleMarksChange('daymarks')}>
+    //                         In a Day
+    //                     </button>
+    //                 </div>
+
+    //                 <div style={{ padding: '25px', gap: '12px' }} className='flexColStart'>
+    //                     <Text c="#888ca9" mt="md">Every {TimeType(currentMarks)}</Text>
+
+    //                     {currentMarks === 'continues' ? (
+    //                         <Text style={{ fontSize: "80%" }} c="#888ca9">Every 1 seconds </Text>
+    //                     ) : (
+    //                         <Slider
+    //                             min={0}
+    //                             max={getMaxSliderValue()}
+    //                             style={{ width: "400px" }}
+    //                             // value={sliderValue}
+    //                             onChange={handleSliderChange}
+    //                             label={(val) => {
+    //                                 const mark = sliderMarks.find((mark) => mark.value === val);
+    //                                 return mark ? mark.label : '';
+    //                             }}
+    //                             // step={15}
+    //                             step={currentMarks === 'daymarks' ? 8 : 15}
+    //                             marks={sliderMarks}
+    //                         />
+    //                     )}
+    //                 </div>
+    //             </div>
+
+    //         </div>
+    //         <div className="step-navigation ">
+    //             {currentStep !== 1 &&
+    //                 <button className='button' onClick={handlePrevious}>
+    //                     Previous
+    //                 </button>}
+
+    //             <button className='button'
+    //              onClick={handleSubmit} 
+    //              disabled={currentStep === steps.length}>
+    //                 Next
+    //             </button>
+    //         </div>
+
+
+    //     </animated.div>
+    // )
 }
 // import React, { useState, useEffect } from 'react'
 // import './Schedular.css';

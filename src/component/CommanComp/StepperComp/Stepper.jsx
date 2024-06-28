@@ -71,19 +71,8 @@ export default function
         <div className="step-content">
           {FormSwitch(steps[currentStep - 1].content, handleNext, handlePrevious, currentStep, steps, isStepValid, setIsStepValid)}
         </div>
-        {/* <div className="step-navigation">
-          <button className='button' onClick={handlePrevious} disabled={currentStep === 1}>
-            Previous
-          </button>
-          <button className='button' onClick={handleNext} disabled={currentStep === steps.length}>
-            Next
-          </button>
-        </div> */}
       </div>
-      {/* <div className="summary">
-        <span>HERE’S YOUR INTENT SUMMARY: LET’S GO!</span>
-      </div> */}
-      <Summary/>
+      <Summary isStepValid={isStepValid} />
     </div>
 
   )

@@ -77,7 +77,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
 
         return (
             <Tooltip
-                label={errorMessage}
+                label={errorMessage=== undefined ?  "" : errorMessage}
                 position="top-end"
                 style={{ fontFamily: 'poppins' }}
                 withArrow
@@ -113,7 +113,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         label="Api Url"
                         placeholder="Enter Api Url"
                         {...form.getInputProps("gitUrl")}
-                        rightSection={rightSection(form.errors.gitUrl, '-150px')}
+                        // rightSection={rightSection(form.errors.gitUrl, '-150px')}
+                        rightSection={rightSection(form.errors.gitUrl, '-100px')}
                         rightSectionWidth={10}
                     />
                     <div className='radio-btn-background'>
@@ -146,7 +147,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                                         label="Key"
                                         placeholder="Enter Header Key"
                                         {...form.getInputProps('headerKey')}
-                                        rightSection={rightSection(form.errors.headerKey, '-56px')}
+                                        rightSection={rightSection(form.errors.headerKey, "-8px")}
+                                        // rightSection={rightSection(form.errors.headerKey, "-56px")}
                                         rightSectionWidth={10}
                                     />
                                     <TextInput
@@ -164,7 +166,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                                         label="Value"
                                         placeholder="Enter Header Value"
                                         {...form.getInputProps('headerValue')}
-                                        rightSection={rightSection(form.errors.headerValue, '-62px')}
+                                        // rightSection={rightSection(form.errors.headerValue, '-62px')}
+                                        rightSection={rightSection(form.errors.headerValue, '-8px')}
                                         rightSectionWidth={10}
                                     />
                                 </div>

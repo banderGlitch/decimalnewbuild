@@ -6,6 +6,7 @@ import StepperForm from "../../component/CommanComp/StepperComp/Stepper";
 import { Schedular } from "../../component/CommanComp/FormComp/Schedular/Schedular";
 import classes from "./vrf.module.css";
 import { VrfSpecific } from "./VrfSpecific/VrfSpecific";
+import Payment from "../../component/CommanComp/FormComp/Payment/Payment";
 import { Output } from "../../component/CommanComp/FormComp/Output/Output";
 
 export default function VRFForm() {
@@ -96,13 +97,15 @@ function FormSwitch(
   setIsStepValid
 ) {
   const [propertyDetails, setPropertyDetails] = useState({
-    gitUrl: "",
-    header: {
-      key: null,
-      value: null,
-    },
+    // gitUrl: "",
+    // header: {
+    //   key: null,
+    //   value: null,
+    // },
     timerType: "sec",
     timer: 0,
+    functions : [{functionName:"", blockchainType:"", contractAddress:""}],
+    totalRewardAllocated : 0
     // description: "",
     // price: 0,
     // country: "",
@@ -115,6 +118,12 @@ function FormSwitch(
     //   bathrooms: 0,
     // },
   });
+
+
+  
+  useEffect(() => {
+    console.log("propertyDetails", propertyDetails);
+  }, [propertyDetails]);
   switch (formTypeName) {
     case "vrfSpecific":
       return (
@@ -132,6 +141,8 @@ function FormSwitch(
     case "Schedular":
       return (
         <Schedular
+          isStepValid={isStepValid}
+          setIsStepValid={setIsStepValid}
           roleType_1="Time"
           roleType_2="Condition"
           steps={steps}
@@ -269,22 +280,22 @@ function FormSwitch(
 //     </animated.div>
 //   )
 // }
-export const Payment = () => {
-  const styles = useSpring({
-    from: { maxHeight: 0, opacity: 0 },
-    to: { maxHeight: 500, opacity: 1 },
-    config: { tension: 200, friction: 20 },
-    overflow: "hidden",
-  });
-  return (
-    <animated.div style={styles}>
-      <h3>Payment</h3>
-      <h3>Payment</h3>
-      <h3>Payment</h3>
-      <h3>Payment</h3>
-    </animated.div>
-  );
-};
+// export const Payment = () => {
+//   const styles = useSpring({
+//     from: { maxHeight: 0, opacity: 0 },
+//     to: { maxHeight: 500, opacity: 1 },
+//     config: { tension: 200, friction: 20 },
+//     overflow: "hidden",
+//   });
+//   return (
+//     <animated.div style={styles}>
+//       <h3>Payment</h3>
+//       <h3>Payment</h3>
+//       <h3>Payment</h3>
+//       <h3>Payment</h3>
+//     </animated.div>
+//   );
+// };
 
 // import React, {useState } from 'react';
 // import './matine.css';

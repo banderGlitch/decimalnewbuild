@@ -1,7 +1,8 @@
 .step-form-container {
     display: flex;
     width: 80%;
-    gap: 100px;
+    /* gap: 100px; */
+    gap: 50px;
     margin: 0 auto;
     padding: 20px;
     color: white;
