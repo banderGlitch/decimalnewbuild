@@ -63,18 +63,8 @@ function FormSwitch(
     timeType: "sec",
     timer: 0,
     functions : [{ id: 0, functionName:"", blockchainType:"", contractAddress:""}],
-    totalRewardAllocated : 0
-    // description: "",
-    // price: 0,
-    // country: "",
-    // city: "",
-    // address: "",
-    // image: null,
-    // facilities: {
-    //   bedrooms: 0,
-    //   parkings: 0,
-    //   bathrooms: 0,
-    // },
+    totalRewardAllocated : 0,
+    rate : "50dai"
   });
 
   useEffect(() => {
@@ -131,6 +121,8 @@ function FormSwitch(
         currentStep={currentStep}
         handleNext={handleNext}
         handlePrevious={handlePrevious}
+        propertyDetails = {propertyDetails} 
+        setPropertyDetails = {setPropertyDetails}
       />;
   }
 }

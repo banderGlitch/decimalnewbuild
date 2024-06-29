@@ -162,6 +162,8 @@ function FormSwitch(
           currentStep={currentStep}
           handleNext={handleNext}
           handlePrevious={handlePrevious}
+          propertyDetails = {propertyDetails} 
+          setPropertyDetails = {setPropertyDetails}
         />
       );
     case "Payment":
@@ -172,6 +174,8 @@ function FormSwitch(
         currentStep={currentStep}
         handleNext={handleNext}
         handlePrevious={handlePrevious}
+        propertyDetails = {propertyDetails} 
+        setPropertyDetails = {setPropertyDetails}
       />;
   }
 }

@@ -4,19 +4,24 @@ import TableReviews from '../Table/Table';
 import './Output.css';
 import { CiTrash } from "react-icons/ci";
 import { useForm } from "@mantine/form";
+// import { useForm } from "@mantine/form";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Web3 from 'web3'
+import { GoAlert } from "react-icons/go";
 // import { useNetwork, useSwitchNetwork, useChains } from 'wagmi'
 // import { useTransition, animated } from 'react-spring';
 // import { useNetwork } from 'wagmi'
 // import {useChains } from 'wagmi';
-import { useAccount, useConnect } from 'wagmi';
-import { useChains } from 'wagmi'
+// import { useAccount, useConnect } from 'wagmi';
+import { useChains, useAccount, useChainId } from 'wagmi'
 import { GrPowerReset } from "react-icons/gr";
 // import { useNetwork } from 'wagmi'
-import { useChainId } from 'wagmi'
-import { Button, TextInput, Grid, Box, Container, Title, Group, ActionIcon, Select, Switch, Textarea } from '@mantine/core';
+// import { useChainId } from 'wagmi'
+import { Tooltip } from '@mantine/core';
+import { Button, TextInput, Grid, Box, Container, Title, Group, ActionIcon, Select, Switch, Textarea, Center } from '@mantine/core';
 import classes from './CustomSwitch.module.css';
+// import { useAccount, useChains } from 'wagmi'
+// import { useChainId } from 'wagmi'
 
 const initialBlockchains = ['Ethereum', 'Gnosis', 'Berachain', 'Bitcoin'];
 const initialTestnetchains = ['Sepolia','Linea Sepolia', 'Linea Goerli']
@@ -35,28 +40,47 @@ export const Output = ({
 
 }) => {
 
-    console.log("propertyDetails", propertyDetails.functions)
 
-    const [rows, setRows] = useState([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
+    const chainId = useChainId();
+
+  const chains = useChains();
+
+    
+  const [currentChain, setCurrentChain] = useState(null);
+
+    const [rows, setRows] = useState(propertyDetails.rows || [{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
     const [isMainnet, setIsMainnet] = useState(true); // State to track the switch
     const [selectedMainnetChains, setSelectedMainnetChains] = useState([]);
     const [selectedTestnetChains, setSelectedTestnetChains] = useState([]);
     const [blockchainOptions, setBlockchainOptions] = useState(initialBlockchains);;
+    const [errorRows, setErrorRows] = useState({}); // New state to track error rows
 
-    // const handleSwitchChange = (event) => {
-    //     const isChecked = event.currentTarget.checked;
-    //     setIsMainnet(isChecked);
-    //     setBlockchainOptions(isChecked ? initialBlockchains : initialTestnetchains);
-    // };
 
-    const handleSwitchChange = (event) => {
-        const isChecked = event.currentTarget.checked;
-        setIsMainnet(isChecked);
-        updateOptions(isChecked, isChecked ? selectedMainnetChains : selectedTestnetChains); // Added
-    };
+    useEffect(() => {
+        if (currentChain) {
+            const isTestnet = currentChain && currentChain.testnet;
+            // const isTestnet = currentChain.testnet;
+            setBlockchainOptions(isTestnet ? initialTestnetchains : initialBlockchains);
+        }
+    }, [currentChain]);
+
+    useEffect(() => {
+        if (chains && chainId) {
+          const foundChain = chains.find(chain => chain.id === chainId);
+          setCurrentChain(foundChain);
+        }
+      }, [chainId, chains]);
+    
+
+    useEffect(() => {
+        setRows(propertyDetails.rows || [{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
+    }, [propertyDetails]);
+
+
 
     const addRow = () => {
         setRows([...rows, { id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
+        // form.insertListItem('rows', { id: Date.now(), blockchain: '', contractAddress: '', functionName: '' });
     };
 
     const handleInputChange = (id, field, value) => {
@@ -65,53 +89,100 @@ export const Output = ({
 
 
     const deleteRow = (id) => {
-        const rowToDelete = rows.find(row => row.id === id);
-        const updatedRows = rows.filter(row => row.id !== id);
-        setRows(updatedRows);
+        // const rowToDelete = rows.find(row => row.id === id);
+        // const updatedRows = rows.filter(row => row.id !== id);
+        // setRows(updatedRows);
     
-        if (rowToDelete.blockchain) {
-            if (isMainnet) {
-                const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToDelete.blockchain); // Modified
-                setSelectedMainnetChains(updatedSelectedChains); // Modified
-            } else {
-                const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToDelete.blockchain); // Modified
-                setSelectedTestnetChains(updatedSelectedChains); // Modified
-            }
+        // if (rowToDelete.blockchain) {
+        //     if (isMainnet) {
+        //         const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToDelete.blockchain); // Modified
+        //         setSelectedMainnetChains(updatedSelectedChains); // Modified
+        //     } else {
+        //         const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToDelete.blockchain); // Modified
+        //         setSelectedTestnetChains(updatedSelectedChains); // Modified
+        //     }
+        // }
+        // updateOptions(isMainnet, isMainnet ? selectedMainnetChains : selectedTestnetChains); // Added
+        const rowToDelete = rows.find(row => row.id === id);
+    const updatedRows = rows.filter(row => row.id !== id);
+    setRows(updatedRows);
+
+    if (rowToDelete.blockchain) {
+        if (!currentChain.testnet) {
+            const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToDelete.blockchain);
+            setSelectedMainnetChains(updatedSelectedChains);
+        } else {
+            const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToDelete.blockchain);
+            setSelectedTestnetChains(updatedSelectedChains);
         }
-        updateOptions(isMainnet, isMainnet ? selectedMainnetChains : selectedTestnetChains); // Added
+    }
+    updateOptions(!currentChain.testnet, !currentChain.testnet ? selectedMainnetChains : selectedTestnetChains);
     };
 
+
+    // const handleBlockchainChange = (id, value) => {
+    //     const updatedRows = rows.map(row => row.id === id ? { ...row, blockchain: value } : row);
+    //     setRows(updatedRows);
+    
+    //     const rowToUpdate = rows.find(row => row.id === id); 
+    //     if (rowToUpdate.blockchain) { 
+    //         if (isMainnet) {
+    //             const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToUpdate.blockchain); // Added
+    //             setSelectedMainnetChains([...updatedSelectedChains, value]);
+    //         } else {
+    //             const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToUpdate.blockchain); // Added
+    //             setSelectedTestnetChains([...updatedSelectedChains, value]); 
+    //         } 
+    //     } else { 
+    //         if (isMainnet) {
+    //             setSelectedMainnetChains([...selectedMainnetChains, value]);
+    //         } else {
+    //             setSelectedTestnetChains([...selectedTestnetChains, value]);
+    //         }
+    //     }
+    //     updateOptions(isMainnet, isMainnet ? [...selectedMainnetChains, value] : [...selectedTestnetChains, value]); // Added
+    // };
 
     const handleBlockchainChange = (id, value) => {
         const updatedRows = rows.map(row => row.id === id ? { ...row, blockchain: value } : row);
         setRows(updatedRows);
     
-        const rowToUpdate = rows.find(row => row.id === id); // Added
-        if (rowToUpdate.blockchain) { // Added
-            if (isMainnet) { // Added
-                const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToUpdate.blockchain); // Added
-                setSelectedMainnetChains([...updatedSelectedChains, value]); // Added
-            } else { // Added
-                const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToUpdate.blockchain); // Added
-                setSelectedTestnetChains([...updatedSelectedChains, value]); // Added
-            } // Added
-        } else { // Added
-            if (isMainnet) {
+        const rowToUpdate = rows.find(row => row.id === id);
+        if (rowToUpdate.blockchain) {
+            if (!currentChain.testnet) {
+                const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToUpdate.blockchain);
+                setSelectedMainnetChains([...updatedSelectedChains, value]);
+            } else {
+                const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToUpdate.blockchain);
+                setSelectedTestnetChains([...updatedSelectedChains, value]);
+            }
+        } else {
+            if (!currentChain.testnet) {
                 setSelectedMainnetChains([...selectedMainnetChains, value]);
             } else {
                 setSelectedTestnetChains([...selectedTestnetChains, value]);
             }
         }
-        updateOptions(isMainnet, isMainnet ? [...selectedMainnetChains, value] : [...selectedTestnetChains, value]); // Added
+        updateOptions(!currentChain.testnet, !currentChain.testnet ? [...selectedMainnetChains, value] : [...selectedTestnetChains, value]);
     };
+
     
+    // const getFilteredOptions = () => {
+    //     if (isMainnet) {
+    //         return initialBlockchains.filter(option => !selectedMainnetChains.includes(option));
+    //     } else {
+    //         return initialTestnetchains.filter(option => !selectedTestnetChains.includes(option));
+    //     }
+    // };
+
     const getFilteredOptions = () => {
-        if (isMainnet) {
-            return initialBlockchains.filter(option => !selectedMainnetChains.includes(option));
-        } else {
+        if (!currentChain || currentChain.testnet) {
             return initialTestnetchains.filter(option => !selectedTestnetChains.includes(option));
+        } else {
+            return initialBlockchains.filter(option => !selectedMainnetChains.includes(option));
         }
     };
+    
 
     const transitions = useTransition(rows, {
         keys: row => row.id,
@@ -129,90 +200,52 @@ export const Output = ({
     };
 
 
+    // const resetRows = () => {
+    //     setRows([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
+    //     setSelectedMainnetChains([]);
+    //     setSelectedTestnetChains([]);
+    //     setBlockchainOptions(isMainnet ? initialBlockchains : initialTestnetchains);
+    // };
+
     const resetRows = () => {
         setRows([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
         setSelectedMainnetChains([]);
         setSelectedTestnetChains([]);
-        setBlockchainOptions(isMainnet ? initialBlockchains : initialTestnetchains);
+        setBlockchainOptions(!currentChain || !currentChain.testnet ? initialBlockchains : initialTestnetchains);
     };
 
 
 
-
-    // const checkNetwork = async () => {
-    //     if (window.ethereum) {
-    //       try {
-    //         const currentChainId = await window.ethereum.request({
-    //           method: 'eth_chainId',
-    //         });
-      
-    //         console.log("currentChainId", currentChainId);
-    //         return currentChainId;
-        
-      
-    //       } catch (error) {
-    //         console.error("Error fetching chain ID:", error);
-    //         return null; 
-    //       }
-    //     } else {
-    //       console.error("window.ethereum is not available");
-    //       return null;
-    //     }
-    //   }
-      
-    //   useEffect(() => {
-    //     const fetchChainId = async () => {
-    //       const chainId = await checkNetwork();
-    //       console.log("checkNetwork", chainId);
-    //       // You can further process chainId here if needed
-    //     };
-      
-    //     fetchChainId();
-    //   }, []);
-
-    //   const chainId = useChainId()
-
-    //   console.log("chainId------------------------->",chainId)
-
     const handleSubmit = () => {
         let allValid = true;
-        // const updatedRows = rows.map(row => {
-        //     const errors = {};
-        //     if (!row.blockchain) errors.blockchain = 'Blockchain is required';
-        //     if (!row.contractAddress) errors.contractAddress = 'Contract address is required';
-        //     if (!row.functionName) errors.functionName = 'Function name is required';
-        //     if (Object.keys(errors).length > 0) allValid = false;
-        //     return { ...row, errors };
-        //   });
-        //   if (!allValid) {
-        //     setRows(updatedRows);
-        //     return;
-        //   }
-
-        //   setPropertyDetails((prevDetails) => ({
-        //     ...prevDetails,
-        //     rows
-        //   }));
+        const updatedErrors = {};
+        rows.forEach((row, index) => {
+          const rowErrors = {};
+          if (!row.blockchain) rowErrors.blockchain = 'Blockchain is required';
+          if (!row.contractAddress) rowErrors.contractAddress = 'Contract address is required';
+          if (!row.functionName) rowErrors.functionName = 'Function name is required';
+          if (Object.keys(rowErrors).length > 0) {
+            allValid = false;
+            // updatedErrors[index] = rowErrors; 
+            updatedErrors[row.id] = rowErrors; // Set errors for each row with row id
+          }
+        });
+    
+        setErrorRows(updatedErrors); // Update state with errors
+    
+        if (!allValid) {
+          return;
+        }
+          setPropertyDetails((prevDetails) => ({
+            ...prevDetails,
+            rows
+          }));
         const isValid = true;
         const updatedValidation = [...isStepValid];
-        // updatedValidation[currentStep-1] = true;
         updatedValidation[currentStep-1] = isValid;
         setIsStepValid(updatedValidation);
      handleNext()
  }
-
-//  const form = useForm({
-//     initialValues: {
-//       rows: propertyDetails.functions
-//     },
-//     validate: {
-//       rows: {
-//         blockchainType: (value) => value && value.blockchain ? null : 'Blockchain is required',
-//         contractAddress: (value) => value && value.contractAddress ? null : 'Contract address is required',
-//         functionName: (value) => value && value.functionName ? null : 'Function name is required',
-//       }
-//     }
-//   });
 
 
 
@@ -228,22 +261,20 @@ export const Output = ({
                         <Grid.Col span={1} style={{ paddingLeft: '10px' }} />
                         <Grid.Col span={3}>
                         <Box style={{position:'relative', left:"11%",  width: "100%",fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Blockchain</Box>
-                            {/* <Box style={{ width: "120%",fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Blockchain</Box> */}
                         </Grid.Col>
                         <Grid.Col span={3}>
                         <Box style={{position:'relative', left:"30%",  width: "100%", fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Contract Address</Box>
-                            {/* <Box style={{ width: "147%", fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Contract Address</Box> */}
                         </Grid.Col>
                         <Grid.Col span={3}>
-                            {/* <Box style={{ width: "160%", fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Function Name</Box> */}
                             <Box style={{ position:'relative', left:"50%", width: "100%", fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Function Name</Box>
                         </Grid.Col>
                         <Grid.Col span={1} />
                     </Grid>     
-                    {transitions((styles, row) => (
+                    {transitions((styles, row, index) => (
+                        <>               
                         <animated.div style={styles} key={row.id}>
                             <Grid key={row.id} align="center" gutter="md" mt="xs">
-                                <Grid.Col span={1} style={{ paddingLeft: '10px' }}>
+                                <Grid.Col span={1} style={{}}>
                                     <ActionIcon color="#F15A24" onClick={() => deleteRow(row.id)}>
                                         <CiTrash size={"20"} />
                                     </ActionIcon>
@@ -268,6 +299,8 @@ export const Output = ({
                                     />
                                 </Grid.Col>
                                 <Grid.Col span={3} >
+                                    <div style={{ }}>
+                                    <div>
                                      <textarea
                                         value={row.functionName}
                                         onChange={(event) => handleInputChange(row.id, 'functionName', event.target.value)}
@@ -281,10 +314,31 @@ export const Output = ({
                                         onBlur={(e) => e.target.style.resize = 'both'}
                                         onFocus={(e) => e.target.style.resize = 'none'}
                                     />
+                                    </div>
+                                    <div style={{position:'absolute', right:"-10px", bottom:"15px",}}>
+                                 {errorRows[index.item.id] &&  ( 
+                                    <Tooltip
+                                    label={"Please fill all field"}
+                                    position="top-end"
+                                    style={{ fontFamily: 'poppins' }}
+                                    withArrow
+                                    transitionProps={{ transition: 'pop-bottom-right' }}
+                                    >
+                                        <Center>
+                                        < GoAlert color="red" size="15" style={{ marginLeft: '10px' }} /> 
+                                        </Center>
+                                         
+                                    </Tooltip>
+                                  
+                                    )}
+                                </div>
+                                </div>
                                 </Grid.Col>
+                               
                             </Grid>
 
                         </animated.div>
+                         </>
 
                     ))}
                     <div style={{display:'flex', justifyContent:'space-between'}}>

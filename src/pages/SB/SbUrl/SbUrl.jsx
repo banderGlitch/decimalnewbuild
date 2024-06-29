@@ -7,7 +7,8 @@ import { useSpring, animated } from '@react-spring/web';
 import { GoAlert } from "react-icons/go";
 export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, propertyDetails, setPropertyDetails, handleNext, handlePrevious, steps }) {
 
-    const [showHeaderInputs, setShowHeaderInputs] = useState(false);
+
+    const [showHeaderInputs, setShowHeaderInputs] = useState(!!propertyDetails.header.key);
 
     const validateGitHubUrl = (value) => {
         const githubUrlPattern = /^https:\/\/github\.com\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+(\.git)?\/?$/;
@@ -38,7 +39,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
         },
     });
 
-    const { gitUrl, description, price, headerKey, headerValue } = form.values
+    const { gitUrl, headerKey, headerValue } = form.values
 
 
 
@@ -113,7 +114,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         label="Api Url"
                         placeholder="Enter Api Url"
                         {...form.getInputProps("gitUrl")}
-                        // rightSection={rightSection(form.errors.gitUrl, '-150px')}
+                        // value={showHeaderInputs ? 'yes' : 'no'}
                         rightSection={rightSection(form.errors.gitUrl, '-100px')}
                         rightSectionWidth={10}
                     />
@@ -122,6 +123,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                             style={{ position: 'relative', bottom: '30px', fontFamily: 'poppins', display: 'flex', alignItems: 'center', marginTop: '40px', gap: '20px' }}
                             name="favoriteFramework"
                             label="Header(Optional)"
+                            value={showHeaderInputs ? 'yes' : 'no'}
                             onChange={handleRadioChange}
                         >
                             <Group mt="xs" style={{ fontFamily: 'poppins', position: 'relative', bottom: '5px' }}>

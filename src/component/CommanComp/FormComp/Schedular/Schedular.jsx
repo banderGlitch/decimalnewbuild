@@ -17,25 +17,52 @@ export const Schedular = ({
     setIsStepValid
 }) => {
 
-    const [sliderValue, setSliderValue] = useState(0);
+    const initialMarksType = () => {
+        switch (propertyDetails.timeType) {
+            case 'min': return 'marks';
+            case 'hr': return 'hrmarks';
+            case '1 Day': return 'daymarks';
+            default: return 'continues';
+        }
+    };
+
+    const form = useForm({
+        initialValues: {
+            timeType: propertyDetails.timeType || 'sec',
+            time: propertyDetails.timer || 0,
+        },
+    });
+
+
+    const { timeType, timer } = form.values
+
+
+    const [sliderValue, setSliderValue] = useState(propertyDetails.timer || 0);
+    console.log("sliderValue------------------>", sliderValue)
+    // const [sliderValue, setSliderValue] = useState(timer);
+  
+    // const [sliderValue, setSliderValue] = useState(0);
 
     const [activeButton, set_ActiveButton] = useState(roleType_1);
-    const [currentMarks, setCurrentMarks] = useState('continues');
-    const [sliderMarks, setSliderMarks] = useState([
-        { value: 0, label: '0s' },
-        // { value: 5, label: '5s' },
-        // { value: 10, label: '10s' },
-        { value: 15, label: '15s' },
-        // { value: 20, label: '20s' },
-        // { value: 25, label: '25s' },
-        { value: 30, label: '30s' },
-        // { value: 35, label: '35s' },
-        // { value: 40, label: '40s' },
-        { value: 45, label: '45s' },
-        // { value: 50, label: '50s' },
-        // { value: 55, label: '55s' },
-        { value: 60, label: '60s' },
-    ]);
+    const [currentMarks, setCurrentMarks] = useState(initialMarksType());
+    // const [currentMarks, setCurrentMarks] = useState('continues');
+    const [sliderMarks, setSliderMarks] = useState([]);
+
+    // const [sliderMarks, setSliderMarks] = useState([
+    //     { value: 0, label: '0s' },
+    //     // { value: 5, label: '5s' },
+    //     // { value: 10, label: '10s' },
+    //     { value: 15, label: '15s' },
+    //     // { value: 20, label: '20s' },
+    //     // { value: 25, label: '25s' },
+    //     { value: 30, label: '30s' },
+    //     // { value: 35, label: '35s' },
+    //     // { value: 40, label: '40s' },
+    //     { value: 45, label: '45s' },
+    //     // { value: 50, label: '50s' },
+    //     // { value: 55, label: '55s' },
+    //     { value: 60, label: '60s' },
+    // ]);
 
     const styles = useSpring({
         from: { maxHeight: 0, opacity: 0 },
@@ -43,6 +70,16 @@ export const Schedular = ({
         config: { tension: 200, friction: 20 },
         overflow: 'hidden',
     });
+
+    useEffect(() => {
+        handleMarksChange(initialMarksType());
+    }, []);
+
+    // useEffect(() => {
+    //     setSliderValue(propertyDetails.timer || 0);
+    //     handleMarksChange(initialMarksType());
+    // }, [propertyDetails]);
+
 
     const marks = [
         { value: 0, label: '0s' },
@@ -95,6 +132,7 @@ export const Schedular = ({
 
     const handleSliderChange = (value) => {
         setSliderValue(value);
+        form.setFieldValue('timer', value);
         // sliderAnimation.value.start(value); 
     };
 
@@ -130,11 +168,11 @@ export const Schedular = ({
     };
 
 
-    const sliderAnimation = useSpring({
-        value: sliderValue,
-        onChange: (value) => setSliderValue(value),
-        config: { tension: 170, friction: 26 }
-    });
+    // const sliderAnimation = useSpring({
+    //     value: sliderValue,
+    //     onChange: (value) => setSliderValue(value),
+    //     config: { tension: 170, friction: 26 }
+    // });
 
 
     const TimeType = (sliderMarks) => {
@@ -155,7 +193,6 @@ export const Schedular = ({
         // Stepper Logic 
         const isValid = true;
         const updatedValidation = [...isStepValid];
-        // updatedValidation[currentStep-1] = isValid;
         console.log("currentStep", currentStep - 1)
         updatedValidation[currentStep - 1] = isValid;
         console.log("updatedValidation", updatedValidation[currentStep - 1])
@@ -165,17 +202,11 @@ export const Schedular = ({
     }
 
 
-    const form = useForm({
-        initialValues: {
-            timeType: propertyDetails.timeType || 'sec',
-            time: propertyDetails.timer || 0,
-            // headerValue: propertyDetails.header.value,
-        },
-    });
+ 
 
 
 
-    const { timeType, timer } = form.values
+    // const { timeType, timer } = form.values
 
 
     // const handleSubmit = () => {
@@ -243,8 +274,10 @@ export const Schedular = ({
                             ) : (
                                 <Slider
                                     min={0}
+                                    defaultValue={sliderValue}
                                     max={getMaxSliderValue()}
                                     style={{ width: "400px" }}
+                                    // defaultValue={sliderValue}
                                     // value={sliderValue}
                                     onChange={handleSliderChange}
                                     label={(val) => {
