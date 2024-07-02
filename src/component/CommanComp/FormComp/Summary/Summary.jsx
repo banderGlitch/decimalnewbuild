@@ -15,7 +15,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const Summary = ({ index, isStepValid }) => {
 
-  console.log("index and isStepValid-------------->", isStepValid)
+  // console.log("index and isStepValid-------------->", isStepValid)
 
   const chainId = useChainId();
 
@@ -66,7 +66,7 @@ const Summary = ({ index, isStepValid }) => {
 
   const walletAddress = account.address !== undefined ? account.address : 'NA';
 
-  const result = account.address ? useBalance({ address: account.address }) : 'NA';
+  // const result = account.address ? useBalance({ address: account.address }) : 'NA';
 
 
   const fadeIn = useSpring({
@@ -84,7 +84,7 @@ const Summary = ({ index, isStepValid }) => {
   return (
     <div className="summary">
       <div className='switchwrapper'>
-        <p style={{ display: 'flex', fontFamily: 'poppins', position: 'relative', right: '11px', top: "0px", fontSize: "89%", color: "#adb5bd" }}>Testnet</p>
+      <p className="testnet-label">Testnet</p>
         <Switch
           style={{ fontFamily: 'poppins', color: "white" }}
           label="Mainnet"
@@ -95,13 +95,13 @@ const Summary = ({ index, isStepValid }) => {
         <ToolTipSection style={{ display: 'flex' }} />
       </div>
       <div>
-        <div style={{ paddingBottom: "12px" }}>
-          <span style={{ fontFamily: 'poppins', fontWeight: 'bold' }}>HERE’S YOUR INTENT SUMMARY: LET’S GO!</span>
+        <div className='summary-header'>
+          <span>HERE’S YOUR INTENT SUMMARY: LET’S GO!</span>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div className='summary-content'>
           {isStepValid[0] &&
             <animated.div style={fadeIn}>
-              <SummaryComp1 truncateWalletAddress={truncateWalletAddress} walletAddress={walletAddress} tokenPrice={"0.0458xDai"} />
+              <SummaryComp1 truncateWalletAddress={truncateWalletAddress} walletAddress={walletAddress} tokenPrice={"0"} />
             </animated.div>}
           {isStepValid[1] &&
             <animated.div style={fadeIn}>
@@ -113,25 +113,6 @@ const Summary = ({ index, isStepValid }) => {
               <SummaryComp3 />
             </animated.div>
           }
-
-          {/* <div className="summary-info">
-          <div className="info-items">
-            <div>
-              <span style={{ fontFamily: 'poppins', fontSize: "85%", color: " #F15A24" }}>Wallet Address </span>
-            </div>
-            <div>
-              <span>{truncateWalletAddress(walletAddress)}</span>
-            </div>
-          </div>
-          <div className="info-items">
-            <div>
-              <span style={{ fontFamily: 'poppins', fontSize: "85%", color: " #F15A24" }}>Token Balance</span>
-            </div>
-            <div>
-              <span>{truncateWalletAddress("0.0458xDai")}</span>
-            </div>
-          </div>
-        </div> */}
         </div>
 
       </div>

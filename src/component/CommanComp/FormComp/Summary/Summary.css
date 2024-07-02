@@ -7,6 +7,25 @@
     background-color: #141d65;
     border-radius: 10px;
   }
+  .testnet-label {
+    display: flex;
+    font-family: 'Poppins';
+    position: relative;
+    right: 11px;
+    top: 0px;
+    font-size: 89%;
+    color: #adb5bd;
+  }
+
+  .summary-header {
+    padding-bottom: 12px;
+}
+
+.summary-header > span {
+  font-family: 'Poppins';
+  font-weight: bold;
+
+}
   
   .summary h2 {
     margin-bottom: 20px;
@@ -35,6 +54,11 @@
   /* background-color: #cb1b1b !important; */
 
  }
+ .summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
  .summary-info {
   padding: 20px;

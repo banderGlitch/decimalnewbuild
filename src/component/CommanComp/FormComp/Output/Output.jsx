@@ -89,25 +89,11 @@ export const Output = ({
 
 
     const deleteRow = (id) => {
-        // const rowToDelete = rows.find(row => row.id === id);
-        // const updatedRows = rows.filter(row => row.id !== id);
-        // setRows(updatedRows);
-    
-        // if (rowToDelete.blockchain) {
-        //     if (isMainnet) {
-        //         const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToDelete.blockchain); // Modified
-        //         setSelectedMainnetChains(updatedSelectedChains); // Modified
-        //     } else {
-        //         const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToDelete.blockchain); // Modified
-        //         setSelectedTestnetChains(updatedSelectedChains); // Modified
-        //     }
-        // }
-        // updateOptions(isMainnet, isMainnet ? selectedMainnetChains : selectedTestnetChains); // Added
         const rowToDelete = rows.find(row => row.id === id);
     const updatedRows = rows.filter(row => row.id !== id);
     setRows(updatedRows);
 
-    if (rowToDelete.blockchain) {
+    if (rowToDelete?.blockchain) {
         if (!currentChain.testnet) {
             const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToDelete.blockchain);
             setSelectedMainnetChains(updatedSelectedChains);

@@ -232,7 +232,7 @@ export const Schedular = ({
         <animated.div style={styles}>
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                 <div className="flexColStart schedular-wrapper">
-                    <Box style={{ display: "flex", fontSize: "150%", fontWeight: "bold" }}>Schedular</Box>
+                    <Box style={{ display: "flex", fontSize: "150%", fontWeight: "bold" }}>Scheduler</Box>
                     <span>Specify the trigger conditions as when to run job</span>
                     <div style={{ padding: '15px' }} className='flexColStart'>
                         <ToggleButtons disabled={true} roleType_1={roleType_1} roleType_2={roleType_2} activeButton={activeButton} setActiveButton={set_ActiveButton} />
@@ -262,7 +262,7 @@ export const Schedular = ({
                                 className={currentMarks === 'daymarks' ? 'button-active' : 'button-inactive'}
                                 onClick={() => handleMarksChange('daymarks')}
                             >
-                                In a Day
+                                Daily
                             </button>
                         </div>
 
@@ -270,7 +270,7 @@ export const Schedular = ({
                             <Text c="#888ca9" mt="md">Every {TimeType(currentMarks)}</Text>
 
                             {currentMarks === 'continues' ? (
-                                <Text style={{ fontSize: "80%" }} c="#888ca9">Every 1 seconds </Text>
+                                  <Text style={{ fontSize: "80%" }} c="#888ca9">Continuous</Text>
                             ) : (
                                 <Slider
                                     min={0}
