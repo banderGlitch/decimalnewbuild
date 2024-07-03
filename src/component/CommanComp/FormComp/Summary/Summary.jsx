@@ -85,6 +85,8 @@ const Summary = ({ index, isStepValid }) => {
     <div className="summary">
       <div className='switchwrapper'>
       <p className="testnet-label">Testnet</p>
+      <Tooltip label="Please change using wallet" position="top" withArrow>
+      <div>
         <Switch
           style={{ fontFamily: 'poppins', color: "white" }}
           label="Mainnet"
@@ -92,6 +94,8 @@ const Summary = ({ index, isStepValid }) => {
           disabled={true}
           classNames={classes}
         />
+        </div>
+        </Tooltip>
         <ToolTipSection style={{ display: 'flex' }} />
       </div>
       <div>

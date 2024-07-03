@@ -108,9 +108,6 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                         )}
                     </Center>
                 </Text>
-
-
-
             </Tooltip>
         );
     };
@@ -124,11 +121,22 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
 
 
     const handleApprove = async () => {
+        if (!isConnected) {
+            console.error('Wallet is not connected.');
+            return;
+        }
+
+
+        const totalRewardAllocated = form.values.totalRewardAllocated;
+        if (!totalRewardAllocated) {
+            console.error('Total value allocation is required.');
+            return;
+        }
         try {
             sendTransaction({
                 request: {
                     to: contractAddress, // Replace with your contract address
-                    value: parseEther('0.1') // Replace with the amount you want to send
+                    value: parseEther(totalRewardAllocated) // Replace with the amount you want to send
                 }
             });
         } catch (error) {
@@ -162,6 +170,9 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                             {...form.getInputProps('totalRewardAllocated')}
                             errorProps={{ display: 'none' }}
                             rightSection={rightSection(form.errors.totalRewardAllocated)}
+                            type="number"
+                            min="0"
+                            step="0.00001"
                         />
                     </Flex>
                     <div className="button-container">

@@ -8,6 +8,7 @@ import { useForm } from "@mantine/form";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Web3 from 'web3'
 import { GoAlert } from "react-icons/go";
+import { CiCircleInfo } from "react-icons/ci";
 // import { useNetwork, useSwitchNetwork, useChains } from 'wagmi'
 // import { useTransition, animated } from 'react-spring';
 // import { useNetwork } from 'wagmi'
@@ -246,7 +247,13 @@ export const Output = ({
                     <Grid align="center" gutter="md">
                         <Grid.Col span={1} style={{ paddingLeft: '10px' }} />
                         <Grid.Col span={3}>
-                        <Box style={{position:'relative', left:"11%",  width: "100%",fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Blockchain</Box>
+                        <Box style={{position:'relative', left:"11%",  width: "100%",fontFamily: 'poppins', fontSize: "85%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center',    display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center', 
+                gap: '2px'}}>
+                            Blockchain
+                            <CiCircleInfo size={"25"} color='blue'/>
+                            </Box>
                         </Grid.Col>
                         <Grid.Col span={3}>
                         <Box style={{position:'relative', left:"30%",  width: "100%", fontFamily: 'poppins', fontSize: "62%", backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Contract Address</Box>
