@@ -4,6 +4,7 @@ import { useSpring, animated } from "@react-spring/web";
 import { TextInput, PasswordInput, Tooltip, Center, Text, rem, Box, Flex } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { GoAlert } from "react-icons/go";
+import { useBalance, useChains,  useChainId  } from 'wagmi'
 import { useSendTransaction, useAccount } from 'wagmi'
 import { parseEther } from 'viem'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
@@ -13,6 +14,8 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
 
     const { address: walletAddress, isConnected } = useAccount();
     const [contractAddress, setContractAddress] = useState('');
+    const [fetchWalletBalance, setWalletBalance] = useState('');
+    const [currentChain, setCurrentChain] = useState(null);
 
     // console.log("Wallet Address", walletAddress)
 
@@ -90,6 +93,34 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
         }
     }, [walletAddress]);
 
+    const { data} = useBalance({
+        address: walletAddress,
+      })
+
+
+    
+  const chainId = useChainId();
+
+  const chains = useChains();
+
+  useEffect(() => {
+    if (chains && chainId) {
+      const foundChain = chains.find(chain => chain.id === chainId);
+      setCurrentChain(foundChain);
+    }
+
+  }, [chainId, chains]);
+
+
+  const isTestnet = currentChain && currentChain.testnet;
+
+
+
+    //   console.log("data-------->", data.formatted)
+    //   console.log("data'sSymbol--->", data.symbol)
+    //   console.log("fetchwalletBalance", fetchWalletBalance);
+
+
 
 
     const rightSection = (errorMessage) => {
@@ -157,9 +188,11 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                         <p className="form-label">Rate Card</p>
                         <TextInput
                             className="form-input"
-                            value={"50dai"}
+                            value = {!isTestnet ? " 0.0003 USDC" : " 0.0003 B10"}
+                            // value={"50dai"}
                             disabled={true}
                             placeholder="Rate Card"
+                            rightSection={"/sec"}
                         />
                     </Flex>
                     <Flex direction="row" align="center" className="form-row">
@@ -171,9 +204,12 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                             errorProps={{ display: 'none' }}
                             rightSection={rightSection(form.errors.totalRewardAllocated)}
                             type="number"
+                            value={fetchWalletBalance}
+                            // defaultValue={fetchWalletBalance}
                             min="0"
                             step="0.00001"
                         />
+                        <button type="button" disabled={!isConnected ?true : false} onClick={() => setWalletBalance(data?.formatted)}  className='button maxbutton'>Max</button>
                     </Flex>
                     <div className="button-container">
                         {!isConnected ? (

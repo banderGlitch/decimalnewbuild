@@ -177,13 +177,30 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         </animated.div>
                     </div>
                     <div className="step-navigation ">
-                        {currentStep !== 1 &&
+                    {/* {currentStep !== 1 && (
+                            <button className='button' onClick={handlePrevious}
+                            style={{ display: currentStep === 1 ? 'none' : 'block' }}
+                            >
+                                Previous
+                            </button>
+                        )} */}
+                          {currentStep !== 1 ? (
+                            <button className='button' onClick={handlePrevious}>
+                                Previous
+                            </button>
+                        ) : (
+                            <div className="empty-div"></div>
+                        )}
+                        <button className='button next-button' type='submit' disabled={currentStep === steps.length}>
+                            Next
+                        </button>
+                        {/* {currentStep !== 1 &&
                             <button className='button' onClick={handlePrevious}>
                                 Previous
                             </button>}
                         <button className='button' type='submit' disabled={currentStep === steps.length}>
                             Next
-                        </button>
+                        </button> */}
                     </div>
                 </form>
             </Box>

@@ -31,3 +31,15 @@
   transition: all 300ms ease-in;
   
 }
+
+.react-js-cron  {
+  font-family: 'Poppins' !important;
+}
+.react-js-cron-clear-button {
+  position: relative;
+  /* top: 600px;  */
+  background-color: var(--decimal-orange)  !important;
+  border-radius: 12px  !important;
+    margin-left: 10px  !important;
+    margin-bottom: 10px  !important;
+}

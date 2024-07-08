@@ -103,7 +103,8 @@ function FormSwitch(
     //   value: null,
     // },
     timerType: "sec",
-    timer: 0,
+    timer: '* * * * *',
+    // timer: 0,
     functions : [{functionName:"", blockchainType:"", contractAddress:""}],
     totalRewardAllocated : 0
     // description: "",

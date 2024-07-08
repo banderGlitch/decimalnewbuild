@@ -1,33 +1,34 @@
-
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 // import './VRF.css';
-import './Stepper.css';
+import "./Stepper.css";
 // import { Container, Modal, Stepper } from "@mantine/core";
 import { TbCircleCheckFilled } from "react-icons/tb";
 import { FaRegCircle } from "react-icons/fa";
-import Summary from '../FormComp/Summary/Summary';
+import Summary from "../FormComp/Summary/Summary";
 // import { useSpring, animated } from '@react-spring/web';
 // import ToggleButtons from '../../component/ToggleButton/ToggleButton';
 // import { Slider, Text } from '@mantine/core';
 // import classes from './vrf.module.css';
 
-
 // console.log("classes", classes)
 
-
-export default function
-  StepperForm({
-    currentStep, handleNext, handlePrevious, handleStepClick, FormSwitch, steps, isStepValid, setIsStepValid
-  }) {
+export default function StepperForm({
+  currentStep,
+  handleNext,
+  handlePrevious,
+  handleStepClick,
+  FormSwitch,
+  steps,
+  isStepValid,
+  setIsStepValid,
+}) {
   //   const [currentStep, setCurrentStep] = useState(1);
 
-  console.log("isStepValid", isStepValid)
+  console.log("isStepValid", isStepValid);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentStep]);
-
-
 
   //   const steps = [
   //     { title: 'Step 01', content: 'vrfSpecific' },
@@ -48,20 +49,33 @@ export default function
   //     setCurrentStep(stepIndex + 1);
   //   };
   return (
-
     <div className="step-form-container">
       <div className="step-form">
         <div className="steps">
           {steps.map((step, index) => (
-            <div key={index} className={`step ${index + 1 === currentStep ? 'completed current' : ''}`}
+            <div
+              key={index}
+              className={`step ${
+                index + 1 === currentStep ? "completed current" : ""
+              }`}
               onClick={() => handleStepClick(index)}
             >
-              <div className="step-number" style={isStepValid[index] ? { backgroundColor: '#2f67ff' } : {}}>
-                {isStepValid[index] ?
-                  <TbCircleCheckFilled color='white' />
-                  :
-                  <FaRegCircle color='white' />
+              <div
+                className="step-number"
+                // style={isStepValid[index] ? { backgroundColor: "#2f67ff" } : {}}
+                style={
+                  isStepValid[index]
+                    ? { backgroundColor: '#2f67ff', border: index + 1 === currentStep ? '2px solid orange' : '' }
+                    : index + 1 === currentStep
+                    ? { border: '2px solid orange' }
+                    : {}
                 }
+              >
+                {isStepValid[index] ? (
+                  <TbCircleCheckFilled color="white" />
+                ) : (
+                  <FaRegCircle color="white" />
+                )}
                 {step.title}
               </div>
               {index < steps.length - 1 && <div className="step-line"></div>}
@@ -69,13 +83,20 @@ export default function
           ))}
         </div>
         <div className="step-content">
-          {FormSwitch(steps[currentStep - 1].content, handleNext, handlePrevious, currentStep, steps, isStepValid, setIsStepValid)}
+          {FormSwitch(
+            steps[currentStep - 1].content,
+            handleNext,
+            handlePrevious,
+            currentStep,
+            steps,
+            isStepValid,
+            setIsStepValid
+          )}
         </div>
       </div>
       <Summary isStepValid={isStepValid} />
     </div>
-
-  )
+  );
 }
 
 // function FormSwitch(formTypeName) {
@@ -91,10 +112,8 @@ export default function
 //   }
 //   // return (
 
-
 //   // )
 // }
-
 
 // export const VrfSpecific = () => {
 //   const styles = useSpring({
@@ -143,7 +162,6 @@ export default function
 //     { value: 60, label: '60s' },
 //   ];
 
-
 //   return (
 //     <animated.div style={styles}>
 //       <div className="flexColStart schedular-wrapper">
@@ -170,7 +188,6 @@ export default function
 //         </div>
 
 //       </div>
-
 
 //     </animated.div>
 //   )
@@ -208,93 +225,3 @@ export default function
 //     </animated.div>
 //   )
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

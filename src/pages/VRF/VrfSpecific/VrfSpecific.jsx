@@ -31,12 +31,19 @@ export  const VrfSpecific = ({ steps, currentStep, handleNext, handlePrevious, i
   
         </div>
         <div className="step-navigation ">
-          {currentStep !== 1 &&
+        {currentStep !== 1 ? (
+                            <button className='button' onClick={handlePrevious}>
+                                Previous
+                            </button>
+                        ) : (
+                            <div className="empty-div"></div>
+                        )}
+          {/* {currentStep !== 1 &&
             <button className='button' onClick={handlePrevious}>
               Previous
-            </button>}
+            </button>} */}
   
-          <button className='button' onClick={handleSubmit} disabled={currentStep === steps.length}>
+          <button className='button next-button' onClick={handleSubmit} disabled={currentStep === steps.length}>
             Next
           </button>
         </div>

@@ -10,4 +10,11 @@
   .vrfIntro > span:first-child {
     font-weight: bold;
   }
-  
+
+  .step-navigation .next-button {
+    margin-left: auto;
+}
+
+.empty-div {
+  width: 190px; /* Adjust width as needed */
+}

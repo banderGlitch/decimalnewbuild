@@ -61,7 +61,7 @@ function FormSwitch(
     gitUrl: "",
     header: { key: null, value: null },
     timeType: "sec",
-    timer: 0,
+    timer: '* * * * *',
     functions : [{ id: 0, functionName:"", blockchainType:"", contractAddress:""}],
     totalRewardAllocated : 0,
     rate : "50dai"
