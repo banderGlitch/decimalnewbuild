@@ -25,8 +25,11 @@
 }
 
 .button-container {
+    /* position: relative;
+    left: 41%; */
+    padding-top: 40px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .step-navigation {
@@ -54,7 +57,7 @@
 
 .maxbutton {
     position: relative;
-    left: 120px;
+    left: 70px;
     border-radius: 0px;
 
 }

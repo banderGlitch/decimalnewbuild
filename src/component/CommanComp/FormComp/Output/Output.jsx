@@ -9,15 +9,8 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import Web3 from "web3";
 import { GoAlert } from "react-icons/go";
 import { CiCircleInfo } from "react-icons/ci";
-// import { useNetwork, useSwitchNetwork, useChains } from 'wagmi'
-// import { useTransition, animated } from 'react-spring';
-// import { useNetwork } from 'wagmi'
-// import {useChains } from 'wagmi';
-// import { useAccount, useConnect } from 'wagmi';
 import { useChains, useAccount, useChainId } from "wagmi";
 import { GrPowerReset } from "react-icons/gr";
-// import { useNetwork } from 'wagmi'
-// import { useChainId } from 'wagmi'
 import { Tooltip } from "@mantine/core";
 import {
   Button,
@@ -136,29 +129,6 @@ export const Output = ({
     );
   };
 
-  // const handleBlockchainChange = (id, value) => {
-  //     const updatedRows = rows.map(row => row.id === id ? { ...row, blockchain: value } : row);
-  //     setRows(updatedRows);
-
-  //     const rowToUpdate = rows.find(row => row.id === id);
-  //     if (rowToUpdate.blockchain) {
-  //         if (isMainnet) {
-  //             const updatedSelectedChains = selectedMainnetChains.filter(chain => chain !== rowToUpdate.blockchain); // Added
-  //             setSelectedMainnetChains([...updatedSelectedChains, value]);
-  //         } else {
-  //             const updatedSelectedChains = selectedTestnetChains.filter(chain => chain !== rowToUpdate.blockchain); // Added
-  //             setSelectedTestnetChains([...updatedSelectedChains, value]);
-  //         }
-  //     } else {
-  //         if (isMainnet) {
-  //             setSelectedMainnetChains([...selectedMainnetChains, value]);
-  //         } else {
-  //             setSelectedTestnetChains([...selectedTestnetChains, value]);
-  //         }
-  //     }
-  //     updateOptions(isMainnet, isMainnet ? [...selectedMainnetChains, value] : [...selectedTestnetChains, value]); // Added
-  // };
-
   const handleBlockchainChange = (id, value) => {
     const updatedRows = rows.map((row) =>
       row.id === id ? { ...row, blockchain: value } : row
@@ -193,13 +163,6 @@ export const Output = ({
     );
   };
 
-  // const getFilteredOptions = () => {
-  //     if (isMainnet) {
-  //         return initialBlockchains.filter(option => !selectedMainnetChains.includes(option));
-  //     } else {
-  //         return initialTestnetchains.filter(option => !selectedTestnetChains.includes(option));
-  //     }
-  // };
 
   const getFilteredOptions = () => {
     if (!currentChain || currentChain.testnet) {
@@ -234,13 +197,6 @@ export const Output = ({
       );
     }
   };
-
-  // const resetRows = () => {
-  //     setRows([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
-  //     setSelectedMainnetChains([]);
-  //     setSelectedTestnetChains([]);
-  //     setBlockchainOptions(isMainnet ? initialBlockchains : initialTestnetchains);
-  // };
 
   const resetRows = () => {
     setRows([
@@ -467,7 +423,6 @@ export const Output = ({
                             textAlign: "center",
                           }}
                           onClick={(e) => (e.target.style.resize = "both")}
-                          // onBlur={(e) => e.target.style.resize = 'none'}
                           onBlur={(e) => (e.target.style.resize = "both")}
                           onFocus={(e) => (e.target.style.resize = "none")}
                         />
@@ -536,234 +491,5 @@ export const Output = ({
         </button>
       </div>
     </>
-
-    // <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-    //     <Box p="md" style={{ backgroundColor: '#2c3e50', color: 'white', borderRadius: '8px', width: '490px' }}>
-    //         <Grid align="center">
-    //             <Grid.Col span={1} />
-    //             <Grid.Col span={3}>
-    //                 <Box style={{ backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Blockchain</Box>
-    //             </Grid.Col>
-    //             <Grid.Col span={4}>
-    //                 <Box style={{ backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Contract Address</Box>
-    //             </Grid.Col>
-    //             <Grid.Col span={4}>
-    //                 <Box style={{ backgroundColor: '#7f8c8d', padding: '10px', borderRadius: '4px', textAlign: 'center' }}>Function Name</Box>
-    //             </Grid.Col>
-    //         </Grid>
-    //         {rows.map(row => (
-    //             <Grid key={row.id} align="center" mt="xs" spacing="">
-    //                 <Grid.Col span={1} />
-    //                 <Grid.Col span={2}>
-    //                     <TextInput
-    //                         value={row.blockchain}
-    //                         onChange={(event) => handleInputChange(row.id, 'blockchain', event.target.value)}
-    //                         variant="filled"
-    //                         style={{ backgroundColor: 'white', color: 'black', width:'50px' }}
-    //                     />
-    //                 </Grid.Col>
-    //                 <Grid.Col span={3}>
-    //                     <TextInput
-    //                         value={row.contractAddress}
-    //                         onChange={(event) => handleInputChange(row.id, 'contractAddress', event.target.value)}
-    //                         variant="filled"
-    //                         style={{ backgroundColor: 'white', color: 'black',  width:'90px'  }}
-    //                     />
-    //                 </Grid.Col>
-    //                 <Grid.Col span={3}>
-    //                     <TextInput
-    //                         value={row.functionName}
-    //                         onChange={(event) => handleInputChange(row.id, 'functionName', event.target.value)}
-    //                         variant="filled"
-    //                         style={{ backgroundColor: 'white', color: 'black' ,  width:'40px' }}
-    //                     />
-    //                 </Grid.Col>
-    //             </Grid>
-    //         ))}
-    //         <Button onClick={addRow} style={{ backgroundColor: '#1e90ff', marginTop: '10px' }}>Add</Button>
-    //     </Box>
-    // </div>
-    //   <Box p="md" style={{ backgroundColor: '#2c3e50', color: 'white', borderRadius: '8px' }}>
-    //     <Grid align="center">
-    //       {/* <Grid.Col span={0}>
-    //         <Button onClick={addRow} style={{ backgroundColor: '#1e90ff' }}>Add</Button>
-    //       </Grid.Col> */}
-    //       <Grid.Col span={4} spacing="xs"  breakpoints={[{ maxWidth: 'sm', span: 12 }]}>
-    //         <TextInput label="Blockchain" variant="filled" disabled style={{ backgroundColor: '#34495e', color: 'white', width:"50%" }}  />
-    //       </Grid.Col>
-    //       <Grid.Col span={4}  breakpoints={[{ maxWidth: 'sm', span: 12 }]}>
-    //         <TextInput label="Contract Address" variant="filled" disabled style={{ backgroundColor: '#34495e', color: 'white',  width:"50%" }} />
-    //       </Grid.Col>
-    //       <Grid.Col span={4}  breakpoints={[{ maxWidth: 'sm', span: 12 }]}>
-    //         <TextInput label="Function Name" variant="filled" disabled style={{ backgroundColor: '#34495e', color: 'white', width:"45%" }} />
-    //       </Grid.Col>
-    //     </Grid>
-    //     {rows.map(row => (
-    //       <Grid key={row.id} align="center" mt="xs">
-    //         <Grid.Col span={1} breakpoints={[{ maxWidth: 'sm', span: 12 }]} />
-    //         <Grid.Col span={3} breakpoints={[{ maxWidth: 'sm', span: 12 }]}>
-    //           <TextInput
-    //             value={row.blockchain}
-    //             onChange={(event) => handleInputChange(row.id, 'blockchain', event.target.value)}
-    //             variant="filled"
-    //             style={{ backgroundColor: 'white', color: 'black' }}
-    //           />
-    //         </Grid.Col>
-    //         <Grid.Col span={4} breakpoints={[{ maxWidth: 'sm', span: 12 }]}>
-    //           <TextInput
-    //             value={row.contractAddress}
-    //             onChange={(event) => handleInputChange(row.id, 'contractAddress', event.target.value)}
-    //             variant="filled"
-    //             style={{ backgroundColor: 'white', color: 'black' }}
-    //           />
-    //         </Grid.Col>
-    //         <Grid.Col span={4} breakpoints={[{ maxWidth: 'sm', span: 12 }]}>
-    //           <TextInput
-    //             value={row.functionName}
-    //             onChange={(event) => handleInputChange(row.id, 'functionName', event.target.value)}
-    //             variant="filled"
-    //             style={{ backgroundColor: 'white', color: 'black' }}
-    //           />
-    //         </Grid.Col>
-    //       </Grid>
-    //     ))}
-    //   </Box>
   );
 };
-
-// const [blockchainOptions, setBlockchainOptions] = useState(initialBlockchains);
-// const [rows, setRows] = useState([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
-// const [isMainnet, setIsMainnet] = useState(true); // State to track the switch
-
-// const addRow = () => {
-//     setRows([...rows, { id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
-// };
-
-// const handleInputChange = (id, field, value) => {
-//     setRows(rows.map(row => row.id === id ? { ...row, [field]: value } : row));
-// }
-
-// // const deleteRow = (id) => {
-// //     const rowToDelete = rows.find(row => row.id === id);
-// //     const updatedRows = rows.filter(row => row.id !== id);
-// //     setRows(updatedRows);
-// //     const selectedBlockchains = updatedRows.map(row => row.blockchain).filter(Boolean);
-// //     const newBlockchainOptions = initialBlockchains.filter(blockchain => !selectedBlockchains.includes(blockchain));
-// //     if (rowToDelete.blockchain && !newBlockchainOptions.includes(rowToDelete.blockchain)) {
-// //         newBlockchainOptions.push(rowToDelete.blockchain);
-// //         newBlockchainOptions.sort(); // Optional: keep options sorted
-// //     }
-// //     setBlockchainOptions(newBlockchainOptions);
-// // };
-// const deleteRow = (id) => {
-//     const rowToDelete = rows.find(row => row.id === id);
-//     const updatedRows = rows.filter(row => row.id !== id);
-//     setRows(updatedRows);
-//     const selectedBlockchains = updatedRows.map(row => row.blockchain).filter(Boolean);
-//     const newBlockchainOptions = isMainnet
-//         ? initialBlockchains.filter(blockchain => !selectedBlockchains.includes(blockchain))
-//         : initialTestnetchains.filter(blockchain => !selectedBlockchains.includes(blockchain));
-//     if (rowToDelete.blockchain && !newBlockchainOptions.includes(rowToDelete.blockchain)) {
-//         newBlockchainOptions.push(rowToDelete.blockchain);
-//         newBlockchainOptions.sort(); // Optional: keep options sorted
-//     }
-//     isMainnet ? setMainnetOptions(newBlockchainOptions) : setTestnetOptions(newBlockchainOptions);
-//     setBlockchainOptions(newBlockchainOptions);
-// };
-
-// const transitions = useTransition(rows, {
-//     keys: row => row.id,
-//     from: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
-//     enter: { opacity: 1, transform: 'translate3d(0,0px,0)' },
-//     leave: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
-// });
-
-// // const handleBlockchainChange = (id, value) => {
-// //     const updatedRows = rows.map(row => row.id === id ? { ...row, blockchain: value } : row);
-// //     setRows(updatedRows);
-// //     const selectedBlockchains = updatedRows.map(row => row.blockchain).filter(Boolean);
-// //     setBlockchainOptions(initialBlockchains.filter(blockchain => !selectedBlockchains.includes(blockchain)));
-// // };
-
-// const handleBlockchainChange = (id, value) => {
-//     const updatedRows = rows.map(row => row.id === id ? { ...row, blockchain: value } : row);
-//     setRows(updatedRows);
-//     const selectedBlockchains = updatedRows.map(row => row.blockchain).filter(Boolean);
-//     const newOptions = (isMainnet ? initialBlockchains : initialTestnetchains).filter(blockchain => !selectedBlockchains.includes(blockchain));
-//     isMainnet ? setMainnetOptions(newOptions) : setTestnetOptions(newOptions);
-//     setBlockchainOptions(newOptions);
-// };
-
-// const handleSwitchChange = (event) => {
-//     // const isChecked = event.currentTarget.checked;
-//     // setIsMainnet(isChecked);
-//     // setBlockchainOptions(isChecked ? mainnetOptions : testnetOptions);
-//     setIsMainnet(event.currentTarget.checked);
-//     if (event.currentTarget.checked) {
-//         setBlockchainOptions(initialBlockchains);
-//     } else {
-//         setBlockchainOptions(initialTestnetchains);
-//     }
-// }
-
-// const [mainnetOptions, setMainnetOptions] = useState(initialBlockchains);
-// const [testnetOptions, setTestnetOptions] = useState(initialTestnetchains);
-// const [blockchainOptions, setBlockchainOptions] = useState(mainnetOptions);
-// const [rows, setRows] = useState([{ id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
-// const [isMainnet, setIsMainnet] = useState(true); // State to track the switch
-
-// const [selectedMainnetChains, setSelectedMainnetChains] = useState([]);
-// const [selectedTestnetChains, setSelectedTestnetChains] = useState([]);
-
-// const handleSwitchChange = (event) => {
-//     const isChecked = event.currentTarget.checked;
-//     setIsMainnet(isChecked);
-//     setBlockchainOptions(isChecked ? mainnetOptions : testnetOptions);
-// };
-
-// const addRow = () => {
-//     setRows([...rows, { id: Date.now(), blockchain: '', contractAddress: '', functionName: '' }]);
-// };
-
-// const handleInputChange = (id, field, value) => {
-//     setRows(rows.map(row => row.id === id ? { ...row, [field]: value } : row));
-// };
-
-// const deleteRow = (id) => {
-//     const rowToDelete = rows.find(row => row.id === id);
-//     const updatedRows = rows.filter(row => row.id !== id);
-//     setRows(updatedRows);
-
-//     if (isMainnet) {
-//         setSelectedMainnetChains(selectedMainnetChains.filter(chain => chain !== rowToDelete.blockchain));
-//     } else {
-//         setSelectedTestnetChains(selectedTestnetChains.filter(chain => chain !== rowToDelete.blockchain));
-//     }
-
-//     const selectedBlockchains = updatedRows.map(row => row.blockchain).filter(Boolean);
-//     const newBlockchainOptions = isMainnet
-//         ? initialBlockchains.filter(blockchain => !selectedBlockchains.includes(blockchain))
-//         : initialTestnetchains.filter(blockchain => !selectedBlockchains.includes(blockchain));
-//     setBlockchainOptions(newBlockchainOptions);
-// };
-
-// const handleBlockchainChange = (id, value) => {
-//     const updatedRows = rows.map(row => row.id === id ? { ...row, blockchain: value } : row);
-//     setRows(updatedRows);
-
-//     if (isMainnet) {
-//         setSelectedMainnetChains([...selectedMainnetChains, value]);
-//     } else {
-//         setSelectedTestnetChains([...selectedTestnetChains, value]);
-//     }
-
-//     const selectedBlockchains = updatedRows.map(row => row.blockchain).filter(Boolean);
-//     const newOptions = (isMainnet ? initialBlockchains : initialTestnetchains).filter(blockchain => !selectedBlockchains.includes(blockchain));
-//     setBlockchainOptions(newOptions);
-// };
-
-// const transitions = useTransition(rows, {
-//     keys: row => row.id,
-//     from: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
-//     enter: { opacity: 1, transform: 'translate3d(0,0px,0)' },
-//     leave: { opacity: 0, transform: 'translate3d(0,-40px,0)' },

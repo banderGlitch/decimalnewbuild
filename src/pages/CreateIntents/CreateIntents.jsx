@@ -44,10 +44,10 @@ export default function CreateIntents() {
             <Card />
           </div>
           <div className='card-container'>
-          <Card id= {0} app="vrf" info="VRF" />
-          <Card id={1} app="stake&bake" info="Stake & Bake" />
-            {/* <Card />
-            <Card /> */}
+          <Card id= {0} app="VRF" info="VRF" />
+          <Card id={1} app="Stake & Bake" info="Stake & Bake" />
+            <Card />
+            <Card />
             <Card />
             <Card />
             <Card />
