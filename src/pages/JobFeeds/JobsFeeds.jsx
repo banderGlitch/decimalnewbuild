@@ -16,7 +16,6 @@ export default function JobsFeeds() {
       <div id="jobs" />
       <section className="job-wrapper">
         <div className="paddings   job-container flexCenter">
-          {/*Left Side */}
           <div className="flexColStart job-left">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <AiOutlineWallet size={25} color='#2a5ce9' />

@@ -261,7 +261,7 @@ export const Output = ({
         <Box
           p="sm"
           style={{
-            backgroundColor: "#2c3e50",
+            // backgroundColor: "#2c3e50",
             color: "white",
             borderRadius: "8px",
             width: "500px",
@@ -273,11 +273,12 @@ export const Output = ({
               <Box
                 style={{
                   position: "relative",
-                  left: "11%",
+                  left: "0%",
                   width: "100%",
+                  fontWeight:"bold",
                   fontFamily: "poppins",
-                  fontSize: "85%",
-                  backgroundColor: "#7f8c8d",
+                  fontSize: "70%",
+                  // backgroundColor: "#7f8c8d",
                   padding: "10px",
                   borderRadius: "4px",
                   textAlign: "center",
@@ -295,12 +296,13 @@ export const Output = ({
               <Box
                 style={{
                   position: "relative",
-                  left: "30%",
+                  left: "20%",
                   width: "100%",
                   fontFamily: "poppins",
-                  fontSize: "62%",
+                  fontSize: "70%",
+                  fontWeight:"bold",
                 // fontSize: "85%",
-                  backgroundColor: "#7f8c8d",
+                  // backgroundColor: "#7f8c8d",
                   padding: "10px",
                   borderRadius: "4px",
                   textAlign: "center",
@@ -320,9 +322,10 @@ export const Output = ({
                   left: "50%",
                   width: "100%",
                   fontFamily: "poppins",
-                  fontSize: "62%",
+                  fontSize: "70%",
+                  fontWeight:"bold",
                 // fontSize: "85%",
-                  backgroundColor: "#7f8c8d",
+                  // backgroundColor: "#7f8c8d",
                   padding: "10px",
                   borderRadius: "4px",
                   textAlign: "center",
@@ -416,7 +419,7 @@ export const Output = ({
                             height: "50%",
                             width: "130%",
                             resize: "none",
-                            overflow: "hidden",
+                            overflow: "visible",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
