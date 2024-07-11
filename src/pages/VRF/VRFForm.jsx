@@ -39,6 +39,11 @@ export default function VRFForm() {
     setCurrentStep(stepIndex + 1);
   };
   return (
+    <div>
+      <div className="stepper-headings">
+      <p>Variational Random Function</p>
+      </div>
+     
     <div className="vrfwrapper">
       <StepperForm // next button previous button is in this
         steps={steps}
@@ -50,6 +55,7 @@ export default function VRFForm() {
         isStepValid={isStepValid}
         setIsStepValid={setIsStepValid}
       />
+    </div>
     </div>
   );
 }

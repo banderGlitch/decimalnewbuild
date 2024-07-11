@@ -1,11 +1,11 @@
 .summary {
-    /* flex: 1; */
-    /* flex-grow: 1; */
     padding: 20px;
     position: relative;
     left: 4%;
     background-color: #141d65;
     border-radius: 10px;
+    max-width: 800px;
+    overflow: hidden; 
   }
   .testnet-label {
     display: flex;
@@ -34,6 +34,7 @@
   .switchwrapper {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: 12px;
     padding-bottom: 15px;
@@ -63,7 +64,6 @@
  .summary-info {
   padding: 20px;
   border-radius:7px;
-  /* height: 100px; */
   height: auto;
   width: 100%;
   background-color:  #1a2577;
@@ -73,7 +73,15 @@
   flex-direction: row;
   padding: 1px;
   justify-content: space-between;
-  /* gap: 50px; */
+  overflow-wrap: break-word;
+  /* white-space: nowrap;  */
+  /* Prevent text from wrapping */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis;  */
+}
+.breakable-text {
+  word-break: break-all; /* Break long words */
+  overflow-wrap: break-word; /* Break words to the next line */
 }
 
 .summary-info > span {

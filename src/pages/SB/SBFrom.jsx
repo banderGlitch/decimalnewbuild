@@ -34,6 +34,11 @@ export default function SBFrom() {
   };
 
   return (
+    <div>
+      <div className="stepper-headings">
+      <p>Stack N Bake</p>
+      </div>
+    
     <div className="s$bwrapper">
       <StepperForm
         steps={steps}
@@ -45,6 +50,7 @@ export default function SBFrom() {
         isStepValid={isStepValid}
         setIsStepValid={setIsStepValid}
       />
+    </div>
     </div>
   );
 }

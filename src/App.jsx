@@ -5,15 +5,17 @@ import CreateIntents from './pages/CreateIntents/CreateIntents';
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, base, zora,gnosis, goerli,sepolia , lineaGoerli } from 'wagmi/chains';
+import { mainnet, polygon, optimism, arbitrum, base, zora, gnosis, goerli, sepolia, lineaGoerli } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout/layout';
 import NotFound from './pages/404/404';
 import CreateApp from './routes.jsx';
-import {Loader } from '@mantine/core';
+import { Loader } from '@mantine/core';
 import '@mantine/core/styles.css';
 import 'react-js-cron/dist/styles.css'
+import { Provider } from 'react-redux';
+import store from './redux/store.js';
 import { MantineProvider } from '@mantine/core';
 
 const config = getDefaultConfig({
@@ -35,17 +37,19 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
-    < WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider showRecentTransactions={true}>
-          <BrowserRouter>
-          <MantineProvider>
-            <MainApp />
-            </MantineProvider>
-          </BrowserRouter>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </ WagmiProvider>
+    <Provider store={store}>
+      < WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider showRecentTransactions={true}>
+            <BrowserRouter>
+              <MantineProvider>
+                <MainApp />
+              </MantineProvider>
+            </BrowserRouter>
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </ WagmiProvider>
+    </Provider>
 
   )
 }
@@ -59,14 +63,14 @@ export function MainApp() {
 
   return (
     <Routes>
-       <Route
+      <Route
         path='/'
         element={
           <Layout>
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
-                   <Loader color="blue" />;
+                  <Loader color="blue" />;
                 </div>
               }
             >
@@ -82,11 +86,11 @@ export function MainApp() {
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
-                   <Loader color="blue" />;
+                  <Loader color="blue" />;
                 </div>
               }
             >
-                 <JobsFeeds />
+              <JobsFeeds />
             </Suspense>
           </Layout>
         }
@@ -98,7 +102,7 @@ export function MainApp() {
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
-                   <Loader color="blue" />;
+                  <Loader color="blue" />;
                 </div>
               }
             >
@@ -107,14 +111,14 @@ export function MainApp() {
           </Layout>
         }
       />
-       <Route
+      <Route
         path='*'
         element={
           <Layout>
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
-                   <Loader color="blue" />;
+                  <Loader color="blue" />;
                 </div>
               }
             >
@@ -122,7 +126,7 @@ export function MainApp() {
             </Suspense>
           </Layout>
         }
-      /> 
+      />
     </Routes>
   )
 }

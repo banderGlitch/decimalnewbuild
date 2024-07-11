@@ -1,6 +1,8 @@
 import React, { useState, useMemo , useEffect} from 'react';
 import {Cron } from 'react-js-cron';
 import useCronReducer from './UsecronReducer'; // Import the custom hook
+import { useDispatch } from 'react-redux';
+import { updateTimerValue } from '../../../../redux/formSlice';
 
 
 function CronSettings({setCroneValue, defaultCronValue}) {
@@ -38,7 +40,10 @@ function CronSettings({setCroneValue, defaultCronValue}) {
   const defaultAllowedPeriods = ['year', 'month', 'week', 'day', 'hour', 'minute'];
   const [allowedPeriods, setAllowedPeriods] = useState(defaultAllowedPeriods);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(updateTimerValue(state.cronValue))
     setCroneValue(state.cronValue)
   },[state.cronValue])
 
