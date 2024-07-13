@@ -22,10 +22,9 @@ import { useSpring, animated } from "@react-spring/web";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useFormSelectors } from "../../../../redux/selector";
 
-const Summary = ({ index, isStepValid, currentStep }) => {
-  // console.log("index", index)
 
-  console.log("currentStep", currentStep);
+const Summary = ({ index, isStepValid, currentStep }) => {
+  
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -49,7 +48,9 @@ const Summary = ({ index, isStepValid, currentStep }) => {
 
   const [renderedSteps, setRenderedSteps] = useState([]);
 
-  const { apiUrl,  IniheaderKey, IniheaderValue,  timerSetting } = useFormSelectors();
+  const { apiUrl,  IniheaderKey, IniheaderValue,  timerSetting, rows, payment } = useFormSelectors();
+
+  console.log("rows------------------>", rows)
 
 
 
@@ -81,6 +82,11 @@ const Summary = ({ index, isStepValid, currentStep }) => {
       return address;
     }
   };
+  const truncateWalletAddressAllscreen = (address, startChars = 4, endChars = 4) => {
+    const start = address.substring(0, startChars); // Keep the first `startChars` characters
+    const end = address.substring(address.length - endChars); // Keep the last `endChars` characters
+    return `${start}...${end}`;
+  };
 
   const walletAddress = account.address !== undefined ? account.address : "NA";
 
@@ -92,6 +98,10 @@ const Summary = ({ index, isStepValid, currentStep }) => {
     // config: { duration: 500 },
     config: { duration: 1500, easing: (t) => t * (2 - t) }, // Ease-out effect
   });
+
+
+
+  console.log("currentStep", currentStep)
 
 
 
@@ -152,7 +162,12 @@ const Summary = ({ index, isStepValid, currentStep }) => {
           )}
           {renderedSteps.includes(3) && (
             <animated.div style={fadeIn}>
-              <SummaryComp3 />
+              <SummaryComp3 rows = {rows} truncateWalletAddressAllscreen = {truncateWalletAddressAllscreen} />
+            </animated.div>
+          )}
+           {renderedSteps.includes(4) && (
+            <animated.div style={fadeIn}>
+              <SummaryComp4 payment = {payment} truncateWalletAddressAllscreen = {truncateWalletAddressAllscreen} />
             </animated.div>
           )}
         </div>
@@ -291,15 +306,61 @@ const SummaryComp2 = ({ timerSetting }) => {
   );
 };
 
-const SummaryComp3 = ({ ...props }) => {
+const SummaryComp3 = ({rows ,truncateWalletAddressAllscreen }) => {
   return (
     <div className="summary-info">
       <div className="summary-text">
         <span className="highlight">
-          Of my current rewards balance: 34.787,878,789.000{" "}
-          <span className="dpt">DPT</span>
+          Contract is diployed at perticular {" "}
         </span>
+        <div>
+        <table>
+        <thead>
+          <tr>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+            <th style={{padding:"2px"}}>Blockchain</th>
+            <th style={{padding:"2px"}}>Contract Address</th>
+            <th style={{padding:"2px"}}>Function Name</th>
+            </div>
+           
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.id}>
+              <div style={{display:"flex", justifyContent:"space-between"}}>
+              <td  style={{width:"30%"}} className="breakable-text">{row.blockchain}</td>
+              <td  style={{width:"30%"}} className="breakable-text">{truncateWalletAddressAllscreen(row.contractAddress)}</td>
+              <td  style={{width:"30%"}} className="breakable-text">{truncateWalletAddressAllscreen(row.functionName)}</td>
+              </div>
+              
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+        </div>
       </div>
     </div>
   );
 };
+
+const SummaryComp4 = ({payment}) => {
+  console.log("payment",payment)
+  return (
+    <div className="summary-info">
+      <div style={{display:"flex", flexDirection:"column", gap:"12px"}}>
+            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+            <strong style={{color:"#F15A24"}}>Rate Card : </strong>
+            <span>{payment.Ratecard} /sec</span>
+            </div>
+            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+            <strong style={{color:"#F15A24"}}>Total Value allocated : </strong>
+            <span>{payment.TotalValueAllocated}</span>
+            </div>
+        </div>
+    </div>
+
+  )
+
+}

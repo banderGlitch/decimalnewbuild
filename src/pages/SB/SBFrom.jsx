@@ -10,6 +10,7 @@ import SbUrl from "./SbUrl/SbUrl";
 
 export default function SBFrom() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [contractRows, setContractRows] = useState({});
 
   const steps = [
     { title: "Step 01", content: "SnBSpecific" },

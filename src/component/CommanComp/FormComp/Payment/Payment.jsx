@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './Payment.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSpring, animated } from "@react-spring/web";
 import { TextInput, Tooltip, Center, Text, Box, Flex } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { GoAlert } from "react-icons/go";
-import { useBalance, useChains,  useChainId  } from 'wagmi'
+import { useBalance, useChains, useChainId } from 'wagmi'
 import { useSendTransaction, useAccount } from 'wagmi'
 import { parseEther } from 'viem'
+import { updateTotalValueAllocated, updateRatecard } from '../../../../redux/paymemtSlice';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useFormSelectors } from '../../../../redux/selector';
 
 
 const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, handlePrevious, propertyDetails, setPropertyDetails }) => {
@@ -16,6 +19,11 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
     const [contractAddress, setContractAddress] = useState('');
     const [fetchWalletBalance, setWalletBalance] = useState('');
     const [currentChain, setCurrentChain] = useState(null);
+    const { payment } = useFormSelectors
+    const dispatch = useDispatch();
+
+
+
 
 
     const styles = useSpring({
@@ -34,6 +42,7 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                 ...prevDetails,
                 totalRewardAllocated: form.values.totalRewardAllocated
             }));
+            dispatch(updateTotalValueAllocated(form.values.totalRewardAllocated));
             const isValid = true;
             const updatedValidation = [...isStepValid];
             updatedValidation[currentStep - 1] = isValid;
@@ -69,26 +78,42 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
         }
     }, [walletAddress]);
 
-    const { data} = useBalance({
+    const { data } = useBalance({
         address: walletAddress,
-      })
+    })
 
 
-    
-  const chainId = useChainId();
 
-  const chains = useChains();
+    const chainId = useChainId();
 
-  useEffect(() => {
-    if (chains && chainId) {
-      const foundChain = chains.find(chain => chain.id === chainId);
-      setCurrentChain(foundChain);
-    }
+    const chains = useChains();
 
-  }, [chainId, chains]);
+    useEffect(() => {
+        if (chains && chainId) {
+            const foundChain = chains.find(chain => chain.id === chainId);
+            setCurrentChain(foundChain);
+        }
+
+    }, [chainId, chains]);
 
 
-  const isTestnet = currentChain && currentChain.testnet;
+    const isTestnet = currentChain && currentChain.testnet;
+
+
+    const rateCardValue = isTestnet ? "0.0003 B10" : "0.0003 USDC";
+
+    const updateRate = useCallback(() => {
+
+        dispatch(updateRatecard(rateCardValue));
+
+    }, [dispatch, rateCardValue]);
+
+    useEffect(() => {
+
+        updateRate();
+       },
+
+    [updateRate]);
 
 
 
@@ -150,9 +175,18 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
 
     const RightSide = (text) => {
         return (
-            <p style={{fontFamily:"poppins", color:"white"}}>{text}</p>
+            <p style={{ fontFamily: "poppins", color: "white" }}>{text}</p>
         )
     }
+
+
+
+    const handleMaxClick = () => {
+        const maxBalance = data?.formatted || '';
+        console.log("maxBalanasdasce",data?.formatted)
+        form.setFieldValue('totalRewardAllocated', maxBalance);
+        dispatch(updateTotalValueAllocated(maxBalance));
+      };
 
 
 
@@ -167,29 +201,33 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                         <p className="form-label">Rate Card</p>
                         <TextInput
                             className="form-input"
-                            value = {!isTestnet ? " 0.0003 USDC" : " 0.0003 B10"}
+                            value={!isTestnet ? " 0.0003 USDC" : " 0.0003 B10"}
                             // value={"50dai"}
                             disabled={true}
                             placeholder="Rate Card"
                             rightSection={RightSide("/sec")}
-                            // rightSection={"/sec"}
+                        // rightSection={"/sec"}
                         />
                     </Flex>
                     <Flex direction="row" align="center" className="form-row">
                         <p className="form-label">Total value allocated</p>
                         <TextInput
                             className="form-input"
-                            placeholder="Rate Card"
+                            placeholder="Total Value allocated"
                             {...form.getInputProps('totalRewardAllocated')}
                             errorProps={{ display: 'none' }}
                             rightSection={rightSection(form.errors.totalRewardAllocated)}
                             type="number"
-                            value={fetchWalletBalance}
-                            // defaultValue={fetchWalletBalance}
+                            // value={fetchWalletBalance}
+                            onChange={(e) => {
+                                form.setFieldValue('totalRewardAllocated', e.currentTarget.value);
+                                dispatch(updateTotalValueAllocated(e.currentTarget.value));
+                              }}
                             min="0"
                             step="0.00001"
                         />
-                        <button type="button" disabled={!isConnected ?true : false} onClick={() => setWalletBalance(data?.formatted)}  className='button maxbutton'>Max</button>
+                        {/* <button type="button" disabled={!isConnected ? true : false} onClick={() => setWalletBalance(data?.formatted)} className='button maxbutton'>Max</button> */}
+                        <button type="button" disabled={!isConnected ? true : false} onClick={handleMaxClick} className='button maxbutton'>Max</button>
                     </Flex>
                     <div className="button-container">
                         {!isConnected ? (
