@@ -4,11 +4,13 @@ import StepperForm from "../../component/CommanComp/StepperComp/Stepper";
 import { Schedular } from "../../component/CommanComp/FormComp/Schedular/Schedular";
 import { Output } from "../../component/CommanComp/FormComp/Output/Output";
 // import { Output } from "../VRF/VRFForm";
-import { Payment } from "../VRF/VRFForm";
+// import { Payment } from "../VRF/VRFForm";
+import Payment from "../../component/CommanComp/FormComp/Payment/Payment";
 import SbUrl from "./SbUrl/SbUrl";
 
 export default function SBFrom() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [contractRows, setContractRows] = useState({});
 
   const steps = [
     { title: "Step 01", content: "SnBSpecific" },
@@ -33,6 +35,11 @@ export default function SBFrom() {
   };
 
   return (
+    <div>
+      <div className="stepper-headings">
+      <p>Stack N Bake</p>
+      </div>
+    
     <div className="s$bwrapper">
       <StepperForm
         steps={steps}
@@ -44,6 +51,7 @@ export default function SBFrom() {
         isStepValid={isStepValid}
         setIsStepValid={setIsStepValid}
       />
+    </div>
     </div>
   );
 }
@@ -60,18 +68,10 @@ function FormSwitch(
     gitUrl: "",
     header: { key: null, value: null },
     timeType: "sec",
-    timer: 0,
-    // description: "",
-    // price: 0,
-    // country: "",
-    // city: "",
-    // address: "",
-    // image: null,
-    // facilities: {
-    //   bedrooms: 0,
-    //   parkings: 0,
-    //   bathrooms: 0,
-    // },
+    timer: '* * * * *',
+    functions : [{ id: 0, functionName:"", blockchainType:"", contractAddress:""}],
+    totalRewardAllocated : 0,
+    rate : "50dai"
   });
 
   useEffect(() => {
@@ -116,6 +116,8 @@ function FormSwitch(
           currentStep={currentStep}
           handleNext={handleNext}
           handlePrevious={handlePrevious}
+          propertyDetails={propertyDetails}
+          setPropertyDetails={setPropertyDetails}
         />
       );
     case "Payment":
@@ -126,6 +128,8 @@ function FormSwitch(
         currentStep={currentStep}
         handleNext={handleNext}
         handlePrevious={handlePrevious}
+        propertyDetails = {propertyDetails} 
+        setPropertyDetails = {setPropertyDetails}
       />;
   }
 }

@@ -85,9 +85,9 @@ export const DecimalAppButton = () => {
                     justifyContent:'center'
                   }} className='button fixed-width-button poppins-regular' onClick={openAccountModal} type="button">
                     {account.displayName}
-                    {account.displayBalance
-                      ? ` (${account.displayBalance})`
-                      : ''}
+                    {/* {account.displayBalance
+                      ? `${account.displayBalance}`
+                      : ''} */}
                   </button>
                   </div>
                 </div>

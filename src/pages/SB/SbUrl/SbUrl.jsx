@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react'
 import './SbUrl.css';
 import { TextInput, Box, Textarea, Group, Button, NumberInput, Radio, Tooltip, Center, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useSpring, animated } from '@react-spring/web';
 import { GoAlert } from "react-icons/go";
+import { useDispatch } from 'react-redux';
+import { useFormSelectors } from '../../../redux/selector';
+import { updateApiUrl, updateHeaderKey, updateHeaderValue } from '../../../redux/formSlice';
+
 export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, propertyDetails, setPropertyDetails, handleNext, handlePrevious, steps }) {
 
-    const [showHeaderInputs, setShowHeaderInputs] = useState(false);
+    const dispatch = useDispatch();
+    const { apiUrl,  IniheaderKey,  IniheaderValue} = useFormSelectors();
+    const [showHeaderInputs, setShowHeaderInputs] = useState(!!propertyDetails.header.key);
+  
 
     const validateGitHubUrl = (value) => {
         const githubUrlPattern = /^https:\/\/github\.com\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+(\.git)?\/?$/;
@@ -27,9 +34,9 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
 
     const form = useForm({
         initialValues: {
-            gitUrl: propertyDetails.gitUrl,
-            headerKey: propertyDetails.header.key,
-            headerValue: propertyDetails.header.value,
+            gitUrl: apiUrl,
+            headerKey:   IniheaderKey,
+            headerValue: IniheaderValue,
         },
         validate: {
             gitUrl: (value) => validateGitHubUrl(value),
@@ -38,7 +45,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
         },
     });
 
-    const { gitUrl, description, price, headerKey, headerValue } = form.values
+    const { gitUrl, headerKey, headerValue } = form.values
+
 
 
 
@@ -51,7 +59,6 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                     key: headerKey,
                     value: headerValue,
                 },
-                // headerKey, headerKey, description, price 
             }))
             // Stepper Logic 
             const isValid = true; 
@@ -67,9 +74,22 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
     };
 
 
+    useEffect(() => {
+
+       if (!showHeaderInputs) {
+        dispatch(updateHeaderKey(""));
+        dispatch(updateHeaderValue(""))
+        form.setFieldValue('headerKey', "") 
+        form.setFieldValue('headerValue', "") 
+
+       }
+
+    }, [showHeaderInputs, dispatch])
+
+
     const headerInputsAnimation = useSpring({
         opacity: showHeaderInputs ? 1 : 0,
-        transform: showHeaderInputs ? 'translateY(0)' : 'translateY(-20px)',
+        transform: showHeaderInputs ? 'translateY(0)' : 'translateY(-5px)',
         height: showHeaderInputs ? 'auto' : '0px',
     });
 
@@ -77,7 +97,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
 
         return (
             <Tooltip
-                label={errorMessage}
+                label={errorMessage=== undefined ?  "" : errorMessage}
                 position="top-end"
                 style={{ fontFamily: 'poppins' }}
                 withArrow
@@ -109,11 +129,15 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                     <TextInput
                         style={{ fontFamily: 'poppins', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: "400%", gap: '20px' }}
                         size="md"
+                        defaultValue={apiUrl}
                         radius="sm"
                         label="Api Url"
                         placeholder="Enter Api Url"
-                        {...form.getInputProps("gitUrl")}
-                        rightSection={rightSection(form.errors.gitUrl, '-150px')}
+                        onChange={(e) => {
+                            dispatch(updateApiUrl(e.target.value))
+                            form.setFieldValue('gitUrl', e.target.value) 
+                        }}
+                        rightSection={rightSection(form.errors.gitUrl, '-100px')}
                         rightSectionWidth={10}
                     />
                     <div className='radio-btn-background'>
@@ -121,6 +145,7 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                             style={{ position: 'relative', bottom: '30px', fontFamily: 'poppins', display: 'flex', alignItems: 'center', marginTop: '40px', gap: '20px' }}
                             name="favoriteFramework"
                             label="Header(Optional)"
+                            value={showHeaderInputs ? 'yes' : 'no'}
                             onChange={handleRadioChange}
                         >
                             <Group mt="xs" style={{ fontFamily: 'poppins', position: 'relative', bottom: '5px' }}>
@@ -140,13 +165,17 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                                             gap: '20px',
                                             marginTop: '20px',
                                         }}
+                                        defaultValue={IniheaderKey}
+                                        onChange={(e) => { 
+                                            dispatch(updateHeaderKey(e.target.value));
+                                            form.setFieldValue('headerKey', e.target.value) 
+                                        }}
                                         errorProps={{display:'none'}}
                                         size="sm"
                                         radius="sm"
                                         label="Key"
                                         placeholder="Enter Header Key"
-                                        {...form.getInputProps('headerKey')}
-                                        rightSection={rightSection(form.errors.headerKey, '-56px')}
+                                        rightSection={rightSection(form.errors.headerKey, "-8px")}
                                         rightSectionWidth={10}
                                     />
                                     <TextInput
@@ -158,13 +187,17 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                                             gap: '20px',
                                             marginTop: '20px',
                                         }}
+                                        defaultValue={headerValue}
+                                        onChange={(e) => { 
+                                            dispatch(updateHeaderValue(e.target.value))
+                                            form.setFieldValue('headerValue', e.target.value) 
+                                        }}
                                         errorProps={{display:'none'}}
                                         size="sm"
                                         radius="sm"
                                         label="Value"
                                         placeholder="Enter Header Value"
-                                        {...form.getInputProps('headerValue')}
-                                        rightSection={rightSection(form.errors.headerValue, '-62px')}
+                                        rightSection={rightSection(form.errors.headerValue, '-8px')}
                                         rightSectionWidth={10}
                                     />
                                 </div>
@@ -172,11 +205,14 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         </animated.div>
                     </div>
                     <div className="step-navigation ">
-                        {currentStep !== 1 &&
+                          {currentStep !== 1 ? (
                             <button className='button' onClick={handlePrevious}>
                                 Previous
-                            </button>}
-                        <button className='button' type='submit' disabled={currentStep === steps.length}>
+                            </button>
+                        ) : (
+                            <div className="empty-div"></div>
+                        )}
+                        <button className='button next-button' type='submit' disabled={currentStep === steps.length}>
                             Next
                         </button>
                     </div>

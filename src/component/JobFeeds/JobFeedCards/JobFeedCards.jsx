@@ -18,9 +18,10 @@ export default function JobFeedCards() {
                 </div>
 
             </div>
+            {/* <br />
             <br />
-            <br />
-            <br />
+            <br /> */}
         </div>
     )
 }
+

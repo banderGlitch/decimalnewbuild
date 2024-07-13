@@ -13,3 +13,10 @@
     top: 100px; */
 
 }
+
+.step-navigation .next-button {
+    margin-left: auto;
+}
+.empty-div {
+    width: 190px; /* Adjust width as needed */
+}

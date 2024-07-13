@@ -1,29 +1,31 @@
 import './App.css'
-import React, { useRef, useEffect, Suspense } from 'react';
-import TopBanner from './component/Topbanner/TopBanner'
-import Header from './component/Header/Header'
+import React, { Suspense } from 'react';
 import JobsFeeds from '../src/pages/JobFeeds/JobsFeeds';
-// import JobsFeeds from './component/JobFeeds/JobsFeeds'
 import CreateIntents from './pages/CreateIntents/CreateIntents';
-// import CreateIntents from './component/CreateIntents/CreateIntents'
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiProvider } from 'wagmi';
-import Footer from './component/Footer/Footer'
-import { mainnet, polygon, optimism, arbitrum, base, zora, gnosis } from 'wagmi/chains';
+import { mainnet, polygon, optimism, arbitrum, base, zora, gnosis, goerli, sepolia, lineaGoerli } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout/layout';
 import NotFound from './pages/404/404';
-// import VRFform from './pages/VRF/VRFForm';
 import CreateApp from './routes.jsx';
+import { Loader } from '@mantine/core';
 import '@mantine/core/styles.css';
+import 'react-js-cron/dist/styles.css'
+import { Provider } from 'react-redux';
+import store from './redux/store.js';
 import { MantineProvider } from '@mantine/core';
 
 const config = getDefaultConfig({
   appName: 'decimalAt-web',
   projectId: '1e696e3657a96f5ea6d833e37d8a85c4',
   chains: [
+    mainnet,
+    goerli,
+    sepolia,
+    lineaGoerli,
     gnosis
   ],
   //ssr: true, // If your dApp uses server side rendering (SSR)
@@ -35,17 +37,19 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
-    < WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider showRecentTransactions={true}>
-          <BrowserRouter>
-          <MantineProvider>
-            <MainApp />
-            </MantineProvider>
-          </BrowserRouter>
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </ WagmiProvider>
+    <Provider store={store}>
+      < WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider showRecentTransactions={true}>
+            <BrowserRouter>
+              <MantineProvider>
+                <MainApp />
+              </MantineProvider>
+            </BrowserRouter>
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </ WagmiProvider>
+    </Provider>
 
   )
 }
@@ -59,13 +63,14 @@ export function MainApp() {
 
   return (
     <Routes>
-       <Route
+      <Route
         path='/'
         element={
           <Layout>
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
+                  <Loader color="blue" />;
                 </div>
               }
             >
@@ -81,10 +86,11 @@ export function MainApp() {
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
+                  <Loader color="blue" />;
                 </div>
               }
             >
-                 <JobsFeeds />
+              <JobsFeeds />
             </Suspense>
           </Layout>
         }
@@ -96,6 +102,7 @@ export function MainApp() {
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
+                  <Loader color="blue" />;
                 </div>
               }
             >
@@ -104,13 +111,14 @@ export function MainApp() {
           </Layout>
         }
       />
-       <Route
+      <Route
         path='*'
         element={
           <Layout>
             <Suspense
               fallback={
                 <div className='loading-loader-section'>
+                  <Loader color="blue" />;
                 </div>
               }
             >
@@ -118,7 +126,7 @@ export function MainApp() {
             </Suspense>
           </Layout>
         }
-      /> 
+      />
     </Routes>
   )
 }

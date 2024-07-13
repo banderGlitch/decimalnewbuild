@@ -7,3 +7,39 @@
     bottom: 400px;
     gap: 140%;
 }
+.button-inactive {
+  /* color: black; */
+  font-weight: 500;
+  padding: 0.4rem 1.4rem;
+  color: rgb(7, 7, 7);
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 10px;
+  transition: all 300ms ease-in;
+  
+}
+
+.button-active {
+  /* color: black; */
+  font-weight: 500;
+  padding: 0.4rem 1.4rem;
+  color: white;
+  /* color: rgb(7, 7, 7); */
+  background-color: var(--decimal-blue);
+  border: none;
+  border-radius: 10px;
+  transition: all 300ms ease-in;
+  
+}
+
+.react-js-cron  {
+  font-family: 'Poppins' !important;
+}
+.react-js-cron-clear-button {
+  position: relative;
+  /* top: 600px;  */
+  background-color: var(--decimal-orange)  !important;
+  border-radius: 12px  !important;
+    margin-left: 10px  !important;
+    margin-bottom: 10px  !important;
+}

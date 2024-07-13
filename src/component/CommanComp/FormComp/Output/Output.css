@@ -1,8 +1,11 @@
 .step-navigation {
-    position: absolute;
-    bottom: 500px;
+    position: relative;
+    bottom: 600px;
     gap: 140%;
 }
 .m_82577fc2 {
     margin-right: -57px !important; 
 }
+/* m_82577fc2 mantine-Input-section mantine-Select-section {
+    
+} */

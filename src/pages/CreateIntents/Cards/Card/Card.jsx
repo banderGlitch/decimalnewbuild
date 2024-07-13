@@ -10,7 +10,7 @@ import { FaArrowLeft } from "react-icons/fa";
 
 
 const Card = ({ 
-  app="",
+  app="Custom Jobs",
   title = "Custom Jobs", 
   description,
   info="For more info",
@@ -31,7 +31,7 @@ const Card = ({
     <div className="card">
       <div className="card-content">
         {/* <h3>{title} <IoIosInformationCircleOutline data-tooltip-id="my-tooltip-1" size={20} className="info-icon" /></h3> */}
-        <h3>{title} <IoIosInformationCircleOutline data-tooltip-id="data-tooltip-id" size={20} className="info-icon" /></h3>
+        <h3>{app} <IoIosInformationCircleOutline data-tooltip-id="data-tooltip-id" size={20} className="info-icon" /></h3>
         <h6>Build job to execute your custom code.</h6>
       </div>
       <div className="arrow-icon" onClick={() => handleNavigate(app)}>

@@ -183,5 +183,20 @@
 }
 
 
+.stepper-headings {
+  display: flex;
+ justify-content: flex-start;
+ position: relative;
+ left: 25%;
+}
+
+.stepper-headings > p {
+  font-family: "poppins";
+  color: white;
+  font-weight: bold;
+  font-size: 200%;
+}
+
+
 
 
