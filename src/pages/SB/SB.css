@@ -1,8 +1,9 @@
 .stepper-headings {
-    display: flex;
+   display: flex;
    justify-content: flex-start;
    position: relative;
-   left: 25%;
+   /* left: 25%; */
+   left: 12%;
 }
 
 .stepper-headings > p {

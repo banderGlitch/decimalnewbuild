@@ -23,7 +23,7 @@ export const VrfSpecific = ({ steps, currentStep, handleNext, handlePrevious, is
   return (
     <animated.div style={styles}>
       <div style={{ gap: '15px' }} className='flexColStart vrfIntro'>
-        <span>VRF (Verified Random Function)</span>
+        <span>VRF (Verifiable Random Function)</span>
         <div className='flexColStart'>
           <span>Generates a verified random number between </span>
           <span> 0 and 2<sup>256</sup></span>

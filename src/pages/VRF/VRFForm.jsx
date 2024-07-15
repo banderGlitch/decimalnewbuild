@@ -41,7 +41,7 @@ export default function VRFForm() {
   return (
     <div>
       <div className="stepper-headings">
-      <p>Variational Random Function</p>
+      <p>Verifiable Random Function</p>
       </div>
      
     <div className="vrfwrapper">
