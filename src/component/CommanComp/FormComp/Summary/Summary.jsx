@@ -112,13 +112,6 @@ const Summary = ({ index, isStepValid, currentStep }) => {
   }, [currentStep, renderedSteps]);
 
 
-  // const gitUrl = useSelector((state) => state.form.apiUrl);
-  // const headerKey = useSelector((state) => state.form.headerKey);
-  // const headerValue = useSelector((state) => state.form.headerValue)
-
-
-  // console.log("gitUrl", gitUrl.form.apiUrl)
-
 
 
   return (
@@ -257,13 +250,13 @@ const SummaryFormSpecific = ({ formtype, apiUrl, headerKey, headerValue }) => {
             <strong style={{ fontFamily: "poppins", fontSize: "85%" , color:"#F15A24"}}>
               Stake N' Bake
             </strong>
-            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
-            <strong style={{color:"#F15A24"}}>API URL : </strong>
+            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%", display:"flex", flexDirection:'column' }}>
+            <strong style={{color:"#F15A24"}}>The contract is deployed at this url : </strong>
             <span>{apiUrl}</span>
             
             </div>
             <div style={{ fontFamily: "poppins", fontSize: "85%" }}>
-              <strong style={{color:"#F15A24"}}>Header : </strong>
+              <strong style={{color:"#F15A24"}}>with header : </strong>
             </div>
             <div className="breakable-text" style={{ display: "flex", justifyContent: "space-between", flexDirection:"row", gap: "10px" }}>
             <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
