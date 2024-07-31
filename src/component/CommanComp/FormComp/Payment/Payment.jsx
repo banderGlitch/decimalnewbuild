@@ -5,22 +5,76 @@ import { useSpring, animated } from "@react-spring/web";
 import { TextInput, Tooltip, Center, Text, Box, Flex } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { GoAlert } from "react-icons/go";
+import { bigNumberToString } from '../../../../helper/contractReference';
 import { useBalance, useChains, useChainId } from 'wagmi'
 import { useSendTransaction, useAccount } from 'wagmi'
+import { erc20Abi } from 'viem';
 import { parseEther } from 'viem'
-import { updateTotalValueAllocated, updateRatecard } from '../../../../redux/paymemtSlice';
+import { ethers } from 'ethers';
+import { updateTotalValueAllocated, updateRatecard ,updateApprovedRewards } from '../../../../redux/paymemtSlice';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useFormSelectors } from '../../../../redux/selector';
+import { useEthersSigner } from '../../../../helper/walletInteraction/ethers';
+import { DECIMALS, erc20USDC, decimalContractAddress , stringToBigNumber } from '../../../../helper/contractReference';
+
 
 
 const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, handlePrevious, propertyDetails, setPropertyDetails }) => {
+    // const approvedRewards = useSelector((state) => state.approvedRewards)
+    // console.log("approvedRewards", approvedRewards)
+    // const approvedRewards = useSelector((state) => state.ApprovedRewards)
+    // console.log("approvedRewards", approvedRewards)
 
     const { address: walletAddress, isConnected } = useAccount();
-    const [contractAddress, setContractAddress] = useState('');
-    const [fetchWalletBalance, setWalletBalance] = useState('');
+    const account = useAccount()
+    console.log("account", account);
+    const [isWaiting, setIsWaiting] = useState(false);
+    const [balanceOfUser, setBalanceOfUser] = useState(0n);
+    const [allowance, setAllowance] = useState(0n);
+    const [buttonText, setButtonText] = useState('Approve');
+    // const [contractAddress, setContractAddress] = useState('');
+    // const [fetchWalletBalance, setWalletBalance] = useState('');
     const [currentChain, setCurrentChain] = useState(null);
-    const { payment } = useFormSelectors
+    // const { payment } = useFormSelectors
     const dispatch = useDispatch();
+    const signer = useEthersSigner({ chainId: account?.chain?.id });
+    // let chain = account && account.chain ? account.chain.name?.toLowerCase().toString() : '';
+
+
+    useEffect(() => {
+        if ( account && signer) {
+            let contractOfUser = new ethers.Contract(erc20USDC[currentChain.name.toLowerCase()], erc20Abi, signer);
+            //To get the balance
+            contractOfUser && contractOfUser.balanceOf(account.address).then((resp) => {
+                setBalanceOfUser(resp);
+            }, err => {
+                console.log(err);
+                setBalanceOfUser(0n);
+            });
+            //To Check Allowance
+            contractOfUser && contractOfUser.allowance(account.address, decimalContractAddress[currentChain.name.toLowerCase()]).then((resp) => {
+                // console.log("resp-------->", resp)
+                setAllowance(resp);
+                dispatch(updateApprovedRewards(resp.toString()));
+                // dispatch(updateApprovedRewards(bigNumberToString(resp)))
+            }, err => {
+                console.log(err);
+            });
+        }
+    }, [account, allowance]);
+
+    // useEffect(() => {
+    //     if (isConnected) {
+    //       const totalRewardAllocated = form.values.totalRewardAllocated;
+    //       if (totalRewardAllocated && BigInt(totalRewardAllocated) > allowance) {
+    //         setButtonText('Approve');
+    //       } else {
+    //         setButtonText('Escrow Funds');
+    //       }
+    //     }
+    //   }, [form.values.totalRewardAllocated, allowance, isConnected]);
+
+
 
 
 
@@ -72,21 +126,20 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
     }, [propertyDetails]);
 
 
-    useEffect(() => {
-        if (walletAddress) {
-            setContractAddress('0xFetchedContractAddress'); // Example placeholder
-        }
-    }, [walletAddress]);
 
     const { data } = useBalance({
         address: walletAddress,
     })
 
 
+    console.log("data------->", data)
+
+
 
     const chainId = useChainId();
 
     const chains = useChains();
+
 
     useEffect(() => {
         if (chains && chainId) {
@@ -120,6 +173,8 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
 
 
 
+
+
     const rightSection = (errorMessage) => {
         return (
             <Tooltip
@@ -140,17 +195,19 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
         );
     };
 
-    const {
-        data: hash,
-        error,
-        isPending,
-        sendTransaction
-    } = useSendTransaction()
+    // const {
+    //     data: hash,
+    //     error,
+    //     isPending,
+    //     sendTransaction
+    // } = useSendTransaction()
 
 
     const handleApprove = async () => {
+        setIsWaiting(true);
         if (!isConnected) {
             console.error('Wallet is not connected.');
+            setIsWaiting(false);
             return;
         }
 
@@ -158,18 +215,44 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
         const totalRewardAllocated = form.values.totalRewardAllocated;
         if (!totalRewardAllocated) {
             console.error('Total value allocation is required.');
+            setIsWaiting(false);
             return;
         }
-        try {
-            sendTransaction({
-                request: {
-                    to: contractAddress, // Replace with your contract address
-                    value: parseEther(totalRewardAllocated) // Replace with the amount you want to send
+
+        console.log("totalRewardAllocated", totalRewardAllocated)
+        let contractOfDecimal;
+        if (signer) {
+            contractOfDecimal = new ethers.Contract(erc20USDC[currentChain.name.toLowerCase()], erc20Abi, signer);
+            try {
+                const expoValue = stringToBigNumber(totalRewardAllocated, DECIMALS[currentChain.name.toLowerCase()]);
+                console.log("expoValue", expoValue)
+                const resp = await contractOfDecimal.approve(decimalContractAddress[currentChain.name.toLowerCase()], expoValue);
+                console.log("resp------<>",resp)
+                if (resp && resp.wait) {
+                    const response = await resp.wait();
+                    if (response.status) {
+                        console.log("approved!!!!!!")
+                        setIsWaiting(false);
+                    } else {
+                        console.log("Please select a valid range for approval")
+                        setIsWaiting(false);
+                    }
                 }
-            });
-        } catch (error) {
-            console.error('Transaction failed:', error);
+            } catch (err) {
+                console.log(err);
+                setIsWaiting(false);
+            }
         }
+         // try {
+        //     sendTransaction({
+        //         request: {
+        //             to: contractAddress,
+        //             value: parseEther(totalRewardAllocated) // Replace with the amount you want to send
+        //         }
+        //     });
+        // } catch (error) {
+        //     console.error('Transaction failed:', error);
+        // }
     }
 
 
@@ -182,10 +265,8 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
 
 
     const handleMaxClick = () => {
-        const maxBalance = data?.formatted || '';
-        console.log("maxBalanasdasce",data?.formatted)
-        form.setFieldValue('totalRewardAllocated', maxBalance);
-        dispatch(updateTotalValueAllocated(maxBalance));
+        form.setFieldValue('totalRewardAllocated', bigNumberToString(balanceOfUser));
+        dispatch(updateTotalValueAllocated(bigNumberToString(balanceOfUser)));
       };
 
 
@@ -217,7 +298,7 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                             {...form.getInputProps('totalRewardAllocated')}
                             errorProps={{ display: 'none' }}
                             rightSection={rightSection(form.errors.totalRewardAllocated)}
-                            type="number"
+                            // type="number"
                             // value={fetchWalletBalance}
                             onChange={(e) => {
                                 form.setFieldValue('totalRewardAllocated', e.currentTarget.value);
@@ -233,8 +314,8 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
                         {!isConnected ? (
                             <ConnectButton />
                         ) : (
-                            <button type='button' className='button' onClick={handleApprove} disabled={isPending}>
-                                {isPending ? 'Approving...' : 'Approve'}
+                            <button type='button' className='button' onClick={handleApprove} >
+                                {isWaiting ?'Approving...' : 'Approve'}
                             </button>
                         )}
                     </div>
@@ -249,7 +330,6 @@ const Payment = ({ isStepValid, setIsStepValid, steps, currentStep, handleNext, 
             </form>
         </animated.div>
     )
-
 }
 
 

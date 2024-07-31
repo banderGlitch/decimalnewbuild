@@ -1,23 +1,21 @@
+
+
 .layout {
     background: #1a2577;
-    height: 100%;
-    width: 100%;
     scroll-behavior: smooth;
-    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column; 
+    min-height: 100vh; 
   
   }
-  .containerWrapper {
+.containerWrapper {
+    flex: 1;
     display: flex;
-    height: auto
-  }
-  /* .section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  } */
-  
+    height: auto;
+    flex-direction: column; 
+}
+ 
   .sideSocialButtonsWrapper {
     position: fixed;
     top: 50%;

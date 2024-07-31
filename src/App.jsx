@@ -16,6 +16,7 @@ import '@mantine/core/styles.css';
 import 'react-js-cron/dist/styles.css'
 import { Provider } from 'react-redux';
 import store from './redux/store.js';
+import FeedsTable from './pages/Feeds/Table/Table.jsx';
 import { MantineProvider } from '@mantine/core';
 
 const config = getDefaultConfig({
@@ -107,6 +108,22 @@ export function MainApp() {
               }
             >
               <CreateApp />
+            </Suspense>
+          </Layout>
+        }
+      />
+      <Route
+        path='/feeds'
+        element={
+          <Layout>
+            <Suspense
+              fallback={
+                <div className='loading-loader-section'>
+                  <Loader color="blue" />;
+                </div>
+              }
+            >
+              <FeedsTable/>
             </Suspense>
           </Layout>
         }

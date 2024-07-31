@@ -18,7 +18,7 @@
 .f-container :nth-child(3) {
   font-size: 70%;
 }
-.go-to-top {
+/* .go-to-top {
   position: sticky;
   right: 20px;
   bottom: 0;
@@ -36,22 +36,22 @@
 .go-to-top-icon {
   transform: rotate(180deg);
   
-}
+} */
 
-.go-to-top:hover {
+/* .go-to-top:hover {
   color: var(--decimal-orange);
-}
+} */
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .go-to-top {
     display: none;
   }
-}
+} */
 
 @media (max-width: 1280px) {
-  .go-to-top {
+  /* .go-to-top {
     display: none;
-  }
+  } */
   .f-container {
     padding: 20px;
     display: flex;

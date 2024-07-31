@@ -6,6 +6,7 @@ import { useForm } from "@mantine/form";
 import { useSpring, animated } from '@react-spring/web';
 import { GoAlert } from "react-icons/go";
 import { useDispatch } from 'react-redux';
+import ApiUrl from './SbPostmanUrl';
 import { useFormSelectors } from '../../../redux/selector';
 import { updateApiUrl, updateHeaderKey, updateHeaderValue } from '../../../redux/formSlice';
 
@@ -124,9 +125,10 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
             <Box maw="100%" mx="auto" my="md">
                 <form onSubmit={(e) => {
                     e.preventDefault();
-                    handleSubmit();
+                    handleNext()
+                    // handleSubmit();
                 }}>
-                    <TextInput
+                    {/* <TextInput
                         style={{ fontFamily: 'poppins', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: "400%", gap: '20px' }}
                         size="md"
                         defaultValue={apiUrl}
@@ -139,8 +141,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         }}
                         rightSection={rightSection(form.errors.gitUrl, '-100px')}
                         rightSectionWidth={10}
-                    />
-                    <div className='radio-btn-background'>
+                    /> */}
+                    {/* <div className='radio-btn-background'>
                         <Radio.Group
                             style={{ position: 'relative', bottom: '30px', fontFamily: 'poppins', display: 'flex', alignItems: 'center', marginTop: '40px', gap: '20px' }}
                             name="favoriteFramework"
@@ -203,7 +205,8 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                                 </div>
                             )}
                         </animated.div>
-                    </div>
+                    </div> */}
+                          <ApiUrl/>
                     <div className="step-navigation ">
                           {currentStep !== 1 ? (
                             <button className='button' onClick={handlePrevious}>
@@ -217,7 +220,9 @@ export default function SbUrl({ isStepValid ,  setIsStepValid,   currentStep, pr
                         </button>
                     </div>
                 </form>
+            
             </Box>
+          
         </div>
     )
 }

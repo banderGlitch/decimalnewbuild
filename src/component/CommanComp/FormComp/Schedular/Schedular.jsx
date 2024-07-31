@@ -77,7 +77,15 @@ export const Schedular = ({
                     </div>
                 </div>
                 <div style={{position:'relative', top:"50px", fontFamily:'poppins'}}>
-                <animated.p style={textStyles}>{humanReadable && humanReadable}</animated.p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                {/* <animated.p style={textStyles}>{humanReadable && humanReadable}</animated.p> */}
                 </div>
            
                 <div className="step-navigation ">

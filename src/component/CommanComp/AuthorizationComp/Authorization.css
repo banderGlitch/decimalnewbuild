@@ -1,0 +1,11 @@
+.override-width {
+    width: 13% !important;
+}
+.override-width1 {
+    width: 30% !important;
+}
+.override-width2 {
+    margin-bottom: 20px;
+    width: 55% !important;
+    margin-bottom: 20px;
+}

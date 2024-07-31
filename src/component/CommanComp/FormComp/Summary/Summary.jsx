@@ -4,7 +4,7 @@ import "./Summary.css";
 import classes from "./CustomSwitch.module.css";
 import { useAccount, useChains } from "wagmi";
 import { useSelector } from 'react-redux';
-import { useChainId } from "wagmi";
+import { useChainId  } from "wagmi";
 import cronstrue from 'cronstrue';
 import { mainnet } from "@wagmi/core/chains";
 import {
@@ -21,12 +21,18 @@ import { useLocation } from "react-router-dom";
 import { useSpring, animated } from "@react-spring/web";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useFormSelectors } from "../../../../redux/selector";
+import { bigNumberToString } from "../../../../helper/contractReference";
+
 
 
 const Summary = ({ index, isStepValid, currentStep }) => {
-  
+
+
+
+
 
   const location = useLocation();
+  const { isConnected } = useAccount();
   const queryParams = new URLSearchParams(location.search);
 
   const pathParts = location.pathname.split("/");
@@ -48,9 +54,10 @@ const Summary = ({ index, isStepValid, currentStep }) => {
 
   const [renderedSteps, setRenderedSteps] = useState([]);
 
-  const { apiUrl,  IniheaderKey, IniheaderValue,  timerSetting, rows, payment } = useFormSelectors();
+  const { apiUrl, IniheaderKey, IniheaderValue, timerSetting, rows, payment, approvedRewards } = useFormSelectors();
 
-  console.log("rows------------------>", rows)
+  console.log("paymentApprovedRewards------------------>", payment.ApprovedRewards)
+  // console.log("approvedRewards--------->",approvedRewards)
 
 
 
@@ -82,11 +89,28 @@ const Summary = ({ index, isStepValid, currentStep }) => {
       return address;
     }
   };
+  // const truncateWalletAddressAllscreen = (address, startChars = 4, endChars = 4) => {
+  //   const start = address.substring(0, startChars); // Keep the first `startChars` characters
+  //   const end = address.substring(address.length - endChars); // Keep the last `endChars` characters
+  //   return `${start}...${end}`;
+  // };
+
   const truncateWalletAddressAllscreen = (address, startChars = 4, endChars = 4) => {
+    // If the address length is less than or equal to the sum of startChars and endChars
+    if (address.length <= startChars + endChars) {
+      return address;
+    }
+
+    // If the address length is less than or equal to 3, return the address as is
+    if (address.length <= 3) {
+      return address;
+    }
+
     const start = address.substring(0, startChars); // Keep the first `startChars` characters
     const end = address.substring(address.length - endChars); // Keep the last `endChars` characters
     return `${start}...${end}`;
   };
+
 
   const walletAddress = account.address !== undefined ? account.address : "NA";
 
@@ -145,22 +169,22 @@ const Summary = ({ index, isStepValid, currentStep }) => {
           </animated.div>
           {renderedSteps.includes(1) && (
             <animated.div style={fadeIn}>
-              <SummaryFormSpecific formtype={param} apiUrl={apiUrl} headerKey={IniheaderKey} headerValue={ IniheaderValue} />
+              <SummaryFormSpecific formtype={param} apiUrl={apiUrl} headerKey={IniheaderKey} headerValue={IniheaderValue} />
             </animated.div>
           )}
           {renderedSteps.includes(2) && (
             <animated.div style={fadeIn}>
-              <SummaryComp2 timerSetting = {timerSetting} />
+              <SummaryComp2 timerSetting={timerSetting} />
             </animated.div>
           )}
           {renderedSteps.includes(3) && (
             <animated.div style={fadeIn}>
-              <SummaryComp3 rows = {rows} truncateWalletAddressAllscreen = {truncateWalletAddressAllscreen} />
+              <SummaryComp3 rows={rows} truncateWalletAddressAllscreen={truncateWalletAddressAllscreen} />
             </animated.div>
           )}
-           {renderedSteps.includes(4) && (
+          {renderedSteps.includes(4) && (
             <animated.div style={fadeIn}>
-              <SummaryComp4 payment = {payment} truncateWalletAddressAllscreen = {truncateWalletAddressAllscreen} />
+              <SummaryComp4 isConnected = {isConnected} payment={payment} truncateWalletAddressAllscreen={truncateWalletAddressAllscreen} />
             </animated.div>
           )}
         </div>
@@ -242,31 +266,31 @@ const SummaryFormSpecific = ({ formtype, apiUrl, headerKey, headerValue }) => {
           <strong style={{ fontFamily: "poppins", fontSize: "85%" }}>
             <p style={
               { color: "#F15A24" }
-            }>Verified Random Function </p>It generates a function that produces a random number which cannot be repeated at any cost.
+            }>Verifiable Random Function </p>It generates a function that produces a random number which cannot be repeated at any cost.
           </strong>
         )}
         {formtype === "stakeandbake" && (
-          <div style={{display:"flex", flexDirection:"column", gap:"12px"}}>
-            <strong style={{ fontFamily: "poppins", fontSize: "85%" , color:"#F15A24"}}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <strong style={{ fontFamily: "poppins", fontSize: "85%", color: "#F15A24" }}>
               Stake N' Bake
             </strong>
-            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%", display:"flex", flexDirection:'column' }}>
-            <strong style={{color:"#F15A24"}}>The contract is deployed at this url : </strong>
-            <span>{apiUrl}</span>
-            
+            <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%", display: "flex", flexDirection: 'column' }}>
+              <strong style={{ color: "#F15A24" }}>The contract is deployed at this url : </strong>
+              <span>{apiUrl}</span>
+
             </div>
             <div style={{ fontFamily: "poppins", fontSize: "85%" }}>
-              <strong style={{color:"#F15A24"}}>with header : </strong>
+              <strong style={{ color: "#F15A24" }}>with header : </strong>
             </div>
-            <div className="breakable-text" style={{ display: "flex", justifyContent: "space-between", flexDirection:"row", gap: "10px" }}>
-            <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
-              <strong style={{ color: "#F15A24" }}>Key: </strong>
-              <span>{headerKey || 'none'}</span>
-            </div>
-            <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
-              <strong style={{ color: "#F15A24" }}>Value: </strong>
-              <span>{headerValue || 'none'}</span>
-            </div>
+            <div className="breakable-text" style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", gap: "10px" }}>
+              <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+                <strong style={{ color: "#F15A24" }}>Key: </strong>
+                <span>{headerKey || 'none'}</span>
+              </div>
+              <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+                <strong style={{ color: "#F15A24" }}>Value: </strong>
+                <span>{headerValue || 'none'}</span>
+              </div>
             </div>
 
 
@@ -279,7 +303,7 @@ const SummaryFormSpecific = ({ formtype, apiUrl, headerKey, headerValue }) => {
 };
 
 const SummaryComp2 = ({ timerSetting }) => {
-  console.log("timerSetting",timerSetting )
+  console.log("timerSetting", timerSetting)
   var finalExpression = cronstrue.toString(timerSetting);
   finalExpression = finalExpression.charAt(0).toLowerCase() + finalExpression.slice(1);
   return (
@@ -293,44 +317,44 @@ const SummaryComp2 = ({ timerSetting }) => {
         <p>every&nbsp;</p>
         <p className="highlight">0&nbsp;</p>
         <p>Blocks</p> */}
-        <span><strong style={{color:"#F15A24"}}>Every hour at{" "} </strong>{finalExpression}</span>
+        <span><strong style={{ color: "#F15A24" }}>Every hour {" "} </strong>{finalExpression}</span>
       </div>
     </div>
   );
 };
 
-const SummaryComp3 = ({rows ,truncateWalletAddressAllscreen }) => {
+const SummaryComp3 = ({ rows, truncateWalletAddressAllscreen }) => {
   return (
     <div className="summary-info">
       <div className="summary-text">
         <span className="highlight">
-          Contract is diployed at perticular {" "}
+          <p style={{ fontFamily: "poppins", fontWeight: "bold" }}>Contract is diployed at particular {" "}</p>
         </span>
         <div>
-        <table>
-        <thead>
-          <tr>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-            <th style={{padding:"2px"}}>Blockchain</th>
-            <th style={{padding:"2px"}}>Contract Address</th>
-            <th style={{padding:"2px"}}>Function Name</th>
-            </div>
-           
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.id}>
-              <div style={{display:"flex", justifyContent:"space-between"}}>
-              <td  style={{width:"30%"}} className="breakable-text">{row.blockchain}</td>
-              <td  style={{width:"30%"}} className="breakable-text">{truncateWalletAddressAllscreen(row.contractAddress)}</td>
-              <td  style={{width:"30%"}} className="breakable-text">{truncateWalletAddressAllscreen(row.functionName)}</td>
-              </div>
-              
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <table>
+            <thead>
+              <tr>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <th style={{ padding: "2px" }}>Blockchain</th>
+                  <th style={{ padding: "2px" }}>Contract Address</th>
+                  <th style={{ padding: "2px" }}>Function Name</th>
+                </div>
+
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr key={row.id}>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <td style={{ width: "30%" }} className="breakable-text">{row.blockchain}</td>
+                    <td style={{ width: "30%" }} className="breakable-text">{truncateWalletAddressAllscreen(row.contractAddress)}</td>
+                    <td style={{ width: "30%" }} className="breakable-text">{truncateWalletAddressAllscreen(row.functionName)}</td>
+                  </div>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
         </div>
       </div>
@@ -338,21 +362,42 @@ const SummaryComp3 = ({rows ,truncateWalletAddressAllscreen }) => {
   );
 };
 
-const SummaryComp4 = ({payment}) => {
-  console.log("payment",payment)
+const SummaryComp4 = ({ payment, isConnected }) => {
   return (
-    <div className="summary-info">
-      <div style={{display:"flex", flexDirection:"column", gap:"12px"}}>
-            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
-            <strong style={{color:"#F15A24"}}>Rate Card : </strong>
+    <>
+      <div className="summary-info">
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+            <strong style={{ color: "#F15A24" }}>Rate Card : </strong>
             <span>{payment.Ratecard} /sec</span>
-            </div>
-            <div  className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
-            <strong style={{color:"#F15A24"}}>Total Value allocated : </strong>
+          </div>
+          <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+            <strong style={{ color: "#F15A24" }}>Total Value allocated : </strong>
             <span>{payment.TotalValueAllocated}</span>
-            </div>
+          </div>
         </div>
-    </div>
+      </div>
+      {payment.ApprovedRewards && isConnected &&
+        <div style={{marginTop:"22px"}} className="summary-info">
+          <div style={{display:"flex"}}>
+          <p style={{fontFamily:"poppins"}}>
+          There are total {bigNumberToString(payment.ApprovedRewards)} DPT approved rewards for this job.
+          </p>
+          </div>
+         
+          {/* <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+              <strong style={{ color: "#F15A24" }}>Rate Card : </strong>
+              <span>{payment.Ratecard} /sec</span>
+            </div>
+            <div className="breakable-text" style={{ fontFamily: "poppins", fontSize: "85%" }}>
+              <strong style={{ color: "#F15A24" }}>Total Value allocated : </strong>
+              <span>{payment.TotalValueAllocated}</span>
+            </div>
+          </div> */}
+        </div>
+      }
+    </>
 
   )
 

@@ -22,9 +22,12 @@ const rowsSlice = createSlice({
     setRows: (state, action) => {
         return action.payload;
       },
+    resetRowsOutput: () => {
+        return [];
+      },
     resetRows: () => initialState,
   },
 });
 
-export const { addRow, updateRow, deleteRow, resetRows , setRows} = rowsSlice.actions;
+export const { addRow, updateRow, deleteRow, resetRows , setRows, resetRowsOutput} = rowsSlice.actions;
 export default rowsSlice.reducer;

@@ -24,13 +24,16 @@ const formSlice = createSlice({
           },
           updateTimerValue: (state,action) => {
             state.timerSetting = action.payload;
-          }
+          },
+          resetRows: () => {
+            return [];
+          },
         
     }
 })
 
 
-export const { updateApiUrl, updateHeaderKey, updateHeaderValue, updateTimerValue } = formSlice.actions;
+export const { updateApiUrl, updateHeaderKey, updateHeaderValue, updateTimerValue , resetRows  } = formSlice.actions;
 
 
 export default formSlice.reducer;

@@ -1,0 +1,24 @@
+.mantine-Select-label {
+    display: none;
+    /* color: brown; */
+}
+.m_46b77525 mantine-InputWrapper-root mantine-Select-root {
+    width: 54px !important;
+}
+
+.m_89d60db1[data-variant='default'] {
+    --tab-hover-color: none!important;
+}
+.m_8fb7ebe7 mantine-Input-input mantine-Textarea-input {
+    height: 300px !important;
+}
+
+.api-url-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow the container to grow */
+}
+
+

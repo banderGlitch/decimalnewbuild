@@ -8,7 +8,7 @@ import { Tooltip } from "@mantine/core";
 import './Output.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useChains, useChainId } from "wagmi";
-import { addRow, updateRow, deleteRow, resetRows, setRows as setRowsRedux } from '../../../../redux/rowsSlice';
+import { addRow, updateRow, deleteRow, resetRows, setRows as setRowsRedux ,resetRowsOutput } from '../../../../redux/rowsSlice';
 import { Button, TextInput, Grid, Box, Container, Group, ActionIcon, Select, Center } from "@mantine/core";
 import classes from "./CustomSwitch.module.css";
 
@@ -40,6 +40,14 @@ export const Output = ({
 
 
   console.log("rows", rows)
+
+  useEffect(() => {
+    const pathSegments = location.pathname.split('/');
+    const formType = pathSegments[pathSegments.length - 1];
+    if (formType) {
+      dispatch(resetRows());
+    }
+  }, [location.pathname, dispatch]);
 
 
   useEffect(() => {

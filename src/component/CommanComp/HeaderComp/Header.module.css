@@ -1,0 +1,16 @@
+/* .table-row {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    position: relative;
+  }
+.delete-button {
+    display: none;
+    position: relative;
+    right: 10px;
+    top: 100%;
+    transform: translateY(-50%);
+  }
+  
+.table-row:hover .delete-button {
+    display: inline;
+} */
