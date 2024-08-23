@@ -3,3 +3,16 @@
     font-family: 'Poppins' !important;
     color: white !important;
 }
+
+.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
+    color: white !important;
+    font-family: 'Poppins' !important;
+}
+.css-7bs0yt-MuiDataGrid-root .MuiDataGrid-sortIcon, .css-7bs0yt-MuiDataGrid-root .MuiDataGrid-filterIcon {
+    font-size: inherit;
+    font-family: 'Poppins';
+    color: white !important;
+}
+.css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root {
+    color: white !important;
+}

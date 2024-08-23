@@ -4,7 +4,6 @@ import HeaderTable from '../../../component/CommanComp/HeaderComp/HeaderComp';
 import { Container, Grid, TextInput, Textarea, Select, Button, Tabs, Text, Flex } from '@mantine/core';
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
-import ReactJson from 'react-json-view';
 import { useDispatch } from 'react-redux';
 import { updateApiUrl } from '../../../redux/formSlice';
 import Authorization from '../../../component/CommanComp/AuthorizationComp/Authorization';
