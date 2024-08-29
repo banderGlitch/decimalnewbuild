@@ -4,6 +4,7 @@ import VRFForm from './pages/VRF/VRFForm';
 import SBFrom from './pages/SB/SBFrom';
 import NotFound from './pages/404/404';
 import JobsFeeds from './pages/JobFeeds/JobsFeeds';
+import SwapCard from './pages/Swap/Swap';
 
 
 
@@ -18,6 +19,8 @@ const  CreateApp =() => {
       return <VRFForm/>;
     case 'stake&bake':
       return <SBFrom/>;
+    case 'swap':
+      return <SwapCard/>
     default:
       return <JobsFeeds/>;
   }
